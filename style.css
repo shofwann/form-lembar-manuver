@@ -1,0 +1,21 @@
+.formCenter {
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+  }
+  .formCenter.formChange {
+    min-width: 300px;
+    max-width: 500px;
+    padding: 50px;
+  }
+  #loginForm .input-group {
+    margin: 20px 0;
+  }
+  @media (max-width: 768px) {
+    .formCenter.formChange {
+      width: 100%;
+    }
+  }
