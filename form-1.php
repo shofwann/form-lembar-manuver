@@ -244,8 +244,8 @@ if( isset($_POST["submit"]) ){
                 <!-- Baris/row ke-5 image-->
                     <br>
                     <div class="row" style="background-color:#F2F4F4;">
-                    <div class="col" style="border:1px solid">
-                    <h2 style="text-align:center; padding-left:0px; margin:0px" >Manuver Pembebasan Installasi</h2>
+                    <div class="col" style="border:1px solid; padding-top:10px;">
+                    <h2 style="text-align:center;" >Manuver Pembebasan Installasi</h2>
                     </div>
                     
                     </div>
@@ -280,7 +280,7 @@ if( isset($_POST["submit"]) ){
                 <!-- Baris/row ke-6 image-->
                         <br>
                         <div class="row" style="background-color:#F2F4F4;">
-                            <div class="col" style="border:1px solid">
+                            <div class="col" style="border:1px solid; padding-top:10px;">
                             <h2 style="text-align:center;">Manuver Penormalan Installasi</h2>
                             </div>
                         </div>
@@ -388,23 +388,6 @@ if( isset($_POST["submit"]) ){
 
     }
 
-    // function tambah2() {
-    //     table = document.getElementById("table2");
-    //     var row = table.insertRow(-1);
-    //     var cell7 = row.insertCell(0);
-    //     var cell8 = row.insertCell(1);
-
-    //     cell1.innerHTML = "<input type='text' name=lokasiPenormalan[] id='' style='width:140px;border:1px solid #fff;' disabled='disabled'>";
-    //     cell2.innerHTML = "<input type='text' name=pKerjaPenormalan[] id='' style='width:140px;border:1px solid #fff;' disabled='disabled'>";
-    // }
-
-    // function kurang2(tblId){
-    //     table = document.getElementById(tblId);
-    //     row = table.getElementsByTagName('tr');
-    //     if (row.length!='0'){
-    //         row[row.length - 1].outerHTML='';
-    //     }
-    // }
 
 
     //---image_upload_&_show 1---//
@@ -435,7 +418,7 @@ if( isset($_POST["submit"]) ){
                     }
                     $('#add3').click(function(){
                         k=generateIndex();
-                        $('#dynamic_field1').append('<tr id="row'+k+'"><td class="cont-item" style="width:16px">'+k+'</td><td><input type="text" name="lokasiManuverBebas[]" style="width:50px; padding:0px;"></td><td><input type="time" name="jamRemoteBebas[]" style="width:5rem;padding:0rem;" ></td><td><input type="text" name="jamRealBebas[]" style="width:3rem;padding:0rem;" disabled></td><td><input type="text" name="jamAdsBebas[]" style="width:3rem;padding:0rem;" disabled></td><td><input type="text" name="installManuverBebas[]" style="width:8rem;padding:0rem;"></td><td><button type="button" name="remove" id="'+k+'" class="btn btn-danger btn_remove">X</button></td></tr>');
+                        $('#dynamic_field1').append('<tr id="row'+k+'"><td class="cont-item" style="width:16px">'+k+'</td><td><input type="text" name="lokasiManuverBebas[]" style="width:50px; padding:0px;"></td><td><input type="time" name="jamRemoteBebas[]" style="width:5rem;padding:0rem;" disabled></td><td><input type="time" name="jamRealBebas[]" style="width:5rem;padding:0rem;" disabled></td><td><input type="time" name="jamAdsBebas[]" style="width:5rem;padding:0rem;" disabled></td><td><input type="text" name="installManuverBebas[]" style="width:8rem;padding:0rem;"></td><td><button type="button" name="remove" id="'+k+'" class="btn btn-danger btn_remove">X</button></td></tr>');
                     });
 
                     $(document).on('click', '.btn_remove', function(){ 
@@ -459,7 +442,7 @@ if( isset($_POST["submit"]) ){
                         }
                         $('#add4').click(function(){
                             l=generateIndex1();
-                            $('#dynamic_field2').append('<tr id="row1'+l+'"><td class="cont-item" style="width:16px">'+l+'</td><td><input type="text" name="lokasiManuverNormal[]" style="width:50px; padding:0px;"></td><td><input type="text" name="jamRemoteNormal[]" style="width:3rem;padding:0rem;" disabled></td><td><input type="text" name="jamRealNormal[]" style="width:3rem;padding:0rem;" disabled></td><td><input type="text" name="jamAdsNormal[]" style="width:3rem;padding:0rem;" disabled></td><td><input type="text" name="installManuverNormal[]" style="width:8rem;padding:0rem;"></td><td><button type="button" name="remove" id="'+l+'" class="btn btn-danger btn_remove2">X</button></td></tr>');
+                            $('#dynamic_field2').append('<tr id="row1'+l+'"><td class="cont-item" style="width:16px">'+l+'</td><td><input type="text" name="lokasiManuverNormal[]" style="width:50px; padding:0px;"></td><td><input type="time" name="jamRemoteNormal[]" style="width:5rem;padding:0rem;" disabled></td><td><input type="time" name="jamRealNormal[]" style="width:5rem;padding:0rem;" disabled></td><td><input type="time" name="jamAdsNormal[]" style="width:5rem;padding:0rem;" ></td><td><input type="text" name="installManuverNormal[]" style="width:8rem;padding:0rem;"></td><td><button type="button" name="remove" id="'+l+'" class="btn btn-danger btn_remove2">X</button></td></tr>');
                         });
 
                         $(document).on('click', '.btn_remove2', function(){ 
