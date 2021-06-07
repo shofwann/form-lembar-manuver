@@ -12,8 +12,9 @@ function query($query){
 }
 
 function tambah($post){
-    print_r($_POST); die();
+    //print_r($_POST); die();
     global $conn;
+    $idTask =$post["idTask"];
     $c_date = $post["c_date"];
     $user = $post["user"];
     $pekerjaan = htmlspecialchars($post["pekerjaan"]);
@@ -39,14 +40,19 @@ function tambah($post){
 
     $query = "INSERT INTO db_form 
                 VALUE
-            ('','$c_date','$user','$pekerjaan','$s_date','$e_date','$r_date','$lokasi','$waktu','$instal','$foto','$foto2','')
-            
-            ";
+            ('$idTask','$c_date','$user','$pekerjaan','$s_date','$e_date','$r_date','$lokasi','$waktu','$instal','$foto','$foto2','')
+            ";          
     mysqli_query($conn,$query);
 
-    $jumlah_baris = count($_POST["lokasiManuverBebas"]);
+    $jumlah_baris = count($_POST["lokasiPembebasan"]);
     for ($indexke=0; $indexke < $jumlah_baris; $indexke++){
-        $lokasiManuverBebas = $_POST["lokasiManuverBebas"][$indexke];
+        $lokasiManuverBebas = $_POST["lokasiPembebasan"][$indexke];
+        $query = "INSERT INTO db_sub_form1 
+                    VALUE
+                 ('','$idTask','$lokasiManuverBebas','','','','','')
+                 ";
+        mysqli_query($conn,$query);
+                    
     }
 
     return mysqli_affected_rows($conn);

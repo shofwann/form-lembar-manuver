@@ -7,9 +7,28 @@ if (!isset($_SESSION["username"])) {
 	exit;
 }
 
-//echo $_SESSION["username"];
+
 
 require "functions.php";
+
+$query = "SELECT * FROM db_form ORDER BY id_form DESC LIMIT 1";
+$result = mysqli_query($conn, $query);
+//var_dump($result); die;
+$row = mysqli_fetch_array($result);
+
+
+$lastId = $row ["id_form"];
+if ($lastId == "") 
+{
+    $taskId = "task-1";
+} 
+else {
+    $taskId = substr($lastId,5);
+    $taskId = intval($taskId);
+    $taskId = "task-" . ($taskId + 1); 
+}
+
+
 
 if( isset($_POST["submit"]) ){
 
@@ -30,6 +49,13 @@ if( isset($_POST["submit"]) ){
 
 ?>
 
+<?php 
+
+
+
+
+
+?>
 
 
 <!DOCTYPE html>
@@ -65,19 +91,25 @@ if( isset($_POST["submit"]) ){
             Input Manuver
         </div>
         <div class="card-body">
-            <form action="cek.php" method="post" class="form-horizontal" enctype="multipart/form-data">
+            <form action="" method="post" class="form-horizontal" enctype="multipart/form-data">
                 <!-- Baris/row Ke-0 hide data auto-->
                     <div class="row" >
                         
 
                         <div class="col-2">
                             <label>Create Date:</label>
-                            <input type="text" name="c_date" value="<?php echo date('d-M-Y');?>" class="form-control" disabled="disabled">
+                            <input type="text" name="c_date" value="<?php echo date('d-M-Y');?>" class="form-control" readonly>
                         </div>
 
                         <div class="col-2">
                             <label>User :</label>
-                            <input type="text" name="user" placeholder="" value="<?php echo $_SESSION['username'];?>" class="form-control" disabled="disabled">
+                            <input type="text" name="user" placeholder="" value="<?php echo $_SESSION['username'];?>" class="form-control" readonly>
+                        </div>
+
+                        <div class="col-2">
+                            <label>ID Task:</label>
+                            <input type="text" name="idTask" value="<?php echo $taskId; ?>" class="form-control" readonly>
+                        
                         </div>
                         
 
