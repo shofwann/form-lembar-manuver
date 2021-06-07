@@ -65,7 +65,7 @@ if( isset($_POST["submit"]) ){
             Input Manuver
         </div>
         <div class="card-body">
-            <form action="" method="post" class="form-horizontal" enctype="multipart/form-data">
+            <form action="cek.php" method="post" class="form-horizontal" enctype="multipart/form-data">
                 <!-- Baris/row Ke-0 hide data auto-->
                     <div class="row" >
                         
@@ -442,7 +442,7 @@ if( isset($_POST["submit"]) ){
                         }
                         $('#add4').click(function(){
                             l=generateIndex1();
-                            $('#dynamic_field2').append('<tr id="row1'+l+'"><td class="cont-item" style="width:16px">'+l+'</td><td><input type="text" name="lokasiManuverNormal[]" style="width:50px; padding:0px;"></td><td><input type="time" name="jamRemoteNormal[]" style="width:5rem;padding:0rem;" disabled></td><td><input type="time" name="jamRealNormal[]" style="width:5rem;padding:0rem;" disabled></td><td><input type="time" name="jamAdsNormal[]" style="width:5rem;padding:0rem;" ></td><td><input type="text" name="installManuverNormal[]" style="width:8rem;padding:0rem;"></td><td><button type="button" name="remove" id="'+l+'" class="btn btn-danger btn_remove2">X</button></td></tr>');
+                            $('#dynamic_field2').append('<tr id="row1'+l+'"><td class="cont-item" style="width:16px">'+l+'</td><td><input type="text" name="lokasiManuverNormal[]" style="width:50px; padding:0px;"></td><td><input type="time" name="jamRemoteNormal[]" style="width:5rem;padding:0rem;" disabled></td><td><input type="time" name="jamRealNormal[]" style="width:5rem;padding:0rem;" disabled></td><td><input type="time" name="jamAdsNormal[]" style="width:5rem;padding:0rem;" disabled></td><td><input type="text" name="installManuverNormal[]" style="width:8rem;padding:0rem;"></td><td><button type="button" name="remove" id="'+l+'" class="btn btn-danger btn_remove2">X</button></td></tr>');
                         });
 
                         $(document).on('click', '.btn_remove2', function(){ 

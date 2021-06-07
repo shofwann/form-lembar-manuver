@@ -44,6 +44,11 @@ function tambah($post){
             ";
     mysqli_query($conn,$query);
 
+    $jumlah_baris = count($_POST["lokasiManuverBebas"]);
+    for ($indexke=0; $indexke < $jumlah_baris; $indexke++){
+        $lokasiManuverBebas = $_POST["lokasiManuverBebas"][$indexke];
+    }
+
     return mysqli_affected_rows($conn);
 }
 
