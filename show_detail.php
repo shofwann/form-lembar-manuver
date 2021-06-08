@@ -1,6 +1,6 @@
 <?php
 require 'koneksi.php';
-
+$sql_manuver=mysqli_query($conn,"SELECT * FROM db_sub_form1 WHERE id_form_main='$_GET[id]'");
 $sql=mysqli_query($conn,"SELECT * FROM db_form WHERE id_form='$_GET[id]'");
 $data=mysqli_fetch_assoc($sql);
 if ($sql){
@@ -136,9 +136,18 @@ if ($sql){
                                                 <th style="width:158px;">Spv GITET</th>
                                                 <th style="width:158px;">Opr GITET</th>
                                             </tr>  
+                                            <?php while ($manuverBebas = mysqli_fetch_array($sql_manuver)) { ?>
+                                            <tr>
+                                                <td><?= $manuverBebas["lokasiPembebasan"]  ?></td>
+                                                <td><?= $manuverBebas["pKerjaPembebasan"]  ?></td>
+                                                <td><?= $manuverBebas["pManuverPembebasan"]  ?></td>
+                                                <td><?= $manuverBebas["pK3Pembebasan"]  ?></td>
+                                                <td><?= $manuverBebas["spvPembebasan"]  ?></td>
+                                                <td><?= $manuverBebas["oprPembebasan"]  ?></td>
+                                            </tr>
+                                            <?php } ?>
                                     </table>
-                                        <button type="button" id="add1" class="btn btn-success">+</button>
-                                        <button type="button" id="remove1" class="btn btn-danger">-</button> 
+                                        
                                 </div>
                             </div>
 
@@ -150,9 +159,15 @@ if ($sql){
                                                 <th>Spv GITET</th>
                                                 <th>Opr GITET</th>
                                             </tr>
+                                            <?php while ($manuverBebas = mysqli_fetch_array($sql_manuver)) { ?>
+                                            <tr>
+                                                <td><?= $manuverBebas["spvPenormalan"]  ?></td>
+                                                <td><?= $manuverBebas["oprPenormalan"]  ?></td>
+                                            </tr>
+                                            <?php } ?>
+                                            
                                     </table>
-                                    <button type="button" id="add2" class="btn btn-success">+</button>
-                                    <button type="button" id="remove2" class="btn btn-danger">-</button>
+                                    
                                 </div>
                             </div>
 
@@ -274,7 +289,7 @@ if ($sql){
                         <div class="row">
                                 <div class="col" style="border:1px solid">
                                     <div class="form-group ml-2">
-                                        <img id="output2" height="auto" width="770px" style="padding-top:.50rem;padding-right:.50rem"><br>
+                                        <img src="img/<?= $data["foto2"];?>" id="output2" height="auto" width="770px" style="padding-top:.50rem;padding-right:.50rem"><br>
                                         <!-- <input type="file" accept="" onchange="loadFile2(event)" name="foto2"> -->
                                     </div>
                                 </div>

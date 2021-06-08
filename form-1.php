@@ -49,15 +49,6 @@ if( isset($_POST["submit"]) ){
 
 ?>
 
-<?php 
-
-
-
-
-
-?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -391,19 +382,19 @@ if( isset($_POST["submit"]) ){
         var cell6 = row.insertCell(5);
 
         cell1.innerHTML = "<input type='text' name=lokasiPembebasan[] id='' style='width:140px;border:1px solid #fff;'>";
-        cell2.innerHTML = "<input type='text' name=pKerjaPembebasan[] id='' style='width:140px;border:1px solid #fff;' disabled='disabled'>";
-        cell3.innerHTML = "<input type='text' name=pManuverPembebasan[] id='' style='width:140px;border:1px solid #fff;' disabled='disabled'>";
-        cell4.innerHTML = "<input type='text' name=pK3Pembebasan[] id='' style='width:140px;border:1px solid #fff;' disabled='disabled'>";
-        cell5.innerHTML = "<input type='text' name=spvPembebasan[] id='' style='width:140px;border:1px solid #fff;' disabled='disabled'>";
-        cell6.innerHTML = "<input type='text' name=oprPembebasan[] id='' style='width:140px;border:1px solid #fff;' disabled='disabled'>";
+        cell2.innerHTML = "<input type='text' name=pKerjaPembebasan[] id='' style='width:140px;border:1px solid #fff;' readonly>";
+        cell3.innerHTML = "<input type='text' name=pManuverPembebasan[] id='' style='width:140px;border:1px solid #fff;' readonly>";
+        cell4.innerHTML = "<input type='text' name=pK3Pembebasan[] id='' style='width:140px;border:1px solid #fff;' readonly>";
+        cell5.innerHTML = "<input type='text' name=spvPembebasan[] id='' style='width:140px;border:1px solid #fff;' readonly>";
+        cell6.innerHTML = "<input type='text' name=oprPembebasan[] id='' style='width:140px;border:1px solid #fff;' readonly>";
 
         table1 = document.getElementById("table2");
         var row1 = table1.insertRow(-1);
         var cell7 = row1.insertCell(0);
         var cell8 = row1.insertCell(1);
 
-        cell7.innerHTML = "<input type='text' name=lokasiPenormalan[] id='' style='width:140px;border:1px solid #fff;' disabled='disabled'>";
-        cell8.innerHTML = "<input type='text' name=pKerjaPenormalan[] id='' style='width:140px;border:1px solid #fff;' disabled='disabled'>";
+        cell7.innerHTML = "<input type='text' name=lokasiPenormalan[] id='' style='width:140px;border:1px solid #fff;' readonly>";
+        cell8.innerHTML = "<input type='text' name=pKerjaPenormalan[] id='' style='width:140px;border:1px solid #fff;' readonly>";
     }
 
     function kurang(){
