@@ -376,7 +376,19 @@ if ($sql){
 
 
     <script>
+<<<<<<< HEAD
     
+=======
+    table = document.getElementById("table1");
+    totalRow = table.rows.length-1;
+    for (j=0; j < totalRow; j++){
+			z=document.getElementById("bodyTable2").insertRow(j);
+        for (k=0; k<2; k++){
+            q = z.insertCell(k);
+            q.innerHTML = "<input type='text' name='a[]' style='width:140px;border:1px solid #fff;' readonly>"
+        }
+    }
+>>>>>>> 0d8feaa (menambahkan border table berdasar main table(pengawas manuver dkk) dan db manuver dynamic table penormalan dan pembebasan)
     </script>
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
