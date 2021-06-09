@@ -155,16 +155,21 @@ if ($sql){
                                 <div class="table-responsive">
                                 <h4 style="text-align:center;">Manuver Penormalan Instalasi</h4>
                                     <table class="table table-bordered" id="table2">
+                                        <thead>
                                             <tr style="background-color:#F2F4F4;">
                                                 <th>Spv GITET</th>
                                                 <th>Opr GITET</th>
                                             </tr>
+                                        </thead>
+                                        <tbody id="bodyTable2">
                                             <?php while ($manuverBebas = mysqli_fetch_array($sql_manuver)) { ?>
-                                            <tr>
-                                                <td><?= $manuverBebas["spvPenormalan"]  ?></td>
-                                                <td><?= $manuverBebas["oprPenormalan"]  ?></td>
-                                            </tr>
+                                                <tr>
+                                                    <td><?= $manuverBebas["spvPenormalan"]  ?></td>
+                                                    <td><?= $manuverBebas["oprPenormalan"]  ?></td>
+                                                </tr>
                                             <?php } ?>
+                                        </tbody>
+                                            
                                             
                                     </table>
                                     
@@ -346,7 +351,15 @@ if ($sql){
 
 
     <script>
-      
+    table = document.getElementById("table1");
+    totalRow = table.rows.length-1;
+    for (j=0; j < totalRow; j++){
+			z=document.getElementById("bodyTable2").insertRow(j);
+        for (k=0; k<2; k++){
+            q = z.insertCell(k);
+            q.innerHTML = "<input type='text' name='a[]' style='width:140px;border:1px solid #fff;' readonly>"
+        }
+    }
     </script>
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>

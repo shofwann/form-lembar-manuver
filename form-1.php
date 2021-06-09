@@ -411,8 +411,6 @@ if( isset($_POST["submit"]) ){
 
     }
 
-
-
     //---image_upload_&_show 1---//
         var loadFile1 = function(event) {
         var output1 = document.getElementById('output1');

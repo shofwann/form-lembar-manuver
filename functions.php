@@ -51,8 +51,14 @@ function tambah($post){
                     VALUE
                  ('','$idTask','$lokasiManuverBebas','','','','','')
                  ";
-        mysqli_query($conn,$query);
-                    
+        mysqli_query($conn,$query);              
+    }
+
+    $jumlah_baris_manuver_manuver = count($_POST["lokasiManuverBebas"]);
+    for ($indexke=0; $indexke<$jumlah_baris_manuver_manuver; $indexke++){
+        $lokasiManuver1 = $_POST["lokasiManuverBebas"][$indexke];
+        $installasiManuver1 = $_POST["installManuverBebas"][$indexke];
+        
     }
 
     return mysqli_affected_rows($conn);
