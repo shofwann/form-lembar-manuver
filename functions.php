@@ -38,28 +38,18 @@ function tambah($post){
     }
 
 
-    $query = "INSERT INTO db_form 
-                VALUE
-            ('$idTask','$c_date','$user','$pekerjaan','$s_date','$e_date','$r_date','$lokasi','$waktu','$instal','$foto','$foto2','')
-            ";          
+
+    $query = "INSERT INTO `db_form` (`id_form`, `c_date`, `user`, `pekerjaan`, `s_date`, `e_date`, `r_date`, `lokasi`, `waktu`, `instal`, `foto`, `foto2`) VALUES ('$idTask','$c_date','$user','$pekerjaan','$s_date','$e_date','$r_date','$lokasi','$waktu','$instal','$foto','$foto2')";         
+
     mysqli_query($conn,$query);
 
-    $jumlah_baris = count($_POST["lokasiPembebasan"]);
-    for ($indexke=0; $indexke < $jumlah_baris; $indexke++){
-        $lokasiManuverBebas = $_POST["lokasiPembebasan"][$indexke];
-        $query = "INSERT INTO db_sub_form1 
-                    VALUE
-                 ('','$idTask','$lokasiManuverBebas','','','','','')
-                 ";
-        mysqli_query($conn,$query);              
-    }
+    
 
-    $jumlah_baris_manuver_manuver = count($_POST["lokasiManuverBebas"]);
-    for ($indexke=0; $indexke<$jumlah_baris_manuver_manuver; $indexke++){
-        $lokasiManuver1 = $_POST["lokasiManuverBebas"][$indexke];
-        $installasiManuver1 = $_POST["installManuverBebas"][$indexke];
-        
-    }
+    foreach ($_POST["lokasiPembebasan"] as $lokasi ) {
+        $query = "INSERT INTO `db_sub_form1` ( `id_form_main`, `lokasiPembebasan`) VALUES ('$idTask','$lokasi')";
+        mysqli_query($conn,$query); 
+      }
+
 
     return mysqli_affected_rows($conn);
 }

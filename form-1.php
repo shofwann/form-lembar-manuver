@@ -11,39 +11,25 @@ if (!isset($_SESSION["username"])) {
 
 require "functions.php";
 
-$query = "SELECT * FROM db_form ORDER BY id_form DESC LIMIT 1";
-$result = mysqli_query($conn, $query);
-//var_dump($result); die;
-$row = mysqli_fetch_array($result);
-
-
-$lastId = $row ["id_form"];
-if ($lastId == "") 
-{
-    $taskId = "task-1";
-} 
-else {
-    $taskId = substr($lastId,5);
-    $taskId = intval($taskId);
-    $taskId = "task-" . ($taskId + 1); 
-}
-
-
 
 if( isset($_POST["submit"]) ){
 
     if( tambah($_POST) > 0){
+        //var_dump(tambah($_POST)); die;
         echo "<script>
                 alert('data berhasil disubmit'); 
                 document.location.href = 'initiator-dashboard.php';
                 </script>
-                ";   
+                ";  
+                
     } else {
+       // var_dump(tambah($_POST)); die;
         echo "<script>
                 alert('data gagal disubmit'); 
                 document.location.href = 'initiator-dashboard.php';
                 </script>
-                "; 
+                "; die;
+                
     }
 }
 
@@ -99,7 +85,7 @@ if( isset($_POST["submit"]) ){
 
                         <div class="col-2">
                             <label>ID Task:</label>
-                            <input type="text" name="idTask" value="<?php echo $taskId; ?>" class="form-control" readonly>
+                            <input type="text" name="idTask" value="" class="form-control" >
                         
                         </div>
                         
@@ -163,6 +149,9 @@ if( isset($_POST["submit"]) ){
                                         <th style="width:158px;">Opr GITET</th>
                                     </tr>
                                </thead> 
+                               <tbody>
+     
+                               </tbody>
                                </table> 
                                 <button type="button" id="add1" class="btn btn-success" onclick="tambah()" >+</button>
                                 <button type="button" id="remove1" class="btn btn-danger" onclick="kurang()">-</button>   
@@ -189,11 +178,11 @@ if( isset($_POST["submit"]) ){
                             <br>
                                 <label>Kelengkapan Dokumen :</label>
                                 <div action="">
-                                    <input type="checkbox" id="" name="wp" value="" disabled="disabled">
+                                    <input type="checkbox" id="" name="wp" value="" disabled>
                                     <label for="vehicle1"> WP</label><br>
-                                    <input type="checkbox" id="" name="ik" value="" disabled="disabled">
+                                    <input type="checkbox" id="" name="ik" value="" disabled>
                                     <label for="vehicle2"> IK</label><br>
-                                    <input type="checkbox" id="" name="k3" value="" disabled="disabled">
+                                    <input type="checkbox" id="" name="k3" value="" disabled>
                                     <label for="vehicle3"> K3</label><br>
                                 </div>
                         </div>
@@ -225,16 +214,16 @@ if( isset($_POST["submit"]) ){
                     </div>
                     <div class="row">
                         <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
-                            <input type="text" style="border:1px solid #fff;" disabled>
+                            <!-- <input type="text" style="border:1px solid #fff;"> -->
                         </div>
                         <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
-                            <input type="text" style="border:1px solid #fff;" disabled>
+                            <!-- <input type="text" style="border:1px solid #fff;"> -->
                         </div>
                         <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
-                            <input type="text" style="border:1px solid #fff;" disabled>
+                            <!-- <input type="text" style="border:1px solid #fff;"> -->
                         </div>
                         <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
-                            <input type="text" style="border:1px solid #fff;" disabled>
+                            <!-- <input type="text" style="border:1px solid #fff;"> -->
                         </div>
                     </div>
                     <div class="row">
@@ -257,10 +246,10 @@ if( isset($_POST["submit"]) ){
                     </div>
                     <div class="row">
                         <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
-                            <input type="text" style="border:1px solid #fff;" disabled>
+                            <!-- <input type="text" style="border:1px solid #fff;"> -->
                         </div>
                         <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
-                            <input type="text" style="border:1px solid #fff;" disabled>
+                            <!-- <input type="text" style="border:1px solid #fff;"> -->
                         </div>
                         
                     </div>
@@ -349,10 +338,10 @@ if( isset($_POST["submit"]) ){
                     </div>
                     <div class="row" style="">
                         <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
-                            <textarea name="catatanBebas" id="" cols="90" rows="5" disabled></textarea>
+                            <textarea name="catatanBebas" id="" cols="90" rows="5"></textarea>
                         </div>
                         <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
-                            <textarea name="catatanNormal" id="" cols="90" rows="5" disabled></textarea>
+                            <textarea name="catatanNormal" id="" cols="90" rows="5"></textarea>
                         </div>
                     </div>
 
@@ -381,20 +370,20 @@ if( isset($_POST["submit"]) ){
         var cell5 = row.insertCell(4);
         var cell6 = row.insertCell(5);
 
-        cell1.innerHTML = "<input type='text' name=lokasiPembebasan[] id='' style='width:140px;border:1px solid #fff;'>";
-        cell2.innerHTML = "<input type='text' name=pKerjaPembebasan[] id='' style='width:140px;border:1px solid #fff;' readonly>";
-        cell3.innerHTML = "<input type='text' name=pManuverPembebasan[] id='' style='width:140px;border:1px solid #fff;' readonly>";
-        cell4.innerHTML = "<input type='text' name=pK3Pembebasan[] id='' style='width:140px;border:1px solid #fff;' readonly>";
-        cell5.innerHTML = "<input type='text' name=spvPembebasan[] id='' style='width:140px;border:1px solid #fff;' readonly>";
-        cell6.innerHTML = "<input type='text' name=oprPembebasan[] id='' style='width:140px;border:1px solid #fff;' readonly>";
+       cell1.innerHTML = "<input type='text' name='lokasiPembebasan[]' id='' style='width:140px;border:1px solid #fff;'>";
+       cell2.innerHTML = "<input type='text' name='pKerjaPembebasan[]' id='' style='width:140px;border:1px solid #fff;'>";
+       cell3.innerHTML = "<input type='text' name='pManuverPembebasan[]' id='' style='width:140px;border:1px solid #fff;'>";
+       cell4.innerHTML = "<input type='text' name='pK3Pembebasan[]' id='' style='width:140px;border:1px solid #fff;'>";
+       cell5.innerHTML = "<input type='text' name='spvPembebasan[]' id='' style='width:140px;border:1px solid #fff;'>";
+       cell6.innerHTML = "<input type='text' name='oprPembebasan[]' id='' style='width:140px;border:1px solid #fff;'>";
 
-        table1 = document.getElementById("table2");
-        var row1 = table1.insertRow(-1);
-        var cell7 = row1.insertCell(0);
-        var cell8 = row1.insertCell(1);
+       table1 = document.getElementById("table2");
+       var row1 = table1.insertRow(-1);
+       var cell7 = row1.insertCell(0);
+       var cell8 = row1.insertCell(1);
 
-        cell7.innerHTML = "<input type='text' name=lokasiPenormalan[] id='' style='width:140px;border:1px solid #fff;' readonly>";
-        cell8.innerHTML = "<input type='text' name=pKerjaPenormalan[] id='' style='width:140px;border:1px solid #fff;' readonly>";
+       cell7.innerHTML = "<input type='text' name=spvPenormalan[] id='' style='width:140px;border:1px solid #fff;'>";
+       cell8.innerHTML = "<input type='text' name=oprPenormalan[] id='' style='width:140px;border:1px solid #fff;'>";
     }
 
     function kurang(){
@@ -439,7 +428,7 @@ if( isset($_POST["submit"]) ){
                     }
                     $('#add3').click(function(){
                         k=generateIndex();
-                        $('#dynamic_field1').append('<tr id="row'+k+'"><td class="cont-item" style="width:16px">'+k+'</td><td><input type="text" name="lokasiManuverBebas[]" style="width:50px; padding:0px;"></td><td><input type="time" name="jamRemoteBebas[]" style="width:5rem;padding:0rem;" disabled></td><td><input type="time" name="jamRealBebas[]" style="width:5rem;padding:0rem;" disabled></td><td><input type="time" name="jamAdsBebas[]" style="width:5rem;padding:0rem;" disabled></td><td><input type="text" name="installManuverBebas[]" style="width:8rem;padding:0rem;"></td><td><button type="button" name="remove" id="'+k+'" class="btn btn-danger btn_remove">X</button></td></tr>');
+                        $('#dynamic_field1').append('<tr id="row'+k+'"><td class="cont-item" style="width:16px">'+k+'</td><td><input type="text" name="lokasiManuverBebas[]" style="width:50px; padding:0px;"></td><td><input type="time" name="jamRemoteBebas[]" style="width:5rem;padding:0rem;"></td><td><input type="time" name="jamRealBebas[]" style="width:5rem;padding:0rem;"></td><td><input type="time" name="jamAdsBebas[]" style="width:5rem;padding:0rem;"></td><td><input type="text" name="installManuverBebas[]" style="width:8rem;padding:0rem;"></td><td><button type="button" name="remove" id="'+k+'" class="btn btn-danger btn_remove">X</button></td></tr>');
                     });
 
                     $(document).on('click', '.btn_remove', function(){ 
@@ -463,7 +452,7 @@ if( isset($_POST["submit"]) ){
                         }
                         $('#add4').click(function(){
                             l=generateIndex1();
-                            $('#dynamic_field2').append('<tr id="row1'+l+'"><td class="cont-item" style="width:16px">'+l+'</td><td><input type="text" name="lokasiManuverNormal[]" style="width:50px; padding:0px;"></td><td><input type="time" name="jamRemoteNormal[]" style="width:5rem;padding:0rem;" disabled></td><td><input type="time" name="jamRealNormal[]" style="width:5rem;padding:0rem;" disabled></td><td><input type="time" name="jamAdsNormal[]" style="width:5rem;padding:0rem;" disabled></td><td><input type="text" name="installManuverNormal[]" style="width:8rem;padding:0rem;"></td><td><button type="button" name="remove" id="'+l+'" class="btn btn-danger btn_remove2">X</button></td></tr>');
+                            $('#dynamic_field2').append('<tr id="row1'+l+'"><td class="cont-item" style="width:16px">'+l+'</td><td><input type="text" name="lokasiManuverNormal[]" style="width:50px; padding:0px;"></td><td><input type="time" name="jamRemoteNormal[]" style="width:5rem;padding:0rem;"></td><td><input type="time" name="jamRealNormal[]" style="width:5rem;padding:0rem;"></td><td><input type="time" name="jamAdsNormal[]" style="width:5rem;padding:0rem;"></td><td><input type="text" name="installManuverNormal[]" style="width:8rem;padding:0rem;"></td><td><button type="button" name="remove" id="'+l+'" class="btn btn-danger btn_remove2">X</button></td></tr>');
                         });
 
                         $(document).on('click', '.btn_remove2', function(){ 
