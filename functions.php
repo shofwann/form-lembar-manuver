@@ -51,6 +51,22 @@ function tambah($post){
         mysqli_query($conn,$query); 
      }
 
+     $rows_tabel_3 = count($_POST["lokasiManuverBebas"]);
+     for ($i=0; $i<$rows_tabel_3; $i++) {
+         $lokasiManuverBebas = $_POST["lokasiManuverBebas"][$i];
+         $installManuverBebas = $_POST["installManuverBebas"][$i];
+         $query = "INSERT INTO db_table_3 (id_form,lokasi,installasi) VALUES ('$idTask','$lokasiManuverBebas','$installManuverBebas')";
+         mysqli_query($conn,$query);
+     }
+
+     $rows_tabel_4 = count($_POST["lokasiManuverNormal"]);
+     for ($i=0; $i<$rows_tabel_4; $i++) {
+         $lokasiManuverNormal = $_POST["lokasiManuverNormal"][$i];
+         $installManuverNormal = $_POST["installManuverNormal"][$i];
+         $query = "INSERT INTO db_table_4 (id_form,lokasi,installasi) VALUES ('$idTask','$lokasiManuverNormal','$installManuverNormal')";
+         mysqli_query($conn,$query);
+     }
+
     // cara-2
     // foreach ($_POST["lokasiPembebasan"] as $lokasi ) {
     //     $query = "INSERT INTO `db_sub_form1` ( `id_form_main`, `lokasiPembebasan`) VALUES ('$idTask','$lokasi')";

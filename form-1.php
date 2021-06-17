@@ -137,7 +137,7 @@ if( isset($_POST["submit"]) ){
                         <div col="col-7">
                             <div class="table-responsive ml-2">
                             <h4 style="text-align:center;">Manuver Pembebasan Instalasi</h4>  
-                               <table class="table table-bordered" id="table1"> 
+                               <table class="table table-bordered" > 
                                <thead>
                                     <tr id="mirrodHead" style="background-color:#F2F4F4;">  
                                         <th style="width:158px;">Lokasi</th>
@@ -148,7 +148,7 @@ if( isset($_POST["submit"]) ){
                                         <th style="width:158px;">Opr GITET</th>
                                     </tr>
                                </thead> 
-                               <tbody>
+                               <tbody id="table1">
      
                                </tbody>
                                </table> 
@@ -160,14 +160,15 @@ if( isset($_POST["submit"]) ){
                         <div class="col-3 ml-5">
                             <div class="table-responsive">
                             <h4 style="text-align:center;">Manuver Penormalan Instalasi</h4>
-                                <table class="table table-bordered" id="table2">
+                                <table class="table table-bordered">
                                     <thead>
                                         <tr style="background-color:#F2F4F4;">
                                             <th>Spv GITET</th>
                                             <th>Opr GITET</th>
                                         </tr>
                                     </thead>
-                                        
+                                    <tbody id="table2">
+                                    </tbody>
                                 </table>
                                  
                             </div>
@@ -370,11 +371,11 @@ if( isset($_POST["submit"]) ){
         var cell6 = row.insertCell(5);
 
        cell1.innerHTML = "<input type='text' name='lokasiPembebasan[]' id='' style='width:140px;border:1px solid #fff;'>";
-       cell2.innerHTML = "<input type='text' name='pKerjaPembebasan[]' id='' style='width:140px;border:1px solid #fff;'>";
-       cell3.innerHTML = "<input type='text' name='pManuverPembebasan[]' id='' style='width:140px;border:1px solid #fff;'>";
-       cell4.innerHTML = "<input type='text' name='pK3Pembebasan[]' id='' style='width:140px;border:1px solid #fff;'>";
-       cell5.innerHTML = "<input type='text' name='spvPembebasan[]' id='' style='width:140px;border:1px solid #fff;'>";
-       cell6.innerHTML = "<input type='text' name='oprPembebasan[]' id='' style='width:140px;border:1px solid #fff;'>";
+       cell2.innerHTML = "<input type='text' name='pKerjaPembebasan[]' id='' style='width:140px;border:1px solid #fff;' disabled>";
+       cell3.innerHTML = "<input type='text' name='pManuverPembebasan[]' id='' style='width:140px;border:1px solid #fff;' disabled>";
+       cell4.innerHTML = "<input type='text' name='pK3Pembebasan[]' id='' style='width:140px;border:1px solid #fff;' disabled>";
+       cell5.innerHTML = "<input type='text' name='spvPembebasan[]' id='' style='width:140px;border:1px solid #fff;' disabled>";
+       cell6.innerHTML = "<input type='text' name='oprPembebasan[]' id='' style='width:140px;border:1px solid #fff;' disabled>";
 
        table1 = document.getElementById("table2");
        var row1 = table1.insertRow(-1);
@@ -427,7 +428,7 @@ if( isset($_POST["submit"]) ){
                     }
                     $('#add3').click(function(){
                         k=generateIndex();
-                        $('#dynamic_field1').append('<tr id="row'+k+'"><td class="cont-item" style="width:16px">'+k+'</td><td><input type="text" name="lokasiManuverBebas[]" style="width:50px; padding:0px;"></td><td><input type="time" name="jamRemoteBebas[]" style="width:5rem;padding:0rem;"></td><td><input type="time" name="jamRealBebas[]" style="width:5rem;padding:0rem;"></td><td><input type="time" name="jamAdsBebas[]" style="width:5rem;padding:0rem;"></td><td><input type="text" name="installManuverBebas[]" style="width:8rem;padding:0rem;"></td><td><button type="button" name="remove" id="'+k+'" class="btn btn-danger btn_remove">X</button></td></tr>');
+                        $('#dynamic_field1').append('<tr id="row'+k+'"><td class="cont-item" style="width:16px">'+k+'</td><td><input type="text" name="lokasiManuverBebas[]" style="width:50px; padding:0px;"></td><td><input type="time" name="jamRemoteBebas[]" style="width:5rem;padding:0rem;" disabled></td><td><input type="time" name="jamRealBebas[]" style="width:5rem;padding:0rem;" disabled></td><td><input type="time" name="jamAdsBebas[]" style="width:5rem;padding:0rem;" disabled></td><td><input type="text" name="installManuverBebas[]" style="width:8rem;padding:0rem;"></td><td><button type="button" name="remove" id="'+k+'" class="btn btn-danger btn_remove">X</button></td></tr>');
                     });
 
                     $(document).on('click', '.btn_remove', function(){ 
@@ -451,7 +452,7 @@ if( isset($_POST["submit"]) ){
                         }
                         $('#add4').click(function(){
                             l=generateIndex1();
-                            $('#dynamic_field2').append('<tr id="row1'+l+'"><td class="cont-item" style="width:16px">'+l+'</td><td><input type="text" name="lokasiManuverNormal[]" style="width:50px; padding:0px;"></td><td><input type="time" name="jamRemoteNormal[]" style="width:5rem;padding:0rem;"></td><td><input type="time" name="jamRealNormal[]" style="width:5rem;padding:0rem;"></td><td><input type="time" name="jamAdsNormal[]" style="width:5rem;padding:0rem;"></td><td><input type="text" name="installManuverNormal[]" style="width:8rem;padding:0rem;"></td><td><button type="button" name="remove" id="'+l+'" class="btn btn-danger btn_remove2">X</button></td></tr>');
+                            $('#dynamic_field2').append('<tr id="row1'+l+'"><td class="cont-item" style="width:16px">'+l+'</td><td><input type="text" name="lokasiManuverNormal[]" style="width:50px; padding:0px;"></td><td><input type="time" name="jamRemoteNormal[]" style="width:5rem;padding:0rem;" disabled></td><td><input type="time" name="jamRealNormal[]" style="width:5rem;padding:0rem;" disabled></td><td><input type="time" name="jamAdsNormal[]" style="width:5rem;padding:0rem;" disabled></td><td><input type="text" name="installManuverNormal[]" style="width:8rem;padding:0rem;"></td><td><button type="button" name="remove" id="'+l+'" class="btn btn-danger btn_remove2">X</button></td></tr>');
                         });
 
                         $(document).on('click', '.btn_remove2', function(){ 
