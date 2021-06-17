@@ -15,16 +15,15 @@ function tambah($post){
     //print_r($_POST); die();
     global $conn;
     $idTask =$post["idTask"];
-    $c_date = $post["c_date"];
+    $create_date = $post["create_date"];
     $user = $post["user"];
     $pekerjaan = htmlspecialchars($post["pekerjaan"]);
-    $s_date = $post["s_date"];
-    $e_date = $post["e_date"];
-    $r_date = htmlspecialchars($post["r_date"]);
+    $start_date = $post["start_date"];
+    $end_date = $post["end_date"];
+    $report_date = htmlspecialchars($post["report_date"]);
     $lokasi = htmlspecialchars($post["lokasi"]);
     $waktu = htmlspecialchars($post["waktu"]);
     $instal = htmlspecialchars($post["instal"]);
-
 
     //upload gambar
     $foto = upload(); 
@@ -36,20 +35,54 @@ function tambah($post){
     if( !$foto2 ){
         return false;
     }
-
-
-
-    $query = "INSERT INTO `db_form` (`id_form`, `c_date`, `user`, `pekerjaan`, `s_date`, `e_date`, `r_date`, `lokasi`, `waktu`, `instal`, `foto`, `foto2`) VALUES ('$idTask','$c_date','$user','$pekerjaan','$s_date','$e_date','$r_date','$lokasi','$waktu','$instal','$foto','$foto2')";         
-
+    //print_r($_POST);exit;
+    $query = "INSERT INTO db_form 
+              VALUE
+              ('$idTask','$create_date','$user','$pekerjaan','$start_date','$end_date','$report_date','$lokasi','$waktu','$instal','$foto','$foto2')
+             ";
     mysqli_query($conn,$query);
 
-    
-
-    foreach ($_POST["lokasiPembebasan"] as $lokasi ) {
-        $query = "INSERT INTO `db_sub_form1` ( `id_form_main`, `lokasiPembebasan`) VALUES ('$idTask','$lokasi')";
+    // cara-1
+    $jumlah_baris = count($_POST["lokasiPembebasan"]);
+    // print_r($jumlah_baris);exit;
+    for ($i=0; $i<$jumlah_baris; $i++) {
+        $lokasiManuverBebas = $_POST["lokasiPembebasan"][$i];
+        $query = "INSERT INTO db_table_1 (id_form,lokasi) VALUES ('$idTask','$lokasiManuverBebas')";
         mysqli_query($conn,$query); 
-      }
+     }
 
+    // cara-2
+    // foreach ($_POST["lokasiPembebasan"] as $lokasi ) {
+    //     $query = "INSERT INTO `db_sub_form1` ( `id_form_main`, `lokasiPembebasan`) VALUES ('$idTask','$lokasi')";
+    //     mysqli_query($conn,$query); 
+    //   }
+
+    // foreach ($_POST["lokasiManuverBebas"] as $lokasiManuverBebas) {
+    //     $query = "INSERT INTO `db_manuver1` (`id_form_main`,`lokasiManuverBebas`) VALUES ('$idTask','$lokasiManuverBebas')";
+    //     mysqli_query($conn,$query);
+    // }
+
+    // foreach ($_POST["installManuverBebas"] as $installManuverBebas) {
+    //     $query = "INSERT INTO `db_manuver1` (`installManuverBebas`) VALUES ('$installManuverBebas') WHERE db_manuver1.id_form_main = `$idTask`";
+    //     mysqli_query($conn,$query);
+    // }
+
+    // cara-3
+
+    //$keys = array_keys($_POST["lokasiPembebasan"]);
+    
+    // for ($i=0; $i<3; $i++) {
+       
+    //     $lokasiManuverBebas = $_POST["lokasiPembebasan"][$i];
+    //     $query = "INSERT INTO db_sub_form1
+    //               VALUE
+    //               ('','$idTask','$lokasiManuverBebas','','','','','','')
+    //              ";
+    //      mysqli_query($conn,$query); 
+
+    // };
+    
+    
 
     return mysqli_affected_rows($conn);
 }
@@ -179,13 +212,9 @@ function ubah($post){
 
 }
 
+function hapus(){
+
+}
+
 
 ?>
-
-
-
-
-
-
-
-

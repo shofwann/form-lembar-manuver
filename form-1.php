@@ -72,10 +72,9 @@ if( isset($_POST["submit"]) ){
                 <!-- Baris/row Ke-0 hide data auto-->
                     <div class="row" >
                         
-
                         <div class="col-2">
                             <label>Create Date:</label>
-                            <input type="text" name="c_date" value="<?php echo date('d-M-Y');?>" class="form-control" readonly>
+                            <input type="text" name="create_date" value="<?php echo date('d-M-Y');?>" class="form-control" readonly>
                         </div>
 
                         <div class="col-2">
@@ -99,16 +98,16 @@ if( isset($_POST["submit"]) ){
                             <input type="text" name="pekerjaan" id="pekerjaan" class="form-control">
                         </div>
                         <div class="col">
-                            <label for="s_date">Start</label>
-                            <input type="datetime-local" name="s_date" id="s_date" class="form-control">
+                            <label for="start_date">Start</label>
+                            <input type="datetime-local" name="start_date" id="start_date" class="form-control">
                         </div>
                         <div class="col">
-                            <label for="e_date">End</label>
-                            <input type="datetime-local" name="e_date" id="e_date" class="form-control">
+                            <label for="end_date">End</label>
+                            <input type="datetime-local" name="end_date" id="end_date" class="form-control">
                         </div>
                         <div class="col">
-                            <label for="r_date">Req Date Received</label>
-                            <input type="text" name="r_date" id="r_date" class="form-control">
+                            <label for="report_date">Req Date Received</label>
+                            <input type="datetime-local" name="report_date" id="report_date" class="form-control">
                         </div>
                     </div>
                     <div class="row">
@@ -118,7 +117,7 @@ if( isset($_POST["submit"]) ){
                         </div>
                         <div class="col">
                             <label for="waktu">Waktu</label>
-                            <input type="text" name="waktu" id="waktu" class="form-control">
+                            <input type="datetime-local" name="waktu" id="waktu" class="form-control">
                         </div>
                         
                         <div class="col">
