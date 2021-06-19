@@ -214,16 +214,16 @@ if( isset($_POST["submit"]) ){
                     </div>
                     <div class="row">
                         <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
-                            <!-- <input type="text" style="border:1px solid #fff;"> -->
+                            <input type="text" style="border:1px solid #fff;" disabled>
                         </div>
                         <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
-                            <!-- <input type="text" style="border:1px solid #fff;"> -->
+                            <input type="text" style="border:1px solid #fff;" disabled>
                         </div>
                         <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
-                            <!-- <input type="text" style="border:1px solid #fff;"> -->
+                            <input type="text" style="border:1px solid #fff;" disabled>
                         </div>
                         <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
-                            <!-- <input type="text" style="border:1px solid #fff;"> -->
+                            <input type="text" style="border:1px solid #fff;" disabled>
                         </div>
                     </div>
                     <div class="row">
@@ -246,10 +246,10 @@ if( isset($_POST["submit"]) ){
                     </div>
                     <div class="row">
                         <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
-                            <!-- <input type="text" style="border:1px solid #fff;"> -->
+                            <input type="text" style="border:1px solid #fff;" disabled>
                         </div>
                         <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
-                            <!-- <input type="text" style="border:1px solid #fff;"> -->
+                            <input type="text" style="border:1px solid #fff;" disabled>
                         </div>
                         
                     </div>
@@ -344,7 +344,22 @@ if( isset($_POST["submit"]) ){
                             <textarea name="catatanNormal" id="" cols="90" rows="5"></textarea>
                         </div>
                     </div>
-
+                <!-- Baris/row submit-->
+                <div class="row" hidden>
+                    <div class="col">
+                        <label for="">AE</label>
+                        <input type="text" value="approve">
+                    </div>
+                    <div class="col">
+                        <label for="">AMN</label>
+                        <input type="text" value="process">
+                    </div>
+                    <div class="col">
+                        <label for="">MSB</label>
+                        <input type="text" value="process">
+                    </div>
+                
+                </div>
                 <!-- Baris/row submit-->
                     <br>
                     <div class="row">

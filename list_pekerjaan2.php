@@ -40,7 +40,7 @@
                     <th style="width:20%">Pekerjaan</th>
                     <th>waktu</th>
                     <th>lokasi</th>
-                    <th>Status</th>
+                    <th colspan="3">Status Aproval</th>
                     <th>Aproval</th>
                     </tr>
                 </thead>
@@ -61,27 +61,17 @@
                     <td><?php echo $data['pekerjaan'];?></td>
                     <td><?php echo $data['waktu'];?></td>
                     <td><?php echo $data['lokasi'];?></td>
-                    <td><?php echo $data['status'];?></td>
+                    <td><?php echo $data['ae'];?></td>
+                    <td><?php echo $data['amn'];?></td>
+                    <td><?php echo $data['msb'];?></td>
                     <td>
-                        <a href="?url=show_detail&id=<?php echo $data['id_form'];?>" class="btn btn-success btn-icon-split">
+                        <a href="?url=show_detail&id=<?php echo $data['id'];?>" class="btn btn-success btn-icon-split">
                             <span class="icon text-white-50">
                             <i class="fas fa-check"></i>
                             </span>
                             <span class="text">detail</span>
                         </a>
-                        <a href="#" class="btn btn-danger btn-icon-split">
-                            <span class="icon text-white-50">
-                            <i class="fas fa-times"></i>
-                            </span>
-                            <span class="text">AMN ROH</span>
-                        </a>
-                        <a href="#" class="btn btn-danger btn-icon-split">
-                            <span class="icon text-white-50">
-                            <i class="fas fa-times"></i>
-                            </span>
-                            <span class="text">MSB DALOP</span>
-                        </a>
-                    </td>
+                        
                     </tr>
                 </tbody>
                 <?php }?>

@@ -1,6 +1,6 @@
 <?php
 require "functions.php";
-$datas=query("SELECT * FROM db_form WHERE user = '$_SESSION[username]'");
+$datas=query("SELECT * FROM db_form WHERE user = '$_SESSION[username]' AND amn = 'disapprove' OR msb = 'disapprove'");
 
 ?>
 
@@ -46,12 +46,12 @@ $datas=query("SELECT * FROM db_form WHERE user = '$_SESSION[username]'");
                                 <td><?=$i;?></td>
                                 <td><?= $row["pekerjaan"];?></td>
                                 <td><?= $row["waktu"];?></td>
-                                <td><?= $row["instal"];?></td>
+                                <td><?= $row["installasi"];?></td>
                                 <td><?= $row["lokasi"];?></td>
                                 <td>
                                     
-                                <a href="?url=updateForm-1&id=<?= $row["id_form"];?>" id="updateForm-1" class="btn btn-grey btn-icon-split"></span><span class="text far fa-edit"></span></a>
-                                <a href="remove.php?id=<?= $row["id_form"];?>" onclick="return confirm('yakin menghapus');">Delete</a></td>
+                                <a href="?url=updateForm-1&id=<?= $row["id"];?>" id="updateForm-1" class="btn btn-grey btn-icon-split"></span><span class="text far fa-edit"></span></a>
+                                <a href="remove.php?id=<?= $row["id"];?>" onclick="return confirm('yakin menghapus');">Delete</a></td>
                             </tr>
                             <?php $i++;?>
                             <?php endforeach; ?>

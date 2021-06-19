@@ -1,7 +1,9 @@
 <?php
 require 'koneksi.php';
-$sql_manuver=mysqli_query($conn,"SELECT * FROM db_sub_form1 WHERE id_form_main='$_GET[id]'");
-$sql=mysqli_query($conn,"SELECT * FROM db_form WHERE id_form='$_GET[id]'");
+$sql_manuver=mysqli_query($conn,"SELECT * FROM db_table_1 WHERE id_form='$_GET[id]'");
+$tahapan_pembebasan=mysqli_query($conn,"SELECT * FROM db_table_3 WHERE id_form='$_GET[id]'");
+$tahapan_pemnormalan=mysqli_query($conn,"SELECT * FROM db_table_4 WHERE id_form='$_GET[id]'");
+$sql=mysqli_query($conn,"SELECT * FROM db_form WHERE id='$_GET[id]'");
 $data=mysqli_fetch_assoc($sql);
 if ($sql){
 
@@ -61,14 +63,14 @@ if ($sql){
                             <div class="row">
                                 
                                 <div class="col-2">
-                                    <label for="id_form" class="control-label">id</label>
-                                    <input type="text" name="id_form" id="id_form" class="form-control" value="<?= $data["id_form"]; ?>" readonly>
+                                    <label for="id" class="control-label">id</label>
+                                    <input type="text" name="id" id="id" class="form-control" value="<?= $data["id"]; ?>" readonly>
                                 </div> 
 
                                 <div class="col-3">
                                     <label>Create Date</label>
                                     <div class="col-0">
-                                    <input type="text" data-date="" data-date-format="" value="<?= $data['c_date'];?>" readonly>
+                                    <input type="text" data-date="" data-date-format="" value="<?= $data['create_date'];?>" readonly>
                                     </div>
                                 </div>
 
@@ -92,15 +94,15 @@ if ($sql){
                             </div>
                             <div class="col">
                                 <label for="s_date">Start</label>
-                                <input type="datetime-local" name="s_date" id="s_date" class="form-control" value="<?= $data["s_date"];?>" readonly>
+                                <input type="text" name="start_date" id="s_date" class="form-control" value="<?= $data["start_date"];?>" readonly>
                             </div>
                             <div class="col">
                                 <label for="e_date">End</label>
-                                <input type="datetime-local" name="e_date" id="e_date" class="form-control" value="<?= $data["e_date"];?>" readonly> <!-- nOte -->
+                                <input type="text" name="end_date" id="e_date" class="form-control" value="<?= $data["end_date"];?>" readonly> <!-- nOte -->
                             </div>
                             <div class="col">
                                 <label for="r_date">Req Date Received</label>
-                                <input type="text" name="r_date" id="r_date" class="form-control" value="<?= $data["r_date"]; ?>" readonly>
+                                <input type="text" name="r_date" id="r_date" class="form-control" value="<?= $data["report_date"]; ?>" readonly>
                             </div>
                         </div>
 
@@ -117,7 +119,7 @@ if ($sql){
                         
                             <div class="col">
                                 <label for="instal">Installasi</label>
-                                <input type="text" name="instal" id="instal" class="form-control" value="<?= $data["instal"]; ?>" readonly>
+                                <input type="text" name="instal" id="instal" class="form-control" value="<?= $data["installasi"]; ?>" readonly>
                             </div>
                         </div>
 
@@ -138,12 +140,12 @@ if ($sql){
                                             </tr>  
                                             <?php while ($manuverBebas = mysqli_fetch_array($sql_manuver)) { ?>
                                             <tr>
-                                                <td><?= $manuverBebas["lokasiPembebasan"]  ?></td>
-                                                <td><?= $manuverBebas["pKerjaPembebasan"]  ?></td>
-                                                <td><?= $manuverBebas["pManuverPembebasan"]  ?></td>
-                                                <td><?= $manuverBebas["pK3Pembebasan"]  ?></td>
-                                                <td><?= $manuverBebas["spvPembebasan"]  ?></td>
-                                                <td><?= $manuverBebas["oprPembebasan"]  ?></td>
+                                                <td><?= $manuverBebas["lokasi"]  ?></td>
+                                                <td><?= $manuverBebas["pengawas_pekerjaan"]  ?></td>
+                                                <td><?= $manuverBebas["pengawas_manuver"]  ?></td>
+                                                <td><?= $manuverBebas["pengawas_manuver"]  ?></td>
+                                                <td><?= $manuverBebas["spv_gitet"]  ?></td>
+                                                <td><?= $manuverBebas["opr_gitet"]  ?></td>
                                             </tr>
                                             <?php } ?>
                                     </table>
@@ -175,12 +177,8 @@ if ($sql){
                                     
                                 </div>
                             </div>
-
-
-
                             <div class="col-1 ml-3">
                                 <br>
-                                <form>
                                     <label>Kelengkapan Dokumen :</label>
                                     <div action="">
                                         <input type="checkbox" id="" name="" value="" disabled="disabled">
@@ -220,16 +218,16 @@ if ($sql){
 
                         <div class="row">
                             <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
-                                <input type="text">
+                                <input type="text" style="border:1px solid #fff">
                             </div>
                             <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
-                                <input type="text">
+                                <input type="text" style="border:1px solid #fff">
                             </div>
                             <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
-                                <input type="text">
+                                <input type="text" style="border:1px solid #fff">
                             </div>
                             <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
-                                <input type="text">
+                                <input type="text" style="border:1px solid #fff">
                             </div>
                         </div>
 
@@ -254,19 +252,18 @@ if ($sql){
 
                         <div class="row">
                             <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
-                                <input type="text">
+                                <input type="text" style="border:1px solid #fff">
                             </div>
                             <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
-                                <input type="text">
+                                <input type="text" style="border:1px solid #fff">
                             </div>
                         </div>
-
+                    <!-- Baris/ row ke-4-->
                         <h2>Manuver Pembebasan Installasi</h2>
                         <div class="row">
                                     <div class="col-6" style="border:1px solid">
                                         <div class="form-group ml-2">
                                             <img src="img/<?= $data["foto"];?>" id="output1" height="auto" width="770px" style="padding-top:.50rem;padding-right:.50rem"><br>
-                                            <!-- <input type="file" accept="" onchange="loadFile1(event)" name="foto"> -->
                                         </div>
                                     </div>
 
@@ -278,13 +275,24 @@ if ($sql){
                                                     <th rowspan="2" style="width:.78rem;text-align:center;padding-top:35px">Lokasi</th>
                                                     <th colspan="3"style="width:7rem;text-align:center">Jam Manuver Buka</th>
                                                     <th rowspan="2"style="padding-top:35px;width:7rem;">Installasi</th>
-                                                    <th rowspan="2"><button type="button" name="add3" id="add3" class="btn btn-success">Add More</button></th>
                                                 </tr>
                                                 <tr>
                                                     <th>Remote</th>
                                                     <th>Real (R/L)</th>
                                                     <th>ADS</th>
                                                 </tr>
+                                                    <?php $i=1; ?>
+                                                    <?php while ($pembebasan = mysqli_fetch_assoc($tahapan_pembebasan) ) : ?>
+                                                <tr>
+                                                    <td><?= $i ?></td>
+                                                    <td><?= $pembebasan["lokasi"]  ?></td>
+                                                    <td><?= $pembebasan["remote"]  ?></td>
+                                                    <td><?= $pembebasan["real"]  ?></td>
+                                                    <td><?= $pembebasan["ads"]  ?></td>
+                                                    <td><?= $pembebasan["installasi"]  ?></td>
+                                                </tr>
+                                                    <?php $i++ ?>
+                                                    <?php endwhile; ?>
                                             </table>
                                         </div>
                                     </div>
@@ -295,7 +303,6 @@ if ($sql){
                                 <div class="col" style="border:1px solid">
                                     <div class="form-group ml-2">
                                         <img src="img/<?= $data["foto2"];?>" id="output2" height="auto" width="770px" style="padding-top:.50rem;padding-right:.50rem"><br>
-                                        <!-- <input type="file" accept="" onchange="loadFile2(event)" name="foto2"> -->
                                     </div>
                                 </div>
                                 <div class="col" style="border:1px solid">
@@ -306,13 +313,25 @@ if ($sql){
                                                 <th rowspan="2" style="width:.78rem;text-align:center;padding-top:35px">Lokasi</th>
                                                 <th colspan="3"style="width:7rem;text-align:center">Jam Manuver Tutup</th>
                                                 <th rowspan="2"style="padding-top:35px;width:7rem;">Installasi</th>
-                                                <th rowspan="2"><button type="button" name="add4" id="add4" class="btn btn-success">Add More</button></th>
+                                                
                                             </tr>
                                             <tr>
                                                 <th>Remote</th>
                                                 <th>Real (R/L)</th>
                                                 <th>ADS</th>
                                             </tr>
+                                            <?php $i=1; ?>
+                                                    <?php while ($penormalan = mysqli_fetch_assoc($tahapan_pemnormalan) ) : ?>
+                                                <tr>
+                                                    <td><?= $i ?></td>
+                                                    <td><?= $penormalan["lokasi"]  ?></td>
+                                                    <td><?= $penormalan["remote"]  ?></td>
+                                                    <td><?= $penormalan["real"]  ?></td>
+                                                    <td><?= $penormalan["ads"]  ?></td>
+                                                    <td><?= $penormalan["installasi"]  ?></td>
+                                                </tr>
+                                                    <?php $i++ ?>
+                                                    <?php endwhile; ?>
                                         </table>
                                     </div>
 
@@ -338,7 +357,7 @@ if ($sql){
                             </div>
                         </div>
                         <br>
-                        <div class="row">
+                        <div class="row" hidden>
                             <div class="col-2">
                             <button type="submit" name="submit" >Simpan Form Data Manuver</button>
                             </div>
@@ -351,15 +370,7 @@ if ($sql){
 
 
     <script>
-    table = document.getElementById("table1");
-    totalRow = table.rows.length-1;
-    for (j=0; j < totalRow; j++){
-			z=document.getElementById("bodyTable2").insertRow(j);
-        for (k=0; k<2; k++){
-            q = z.insertCell(k);
-            q.innerHTML = "<input type='text' name='a[]' style='width:140px;border:1px solid #fff;' readonly>"
-        }
-    }
+    
     </script>
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
