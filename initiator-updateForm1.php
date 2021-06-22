@@ -1,4 +1,18 @@
+<?php
+require 'functions.php';
+$sql_manuver=mysqli_query($conn,"SELECT * FROM db_table_1 WHERE id_form='$_GET[id]'"); //table1
+$sql_manuver2=mysqli_query($conn,"SELECT * FROM db_table_1 WHERE id_form='$_GET[id]'"); //table2
+$tahapan_pembebasan=mysqli_query($conn,"SELECT * FROM db_table_3 WHERE id_form='$_GET[id]'"); //table3
+$tahapan_penormalan=mysqli_query($conn,"SELECT * FROM db_table_4 WHERE id_form='$_GET[id]'"); //table4
 
+
+
+$sql=mysqli_query($conn,"SELECT * FROM db_form WHERE id='$_GET[id]'");
+$data=mysqli_fetch_assoc($sql);
+if ($sql){
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -32,49 +46,61 @@
             Input Manuver
         </div>
         <div class="card-body">
-            <form action="save_form.php" method="post" class="form-horizontal" enctype="multipart/form-data">
+            <form action="" method="post" class="form-horizontal" enctype="multipart/form-data">
                 <!-- Baris/row Ke-0-->
                     <div class="row">
-                        
+                        <div class="col-2">
+                            <label for="id" class="control-label">id</label>
+                            <input type="text" name="id" id="id" class="form-control" value="<?= $data["id"]; ?>" readonly>
+                        </div>  
 
                         <div class="col-2">
                             <label>Create Date:</label>
-                            <input type="text" name="c_date" value="<?php echo date('d-M-Y');?>" class="form-control">
+                            <input type="text" name="create_date" value="<?php echo date('d-M-Y');?>" class="form-control">
                         </div>
 
                         <div class="col-2">
                             <label>User :</label>
                             <input type="text" name="user" placeholder="" value="<?php echo $_SESSION['username'];?>" class="form-control">
                         </div>
-                        
 
+                        <div class="col-2">
+                                    <label for="fotoLama" class="control-label">fotolama 1</label>
+                                    <input type="text" name="fotoLama" id="fotoLama" class="form-control" value="<?= $data["foto"]; ?>" readonly> <!--untuk menyimpan foto lama, jika user tidak ganti foto maka foto ini yg digunakan-->
+                        </div> 
+                        <div class="col-2">
+                                    <label for="fotoLama" class="control-label">fotolama 2</label>
+                                    <input type="text" name="fotoLama" id="fotoLama" class="form-control" value="<?= $data["foto2"]; ?>" readonly> <!--untuk menyimpan foto lama, jika user tidak ganti foto maka foto ini yg digunakan-->
+                        </div> 
                     </div>
+
 
                 <!-- Baris/row Ke-1-->
                     <div class="row">
                         
-
-                        <div class="col-6">
+                        <div class="col-4">
                             <label>Pekerjaan :</label>
-                            <input type="text" name="pekerjaan" placeholder="" value="" class="form-control">
+                            <input type="text" name="pekerjaan" placeholder="" value="<?= $data["pekerjaan"]; ?>" class="form-control">
                         </div>
 
-                        <div class="col-2">
-                           
-                        </div>
-
-                        <div class="col-2">
+                        <div class="col">
                             <label>Mulai</label>
                             <div class="col-0">
-                            <input name="s_date" type="datetime-local" value="16.617-06-13T13:00">
+                            <input type="datetime" name="start_date" value="<?= $data["start_date"];?>">
                             </div>
                         </div>
 
-                        <div class="col-2">
+                        <div class="col">
                             <label>Target</label>
                             <div class="col-0">
-                            <input name="e_date" type="datetime-local" value="16.617-06-13T13:00">
+                            <input type="datetime" name="end_date" value="<?= $data["end_date"];?>">
                             </div>
+                        </div>
+                        <div class="col">
+                                <label for="report_date">Req Date Received</label>
+                                <div class="col-0">
+                                <input type="datetime" name="report_date" id="report_date" class="form-control" value="<?= $data["report_date"]; ?>" >
+                                </div>
                         </div>
 
                     </div>
@@ -84,20 +110,22 @@
                         <div class="col">
                             <br>
                             <label>Lokasi :</label>
-                            <input type="text" name="lokasi" class="form-control" placeholder="">
-                        </div>
-
-                        <div class="col">
-                            <br>
-                            <label>Installasi :</label>
-                            <input type="text" name="instal" class="form-control" placeholder="">
+                            <input type="text" value="<?= $data["lokasi"]; ?>" name="lokasi" class="form-control" placeholder="">
                         </div>
 
                         <div class="col">
                             <br>
                             <label>Waktu Permintaan Diterima :</label>
-                            <input type="text" name="req" class="form-control" placeholder="">
+                            <input type="date" value="<?= $data["waktu"]; ?>" name="req" class="form-control" placeholder="">
                         </div>
+
+                        <div class="col">
+                            <br>
+                            <label>Installasi :</label>
+                            <input type="text" value="<?= $data["installasi"]; ?>" name="instal" class="form-control" placeholder="">
+                        </div>
+
+
                     </div>
 
                 
@@ -105,21 +133,35 @@
                 
                 <!-- Baris/row ke-3-->
                     <br>
-                    
                     <div class="row"> 
                         
                         <div col="col-7">
                             <div class="table-responsive ml-2">
                             <h4 style="text-align:center;">Manuver Pembebasan Instalasi</h4>  
-                               <table class="table table-bordered" id="table1">  
-                                    <tr style="background-color:#F2F4F4;">  
-                                        <th style="width:158px;">Lokasi</th>
-                                        <th style="width:158px;">Peng. Pekerjaan</th>
-                                        <th style="width:158px;">Peng. Manuver</th>
-                                        <th style="width:158px;">Peng. K3</th>
-                                        <th style="width:158px;">Spv GITET</th>
-                                        <th style="width:158px;">Opr GITET</th>
-                                    </tr>  
+                               <table class="table table-bordered"> 
+                                    <thead>
+                                        <tr style="background-color:#F2F4F4;">  
+                                            <th style="width:158px;">Lokasi</th>
+                                            <th style="width:158px;">Peng. Pekerjaan</th>
+                                            <th style="width:158px;">Peng. Manuver</th>
+                                            <th style="width:158px;">Peng. K3</th>
+                                            <th style="width:158px;">Spv GITET</th>
+                                            <th style="width:158px;">Opr GITET</th>
+                                        </tr> 
+                                    </thead> 
+                                    <tbody id="table1">
+                                        <?php while ($manuverBebas = mysqli_fetch_array($sql_manuver)) { ?>
+                                                <tr>
+                                                    <td><input type="text" value="<?= $manuverBebas["lokasi"]  ?>" style="border:1px solid #fff;width:100px;"><input type="text" value="<?= $manuverBebas["id"]  ?>" style="border:1px solid #fff;width:50px;" ></td>
+                                                    <td><?= $manuverBebas["pengawas_pekerjaan"]  ?></td>
+                                                    <td><?= $manuverBebas["pengawas_manuver"]  ?></td>
+                                                    <td><?= $manuverBebas["pengawas_manuver"]  ?></td>
+                                                    <td><?= $manuverBebas["spv_gitet"]  ?></td>
+                                                    <td><?= $manuverBebas["opr_gitet"]  ?></td>
+                                                </tr>
+                                        <?php } ?> 
+                                    
+                                    </tbody>
                                </table> 
                                 <button type="button" id="add1" class="btn btn-success">+</button>
                                 <button type="button" id="remove1" class="btn btn-danger">-</button>   
@@ -129,14 +171,26 @@
                         <div class="col-3 ml-5">
                             <div class="table-responsive">
                             <h4 style="text-align:center;">Manuver Penormalan Instalasi</h4>
-                                <table class="table table-bordered" id="table2">
+                                <table class="table table-bordered">
+                                    <thead>
                                         <tr style="background-color:#F2F4F4;">
                                             <th>Spv GITET</th>
                                             <th>Opr GITET</th>
                                         </tr>
-                                </table>
-                                <button type="button" id="add2" class="btn btn-success">+</button>
-                                <button type="button" id="remove2" class="btn btn-danger">-</button>
+                                    </thead>
+                                    <tbody id="table2">
+                                    <?php while ($manuverBebas1 = mysqli_fetch_array($sql_manuver2)) { ?>
+                                                <tr  style="height:53px;">
+                                                    <td><?= $manuverBebas1["spv_gitet_normal"]  ?></td>
+                                                    <td><?= $manuverBebas1["opr_gitet_normal"]  ?></td>
+                                                </tr>
+                                        <?php } ?> 
+                                    
+                                    
+                                    </tbody>
+                                        
+                                        
+                                </table> 
                             </div>
                         </div>
 
@@ -179,17 +233,17 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
-                            <input type="text">
+                        <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem" >
+                            <input type="text" style="border:1px solid #fff;" readonly>
                         </div>
                         <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
-                            <input type="text">
+                            <input type="text" style="border:1px solid #fff;" readonly>
                         </div>
                         <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
-                            <input type="text">
+                            <input type="text" style="border:1px solid #fff;" readonly>
                         </div>
                         <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
-                            <input type="text">
+                            <input type="text" style="border:1px solid #fff;" readonly>
                         </div>
                     </div>
                     <div class="row">
@@ -212,10 +266,10 @@
                     </div>
                     <div class="row">
                         <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
-                            <input type="text">
+                            <input type="text" style="border:1px solid #fff;" readonly>
                         </div>
                         <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
-                            <input type="text">
+                            <input type="text" style="border:1px solid #fff;" readonly>
                         </div>
                         
                     </div>
@@ -224,7 +278,7 @@
                     <div class="row">
                             <div class="col-6" style="border:1px solid">
                                 <div class="form-group ml-2">
-                                    <img id="output1" height="auto" width="780px" style="padding-top:.50rem;padding-right:.50rem"><br>
+                                    <img src="img/<?= $data["foto"];?>" id="output1" height="auto" width="780px" style="padding-top:.50rem;padding-right:.50rem"><br>
                                     <input type="file" accept="image/*" onchange="loadFile1(event)" name="foto" required="required">
                                 </div>
                             </div>
@@ -244,6 +298,22 @@
                                             <th>Real (R/L)</th>
                                             <th>ADS</th>
                                         </tr>
+                                        <?php $i=1; ?>
+                                        <?php while ($pembebasan = mysqli_fetch_assoc($tahapan_pembebasan) ) : ?>
+                                        <tr>
+                                            <td><?= $i ?></td>
+                                            <td><input type="text" value="<?= $pembebasan["lokasi"] ?>" style="width:8rem;padding:0rem;"></td>
+                                            <td><?= $pembebasan["remote"] ?></td>
+                                            <td><?= $pembebasan["real"] ?></td>
+                                            <td><?= $pembebasan["ads"] ?></td>
+                                            <td><input type="text" value="<?= $pembebasan["installasi"] ?>" style="width:8rem;padding:0rem;"></td>
+                                            <td>
+                                                <button type="button" onclick="hapus_baris(this)" class="btn btn-danger btn_remove">X</button>
+                                                <input type="text" name="id[]" value="<?= $pembebasan["id"] ?>">
+                                            </td>
+                                        </tr>
+                                        <?php $i++ ?>
+                                        <?php endwhile; ?>
                                     </table>
                                 </div>
                             </div>
@@ -251,13 +321,13 @@
                 <!-- Baris/row ke-6 image-->
                         <h2>Manuver Penormalan Installasi</h2>
                         <div class="row">
-                                <div class="col" style="border:1px solid">
+                                <div class="col-6" style="border:1px solid">
                                     <div class="form-group ml-2">
-                                        <img id="output2" height="auto" width="780px" style="padding-top:.50rem;padding-right:.50rem"><br>
+                                        <img src="img/<?= $data["foto2"];?>" id="output2" height="auto" width="780px" style="padding-top:.50rem;padding-right:.50rem"><br>
                                         <input type="file" accept="image/*" onchange="loadFile2(event)" name="foto2" required="required">
                                     </div>
                                 </div>
-                                <div class="col" style="border:1px solid">
+                                <div class="col-6" style="border:1px solid">
                                     <div class="table-responsive">
                                         <table class="table table-bordered mt-2" id="dynamic_field2" style="">
                                             <tr>
@@ -272,6 +342,22 @@
                                                 <th>Real (R/L)</th>
                                                 <th>ADS</th>
                                             </tr>
+                                            <?php $i=1; ?>
+                                            <?php while ($penormalan = mysqli_fetch_assoc($tahapan_penormalan) ) : ?>
+                                            <tr>
+                                                <td><?= $i ?></td>
+                                                <td><input type="text" value="<?= $penormalan["lokasi"] ?>" style="width:8rem;padding:0rem;"></td>
+                                                <td><?= $penormalan["remote"] ?></td>
+                                                <td><?= $penormalan["real"] ?></td>
+                                                <td><?= $penormalan["ads"] ?></td>
+                                                <td><input type="text" value="<?= $penormalan["installasi"] ?>" style="width:8rem;padding:0rem;"></td>
+                                                <td>
+                                                    <button type="button" onclick="hapus_baris(this)" class="btn btn-danger btn_remove">X</button>
+                                                    <input type="text" name="id[]" value="<?= $penormalan["id"] ?>">
+                                                </td>
+                                            </tr>
+                                            <?php $i++ ?>
+                                            <?php endwhile; ?>
                                         </table>
                                     </div>
 
@@ -302,15 +388,24 @@
                     <br>
                     <div class="row">
                         <div class="form-group col-sm-1 ml-2">
-                            <input type="submit" value="simpan" class="btn btn-primary">
+                            <input type="submit" value="Rubah" class="btn btn-primary">
                         </div>
                     </div>
             </form>
+            <?php  } ?>
         </div>
     </div>
     
       
     <script type="text/javascript">
+    table = document.getElementById("table1");
+    totalRows = table.rows.length; 
+
+    
+
+    
+   
+
      //--table-jquery--//
             $(document).ready(function(){
                 //---table_add/remove_dynamic 1---//
@@ -318,10 +413,12 @@
                     $('#add1').click(function(){
                         i++;
                         $('#table1').append('<tr><td><input type="text" style="width:116.6px;border:1px solid #fff;"></td><td><input type="text" style="width:116.6px;border:1px solid #fff;"></td><td><input type="text" style="width:116.6px;border:1px solid #fff;"></td><td><input type="text" style="width:116.6px;border:1px solid #fff;"></td><td><input type="text" style="width:116.6px;border:1px solid #fff;"></td><td><input type="text" style="width:116.6px;border:1px solid #fff;"></td></tr>');
+                        $('#table2').append('<tr><td><input type="text" style="width:116.6px;border:1px solid #fff;"></td><td><input type="text" style="width:116.6px;border:1px solid #fff;"></td></tr>');
                     });
 
                     $('#remove1').on("click", function(){
                         $('#table1 tr:last').remove();
+                        $('#table2 tr:last').remove();
                     });
 
                 //---table_add/remove_dynamic 2---//
@@ -350,7 +447,7 @@
                     }
                     $('#add3').click(function(){
                         k=generateIndex();
-                        $('#dynamic_field1').append('<tr id="row'+k+'"><td class="cont-item" style="width:16px">'+k+'</td><td><input type="text" name="lokasi[]" style="width:50px; padding:0px;"></td><td><input type="text" name="jam1[]" style="width:3rem;padding:0rem;"></td><td><input type="text" name="jam2[]" style="width:3rem;padding:0rem;"></td><td><input type="text" name="jam3[]" style="width:3rem;padding:0rem;"></td><td><input type="text" name="install[]" style="width:8rem;padding:0rem;"></td><td><button type="button" name="remove" id="'+k+'" class="btn btn-danger btn_remove">X</button></td></tr>');
+                        $('#dynamic_field1').append('<tr id="row'+k+'"><td class="cont-item" style="width:16px">'+k+'</td><td><input type="text" name="lokasi[]" style="width:50px; padding:0px;"></td><td><input type="text" name="jam1[]" style="width:3rem;padding:0rem;"></td><td><input type="text" name="jam2[]" style="width:3rem;padding:0rem;"></td><td><input type="text" name="jam3[]" style="width:3rem;padding:0rem;"></td><td><input type="text" name="install[]" style="width:8rem;padding:0rem;"></td><td><button type="button" name="remove" id="'+k+'" class="btn btn-danger btn_remove">X</button><input type="text" name="id[]" value="0"></td></tr>');
                     });
 
                     $(document).on('click', '.btn_remove', function(){ 

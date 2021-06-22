@@ -1,5 +1,5 @@
 <?php
-require 'koneksi.php';
+require 'functions.php';
 $sql_manuver=mysqli_query($conn,"SELECT * FROM db_table_1 WHERE id_form='$_GET[id]'");
 $tahapan_pembebasan=mysqli_query($conn,"SELECT * FROM db_table_3 WHERE id_form='$_GET[id]'");
 $tahapan_pemnormalan=mysqli_query($conn,"SELECT * FROM db_table_4 WHERE id_form='$_GET[id]'");
@@ -79,7 +79,7 @@ if ($sql){
                                     <input type="text" name="user" placeholder="" value="<?= $data['user'];?>" class="form-control" readonly>
                                 </div>
 
-                                <div class="col-2" hidden>
+                                <div class="col-2">
                                     <label for="fotoLama" class="control-label">foto</label>
                                     <input type="text" name="fotoLama" id="fotoLama" class="form-control" value="<?= $data["foto"]; ?>" readonly> <!--untuk menyimpan foto lama, jika user tidak ganti foto maka foto ini yg digunakan-->
                                 </div> 
@@ -88,21 +88,21 @@ if ($sql){
 
                     <!-- Baris/row Ke-1-->
                         <div class="row">
-                            <div class="col-4">
+                            <div class="col">
                                 <label for="pekerjaan" class="control-label">Pekerjaan</label>
                                 <input type="text" name="pekerjaan" id="pekerjaan" class="form-control" value="<?= $data["pekerjaan"]; ?>" readonly>
                             </div>
                             <div class="col">
-                                <label for="s_date">Start</label>
-                                <input type="text" name="start_date" id="s_date" class="form-control" value="<?= $data["start_date"];?>" readonly>
+                                <label for="start_date">Start</label>
+                                <input type="text" name="start_date" id="start_date" class="form-control" value="<?= $data["start_date"];?>" readonly>
                             </div>
                             <div class="col">
-                                <label for="e_date">End</label>
-                                <input type="text" name="end_date" id="e_date" class="form-control" value="<?= $data["end_date"];?>" readonly> <!-- nOte -->
+                                <label for="end_date">End</label>
+                                <input type="text" name="end_date" id="end_date" class="form-control" value="<?= $data["end_date"];?>" readonly> <!-- nOte -->
                             </div>
                             <div class="col">
-                                <label for="r_date">Req Date Received</label>
-                                <input type="text" name="r_date" id="r_date" class="form-control" value="<?= $data["report_date"]; ?>" readonly>
+                                <label for="report_date">Req Date Received</label>
+                                <input type="text" name="report_date" id="report_date" class="form-control" value="<?= $data["report_date"]; ?>" readonly>
                             </div>
                         </div>
 
@@ -129,25 +129,31 @@ if ($sql){
                             <div class="col-7">
                                 <div class="table-responsive ml-2">
                                         <h4 style="text-align:center;">Manuver Pembebasan Instalasi</h4>
-                                        <table class="table table-bordered" id="table1">  
-                                            <tr style="background-color:#F2F4F4;">  
-                                                <th style="width:158px;">Lokasi</th>
-                                                <th style="width:158px;">Peng. Pekerjaan</th>
-                                                <th style="width:158px;">Peng. Manuver</th>
-                                                <th style="width:158px;">Peng. K3</th>
-                                                <th style="width:158px;">Spv GITET</th>
-                                                <th style="width:158px;">Opr GITET</th>
-                                            </tr>  
-                                            <?php while ($manuverBebas = mysqli_fetch_array($sql_manuver)) { ?>
-                                            <tr>
-                                                <td><?= $manuverBebas["lokasi"]  ?></td>
-                                                <td><?= $manuverBebas["pengawas_pekerjaan"]  ?></td>
-                                                <td><?= $manuverBebas["pengawas_manuver"]  ?></td>
-                                                <td><?= $manuverBebas["pengawas_manuver"]  ?></td>
-                                                <td><?= $manuverBebas["spv_gitet"]  ?></td>
-                                                <td><?= $manuverBebas["opr_gitet"]  ?></td>
-                                            </tr>
-                                            <?php } ?>
+                                        <table class="table table-bordered" > 
+                                            <thead> 
+                                                <tr style="background-color:#F2F4F4;">  
+                                                    <th style="width:158px;">Lokasi</th>
+                                                    <th style="width:158px;">Peng. Pekerjaan</th>
+                                                    <th style="width:158px;">Peng. Manuver</th>
+                                                    <th style="width:158px;">Peng. K3</th>
+                                                    <th style="width:158px;">Spv GITET</th>
+                                                    <th style="width:158px;">Opr GITET</th>
+                                                </tr> 
+                                            </thead> 
+                                            <tbody id="table1">
+                                                <?php while ($manuverBebas = mysqli_fetch_array($sql_manuver)) { ?>
+                                                <tr>
+                                                    <td><?= $manuverBebas["lokasi"]  ?></td>
+                                                    <td><?= $manuverBebas["pengawas_pekerjaan"]  ?></td>
+                                                    <td><?= $manuverBebas["pengawas_manuver"]  ?></td>
+                                                    <td><?= $manuverBebas["pengawas_manuver"]  ?></td>
+                                                    <td><?= $manuverBebas["spv_gitet"]  ?></td>
+                                                    <td><?= $manuverBebas["opr_gitet"]  ?></td>
+                                                </tr>
+                                                <?php } ?>
+                                            
+                                            </tbody>
+                                            
                                     </table>
                                         
                                 </div>
@@ -258,7 +264,7 @@ if ($sql){
                                 <input type="text" style="border:1px solid #fff">
                             </div>
                         </div>
-                    <!-- Baris/ row ke-4-->
+                    <!-- Baris/ row ke-5-->
                         <h2>Manuver Pembebasan Installasi</h2>
                         <div class="row">
                                     <div class="col-6" style="border:1px solid">
@@ -297,7 +303,7 @@ if ($sql){
                                         </div>
                                     </div>
                         </div>
-
+                    <!-- Baris/ row ke-6-->
                         <h2>Manuver Penormalan Installasi</h2>
                         <div class="row">
                                 <div class="col" style="border:1px solid">
