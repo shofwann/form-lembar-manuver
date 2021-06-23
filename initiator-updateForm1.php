@@ -308,7 +308,7 @@ if ($sql){
                                             <td><?= $pembebasan["ads"] ?></td>
                                             <td><input type="text" value="<?= $pembebasan["installasi"] ?>" style="width:8rem;padding:0rem;"></td>
                                             <td>
-                                                <button type="button" onclick="hapus_baris(this)" class="btn btn-danger btn_remove">X</button>
+                                                <button type="button" onclick="hapus_baris1(this)" class="btn btn-danger btn_remove">X</button>
                                                 <input type="text" name="id[]" value="<?= $pembebasan["id"] ?>">
                                             </td>
                                         </tr>
@@ -352,7 +352,7 @@ if ($sql){
                                                 <td><?= $penormalan["ads"] ?></td>
                                                 <td><input type="text" value="<?= $penormalan["installasi"] ?>" style="width:8rem;padding:0rem;"></td>
                                                 <td>
-                                                    <button type="button" onclick="hapus_baris(this)" class="btn btn-danger btn_remove">X</button>
+                                                    <button type="button" onclick="hapus_baris2(this)" class="btn btn-danger btn_remove">X</button>
                                                     <input type="text" name="id[]" value="<?= $penormalan["id"] ?>">
                                                 </td>
                                             </tr>
@@ -398,8 +398,11 @@ if ($sql){
     
       
     <script type="text/javascript">
-    table = document.getElementById("table1");
-    totalRows = table.rows.length; 
+    function hapus_baris1(tombol) {
+        baris = tombol.parentElement.parentElement
+        if (baris.children[])
+        
+    }
 
     
 
@@ -455,6 +458,7 @@ if ($sql){
                         var button_id = $(this).attr("id");   
                         $('#row'+button_id+'').remove();  
                         UpdateIndex();
+
                     }); 
 
                 //--table_add/remove w/ number2--/
