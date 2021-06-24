@@ -46,7 +46,7 @@ if ($sql){
             Input Manuver
         </div>
         <div class="card-body">
-            <form action="" method="post" class="form-horizontal" enctype="multipart/form-data">
+            <form action="" method="post" class="form-horizontal" enctype="multipart/form-data" id="form_id">
                 <!-- Baris/row Ke-0-->
                     <div class="row">
                         <div class="col-2">
@@ -300,15 +300,16 @@ if ($sql){
                                         </tr>
                                         <?php $i=1; ?>
                                         <?php while ($pembebasan = mysqli_fetch_assoc($tahapan_pembebasan) ) : ?>
+                                        
                                         <tr>
                                             <td><?= $i ?></td>
-                                            <td><input type="text" value="<?= $pembebasan["lokasi"] ?>" style="width:8rem;padding:0rem;"></td>
+                                            <td><input type="text" name="lokasi_ubah[]" value="<?= $pembebasan["lokasi"] ?>" style="width:8rem;padding:0rem;"></td>
                                             <td><?= $pembebasan["remote"] ?></td>
                                             <td><?= $pembebasan["real"] ?></td>
                                             <td><?= $pembebasan["ads"] ?></td>
-                                            <td><input type="text" value="<?= $pembebasan["installasi"] ?>" style="width:8rem;padding:0rem;"></td>
+                                            <td><input type="text" name="installasi_ubah[]" value="<?= $pembebasan["installasi"] ?>" style="width:8rem;padding:0rem;"></td>
                                             <td>
-                                                <button type="button" onclick="hapus_baris1(this)" class="btn btn-danger btn_remove">X</button>
+                                                <button type="button" onclick="hapus_baris1(this)" class="btn btn-danger btn_remove">X</button>  <!--  -->
                                                 <input type="text" name="id[]" value="<?= $pembebasan["id"] ?>">
                                             </td>
                                         </tr>
@@ -352,7 +353,7 @@ if ($sql){
                                                 <td><?= $penormalan["ads"] ?></td>
                                                 <td><input type="text" value="<?= $penormalan["installasi"] ?>" style="width:8rem;padding:0rem;"></td>
                                                 <td>
-                                                    <button type="button" onclick="hapus_baris2(this)" class="btn btn-danger btn_remove">X</button>
+                                                    <button type="button" onclick="hapus_baris2(this)" class="btn btn-danger btn_remove2">X</button>
                                                     <input type="text" name="id[]" value="<?= $penormalan["id"] ?>">
                                                 </td>
                                             </tr>
@@ -398,10 +399,25 @@ if ($sql){
     
       
     <script type="text/javascript">
+
     function hapus_baris1(tombol) {
         baris = tombol.parentElement.parentElement
-        if (baris.children[])
-        
+        if (baris.children[6].children[1].value != "0"){
+            id_hapus = baris.children[6].children[1].cloneNode(true);
+            id_hapus.setAttribute("name", "id_hapus[]");
+            document.getElementById("form_id").appendChild(id_hapus);
+        }
+        baris.remove();
+    }
+
+    function hapus_baris2(tombol) {
+        baris = tombol.parentElement.parentElement
+        if (baris.children[6].children[1].value != "0"){
+            id_hapus = baris.children[6].children[1].cloneNode(true);
+            id_hapus.setAttribute("name", "id_hapus2[]");
+            document.getElementById("form_id").appendChild(id_hapus);
+        }
+        baris.remove();
     }
 
     
@@ -437,53 +453,53 @@ if ($sql){
                     });
 
                 //--table_add/remove w/ number1--/
-                    var k=0;
-                    generateIndex = () => {
-                        lenghtRows = $('#dynamic_field1 tr').length-1;
-                        return lenghtRows;
-                    }
-                    UpdateIndex = () => {
-                        lengthRows = $('#dynamic_field1 tr').length-1;
-                        for (k=0; k<lenghtRows; k++){
-                            $('#dynamic_field1 tr td.cont-item')[k].textContent = k+1;
-                        }
-                    }
-                    $('#add3').click(function(){
-                        k=generateIndex();
-                        $('#dynamic_field1').append('<tr id="row'+k+'"><td class="cont-item" style="width:16px">'+k+'</td><td><input type="text" name="lokasi[]" style="width:50px; padding:0px;"></td><td><input type="text" name="jam1[]" style="width:3rem;padding:0rem;"></td><td><input type="text" name="jam2[]" style="width:3rem;padding:0rem;"></td><td><input type="text" name="jam3[]" style="width:3rem;padding:0rem;"></td><td><input type="text" name="install[]" style="width:8rem;padding:0rem;"></td><td><button type="button" name="remove" id="'+k+'" class="btn btn-danger btn_remove">X</button><input type="text" name="id[]" value="0"></td></tr>');
-                    });
+                    // var k=0;
+                    // generateIndex = () => {
+                    //     lenghtRows = $('#dynamic_field1 tr').length-1;
+                    //     return lenghtRows;
+                    // }
+                    // UpdateIndex = () => {
+                    //     lengthRows = $('#dynamic_field1 tr').length-1;
+                    //     for (k=0; k<lenghtRows; k++){
+                    //         $('#dynamic_field1 tr td.cont-item')[k].textContent = k+1;
+                    //     }
+                    // }
+                    // $('#add3').click(function(){
+                    //     k=generateIndex();
+                    //     $('#dynamic_field1').append('<tr id="row'+k+'"><td class="cont-item" style="width:16px">'+k+'</td><td><input type="text" name="lokasi[]" style="width:50px; padding:0px;"></td><td><input type="text" name="jam1[]" style="width:3rem;padding:0rem;"></td><td><input type="text" name="jam2[]" style="width:3rem;padding:0rem;"></td><td><input type="text" name="jam3[]" style="width:3rem;padding:0rem;"></td><td><input type="text" name="install[]" style="width:8rem;padding:0rem;"></td><td><button type="button" name="remove" id="'+k+'" class="btn btn-danger btn_remove">X</button><input type="text" name="id[]" value="0"></td></tr>');
+                    // });
 
-                    $(document).on('click', '.btn_remove', function(){ 
-                        k-=1; 
-                        var button_id = $(this).attr("id");   
-                        $('#row'+button_id+'').remove();  
-                        UpdateIndex();
+                    // $(document).on('click', '.btn_remove', function(){ 
+                    //     k-=1; 
+                    //     var button_id = $(this).attr("id");   
+                    //     $('#row'+button_id+'').remove();  
+                    //     UpdateIndex();
 
-                    }); 
+                    // }); 
 
                 //--table_add/remove w/ number2--/
-                    var l=0;
-                        generateIndex1 = () => {
-                            lenghtRows1 = $('#dynamic_field2 tr').length-1;
-                            return lenghtRows1;
-                        }
-                        UpdateIndex1 = () => {
-                            lengthRows = $('#dynamic_field2 tr').length-1;
-                            for (l=0; l<lenghtRows1; l++){
-                                $('#dynamic_field2 tr td.cont-item')[l].textContent = l+1;
-                            }
-                        }
-                        $('#add4').click(function(){
-                            l=generateIndex1();
-                            $('#dynamic_field2').append('<tr id="row1'+l+'"><td class="cont-item" style="width:16px">'+l+'</td><td><input type="text" name="lokasi[]" style="width:50px; padding:0px;"></td><td><input type="text" name="jam1[]" style="width:3rem;padding:0rem;"></td><td><input type="text" name="jam2[]" style="width:3rem;padding:0rem;"></td><td><input type="text" name="jam3[]" style="width:3rem;padding:0rem;"></td><td><input type="text" name="install[]" style="width:8rem;padding:0rem;"></td><td><button type="button" name="remove" id="'+l+'" class="btn btn-danger btn_remove2">X</button></td></tr>');
-                        });
+                    // var l=0;
+                    //     generateIndex1 = () => {
+                    //         lenghtRows1 = $('#dynamic_field2 tr').length-1;
+                    //         return lenghtRows1;
+                    //     }
+                    //     UpdateIndex1 = () => {
+                    //         lengthRows = $('#dynamic_field2 tr').length-1;
+                    //         for (l=0; l<lenghtRows1; l++){
+                    //             $('#dynamic_field2 tr td.cont-item')[l].textContent = l+1;
+                    //         }
+                    //     }
+                    //     $('#add4').click(function(){
+                    //         l=generateIndex1();
+                    //         $('#dynamic_field2').append('<tr id="row1'+l+'"><td class="cont-item" style="width:16px">'+l+'</td><td><input type="text" name="lokasi[]" style="width:50px; padding:0px;"></td><td><input type="text" name="jam1[]" style="width:3rem;padding:0rem;"></td><td><input type="text" name="jam2[]" style="width:3rem;padding:0rem;"></td><td><input type="text" name="jam3[]" style="width:3rem;padding:0rem;"></td><td><input type="text" name="install[]" style="width:8rem;padding:0rem;"></td><td><button type="button" name="remove" id="'+l+'" class="btn btn-danger btn_remove2">X</button></td></tr>');
+                    //     });
 
-                        $(document).on('click', '.btn_remove2', function(){ 
-                            l-=1; 
-                            var button_id1 = $(this).attr("id");   
-                            $('#row1'+button_id1+'').remove();  
-                            UpdateIndex1();
-                        }); 
+                    //     $(document).on('click', '.btn_remove2', function(){ 
+                    //         l-=1; 
+                    //         var button_id1 = $(this).attr("id");   
+                    //         $('#row1'+button_id1+'').remove();  
+                    //         UpdateIndex1();
+                    //     }); 
             });
 
             
