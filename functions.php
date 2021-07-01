@@ -241,7 +241,7 @@ function ubah($post){
         if ($idUpdate == '0'){
             $query = "INSERT INTO db_table_1 (id_form,lokasi) VALUES ('$idTask','$lokasiManuverBebas')";
         } else {
-            $query = "UPDATE db_table_1 SET id_form = '$idTask', lokasi = '$lokasiManuverBebas' WHERE id=$idUpdate"; 
+            $query = "UPDATE db_table_1 SET lokasi = '$lokasiManuverBebas' WHERE id=$idUpdate"; //id_form = '$idTask',
         }
         mysqli_query($conn,$query);
     }
@@ -266,6 +266,39 @@ function ubah($post){
             $query = "UPDATE db_table_3 SET lokasi = '$lokasiPembebasanManuver', installasi = '$intallasiPembebasan' WHERE id = $idUpdateBebas ";
         }
         mysqli_query($conn,$query);
+    }
+
+    if (isset($_POST["id_hapus1"])){
+        $jumlah_hapus = count($_POST["id_hapus1"]);
+        for ($i=0; $i<$jumlah_hapus; $i++) {
+            $id_hapus = $_POST["id_hapus1"][$i];
+            $query = "DELETE FROM db_table_3 WHERE id='$id_hapus'";
+            mysqli_query($conn,$query);
+        }
+
+    }
+
+    $jumlah_baris_normal = count($_POST["lokasiManuverNormal"]);
+    for($i=0; $i<$jumlah_baris_normal; $i++){
+        $lokasiPenormalanManuver = $_POST["lokasiManuverNormal"][$i];
+        $installasiPenormalan = $_POST["instalManuverNormal"][$i];
+        $idUpdateNormal = $_POST["id_normal_update3"][$i];
+        if ($idUpdateNormal == '0') {
+            $query = "INSERT INTO db_table_4 (id_form,lokasi,installasi) VALUE ('$idTask','$lokasiPenormalanManuver','$installasiPenormalan')";
+        } else {
+            $query = "UPDATE db_table_4 SET lokasi = '$lokasiPenormalanManuver', installasi = '$installasiPenormalan' WHERE id = $idUpdateNormal ";
+        }
+        mysqli_query($conn,$query);
+    }
+
+    if (isset($_POST["id_hapus2"])){
+        $jumlah_hapus = count($_POST["id_hapus2"]);
+        for ($i=0; $i<$jumlah_hapus; $i++) {
+            $id_hapus = $_POST["id_hapus2"][$i];
+            $query = "DELETE FROM db_table_4 WHERE id='$id_hapus'";
+            mysqli_query($conn,$query);
+        }
+
     }
 
 

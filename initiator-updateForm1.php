@@ -376,14 +376,14 @@ if ($sql){
                                             <?php while ($penormalan = mysqli_fetch_assoc($tahapan_penormalan) ) : ?>
                                             <tr>
                                                 <td><?= $i ?></td>
-                                                <td><input type="text" value="<?= $penormalan["lokasi"] ?>" style="width:8rem;padding:0rem;"></td>
+                                                <td><input type="text" name="lokasiManuverNormal[]" value="<?= $penormalan["lokasi"] ?>" style="width:8rem;padding:0rem;"></td>
                                                 <td><?= $penormalan["remote"] == "00:00:00" ?"": $penormalan["remote"] ?></td>
                                                 <td><?= $penormalan["real"] == "00:00:00" ?"": $penormalan["real"] ?></td>
                                                 <td><?= $penormalan["ads"] == "00:00:00" ?"": $penormalan["ads"] ?></td>
-                                                <td><input type="text" value="<?= $penormalan["installasi"] ?>" style="width:8rem;padding:0rem;"></td>
+                                                <td><input type="text" name="instalManuverNormal[]" value="<?= $penormalan["installasi"] ?>" style="width:8rem;padding:0rem;"></td>
                                                 <td>
                                                     <button type="button" onclick="hapus_baris2(this)" class="btn btn-danger btn_remove2">X</button>
-                                                    <input type="text" name="id_normal_update[]" value="<?= $penormalan["id"] ?>">
+                                                    <input type="text" name="id_normal_update3[]" value="<?= $penormalan["id"] ?>">
                                                 </td>
                                             </tr>
                                             <?php $i++ ?>
@@ -506,12 +506,12 @@ if ($sql){
             var cell7 = row.insertCell(6);
 
             cell1.innerHTML = jumlah_baris2++;
-            cell2.innerHTML = "<input type='text' name=Newrows[] style='width:8rem;padding:0rem;'>";
+            cell2.innerHTML = "<input type='text' name='lokasiManuverNormal[]' style='width:8rem;padding:0rem;'>";
             cell3.innerHTML = "";
             cell4.innerHTML = "";
             cell5.innerHTML = "";
-            cell6.innerHTML = "<input type='text' name=rows[] style='width:8rem;padding:0rem;'>";
-            cell7.innerHTML = "<button type='button' onclick='hapus_baris_new2(this)' class='btn btn-danger btn_remove'>X</button><input type='text' name='' value='0'>";
+            cell6.innerHTML = "<input type='text' name='instalManuverNormal[]' style='width:8rem;padding:0rem;'>";
+            cell7.innerHTML = "<button type='button' onclick='hapus_baris_new2(this)' class='btn btn-danger btn_remove'>X</button><input type='text' name='id_normal_update3[]' value='0'>";
 
         }
 
