@@ -67,37 +67,37 @@ function tambah($post){
          mysqli_query($conn,$query);
      }
 
-    // cara-2
-    // foreach ($_POST["lokasiPembebasan"] as $lokasi ) {
-    //     $query = "INSERT INTO `db_sub_form1` ( `id_form_main`, `lokasiPembebasan`) VALUES ('$idTask','$lokasi')";
-    //     mysqli_query($conn,$query); 
-    //   }
+            // cara-2
+                // foreach ($_POST["lokasiPembebasan"] as $lokasi ) {
+                //     $query = "INSERT INTO `db_sub_form1` ( `id_form_main`, `lokasiPembebasan`) VALUES ('$idTask','$lokasi')";
+                //     mysqli_query($conn,$query); 
+                //   }
 
-    // foreach ($_POST["lokasiManuverBebas"] as $lokasiManuverBebas) {
-    //     $query = "INSERT INTO `db_manuver1` (`id_form_main`,`lokasiManuverBebas`) VALUES ('$idTask','$lokasiManuverBebas')";
-    //     mysqli_query($conn,$query);
-    // }
+                // foreach ($_POST["lokasiManuverBebas"] as $lokasiManuverBebas) {
+                //     $query = "INSERT INTO `db_manuver1` (`id_form_main`,`lokasiManuverBebas`) VALUES ('$idTask','$lokasiManuverBebas')";
+                //     mysqli_query($conn,$query);
+                // }
 
-    // foreach ($_POST["installManuverBebas"] as $installManuverBebas) {
-    //     $query = "INSERT INTO `db_manuver1` (`installManuverBebas`) VALUES ('$installManuverBebas') WHERE db_manuver1.id_form_main = `$idTask`";
-    //     mysqli_query($conn,$query);
-    // }
+                // foreach ($_POST["installManuverBebas"] as $installManuverBebas) {
+                //     $query = "INSERT INTO `db_manuver1` (`installManuverBebas`) VALUES ('$installManuverBebas') WHERE db_manuver1.id_form_main = `$idTask`";
+                //     mysqli_query($conn,$query);
+                // }
 
-    // cara-3
+                // cara-3
 
-    //$keys = array_keys($_POST["lokasiPembebasan"]);
-    
-    // for ($i=0; $i<3; $i++) {
-       
-    //     $lokasiManuverBebas = $_POST["lokasiPembebasan"][$i];
-    //     $query = "INSERT INTO db_sub_form1
-    //               VALUE
-    //               ('','$idTask','$lokasiManuverBebas','','','','','','')
-    //              ";
-    //      mysqli_query($conn,$query); 
+                //$keys = array_keys($_POST["lokasiPembebasan"]);
+                
+                // for ($i=0; $i<3; $i++) {
+                
+                //     $lokasiManuverBebas = $_POST["lokasiPembebasan"][$i];
+                //     $query = "INSERT INTO db_sub_form1
+                //               VALUE
+                //               ('','$idTask','$lokasiManuverBebas','','','','','','')
+                //              ";
+                //      mysqli_query($conn,$query); 
 
-    // };
-    
+                // };
+        
     
 
     return mysqli_affected_rows($conn);
@@ -193,39 +193,76 @@ function upload2(){
 
 function ubah($post){
     global $conn;
-    $id = $post["id_form"];
+    $idTask =$post["idTask"];
+    $fotolama1 = $post["fotoLama1"];
+    $fotolama2 = $post["fotoLama2"];
     $pekerjaan = htmlspecialchars($post["pekerjaan"]);
-    $s_date = $post["s_date"];
-    $e_date = $post["e_date"];
-    $r_date = htmlspecialchars($post["r_date"]);
+    $start_date = $post["start_date"];
+    $end_date = $post["end_date"];
+    $report_date = htmlspecialchars($post["report_date"]);
     $lokasi = htmlspecialchars($post["lokasi"]);
     $waktu = htmlspecialchars($post["waktu"]);
     $instal = htmlspecialchars($post["instal"]);
-    $fotoLama = $post["fotoLama"];
-    //cek apakah user ganti foto
+
+    //cek apakah user ganti foto1
     if( $_FILES['foto']['error'] === 4){
-        $foto = $fotoLama;
+        $foto = $fotolama1;
     } else {
         $foto = upload();
     }
 
-    
+    //
+    if( $_FILES['foto2']['error'] === 4){
+        $foto2 = $fotolama2;
+    } else {
+        $foto2 = upload2();
+    }
+
+
 
     $query = "UPDATE db_form SET
              pekerjaan = '$pekerjaan',
-             s_date = '$s_date',
-             e_date = '$e_date',
-             r_date = '$r_date',
+             start_date = '$start_date',
+             end_date = '$end_date',
+             report_date = '$report_date',
              lokasi = '$lokasi',
              waktu = '$waktu',
-             instal = '$instal',
-             foto = '$foto'   
-             WHERE id_form= $id   
+             installasi = '$instal',
+             foto = '$foto', 
+             foto2 = '$foto2' 
+             WHERE id= $idTask   
             ";
     mysqli_query($conn,$query);
 
-    return mysqli_affected_rows($conn);
+    $jumlah_baris_pelaksana = count($_POST["lokasiPembebasan"]);
+    for($i=0; $i<$jumlah_baris_pelaksana; $i++) {
+        $lokasiManuverBebas = $_POST["lokasiPembebasan"][$i];
+        $idUpdate = $_POST["id_bebas_update"][$i];
+        if ($idUpdate == '0'){
+            $query = "INSERT INTO db_table_1 (id_form,lokasi) VALUES ('$idTask','$lokasiManuverBebas')";
+        } else {
+            $query = "UPDATE db_table_1 SET id_form = '$idTask', lokasi = '$lokasiManuverBebas' WHERE id=$idUpdate"; 
+        }
+        mysqli_query($conn,$query);
+    }
 
+    if (isset($_POST["id_hapus0"])){
+        $jumlah_hapus = count($_POST["id_hapus0"]);
+        for ($i=0; $i<$jumlah_hapus; $i++) {
+            $id_hapus = $_POST["id_hapus0"][$i];
+            $query = "DELETE FROM db_table_1 WHERE id='$id_hapus'";
+            mysqli_query($conn,$query);
+        }
+    }
+
+    // $jumlah_baris_bebas = count($_POST["lokasiManuverBebas"]);
+    // for($i=0; $i<$jumlah_baris_bebas $i++){
+    //     $lokasiPembebasan = $_POST[""]
+    // }
+
+
+    return mysqli_affected_rows($conn);
+    
 }
 
 function hapus(){
