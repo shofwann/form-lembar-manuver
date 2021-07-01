@@ -77,7 +77,7 @@ if ($sql){
         <div class="card-body">
             <form action="" method="post" class="form-horizontal" enctype="multipart/form-data" id="form_id">
                 <!-- Baris/row Ke-0-->
-                    <div class="row">
+                    <div class="row" hidden>
                         <div class="col-2">
                             <label for="id" class="control-label">id</label>
                             <input type="text" name="idTask" id="idTask" class="form-control" value="<?= $data["id"]; ?>" readonly>
@@ -181,7 +181,7 @@ if ($sql){
                                     <tbody id="table1">
                                         <?php while ($manuverBebas = mysqli_fetch_array($sql_manuver)) { ?>
                                                 <tr>
-                                                    <td><input type="text" name="lokasiPembebasan[]" value="<?= $manuverBebas["lokasi"]  ?>" style="border:1px solid #fff;width:100px;"><input type="text" name="id_bebas_update[]" value="<?= $manuverBebas["id"]  ?>" style="border:1px solid #fff;width:50px;" ></td>
+                                                    <td><input type="text" name="lokasiPembebasan[]" value="<?= $manuverBebas["lokasi"]  ?>" style="border:1px solid #fff;width:100px;"><input type="text" name="id_bebas_update[]" value="<?= $manuverBebas["id"]  ?>" style="border:1px solid #fff;width:50px;" hidden></td>
                                                     <td><?= $manuverBebas["pengawas_pekerjaan"]  ?></td>
                                                     <td><?= $manuverBebas["pengawas_manuver"]  ?></td>
                                                     <td><?= $manuverBebas["pengawas_manuver"]  ?></td>
@@ -339,7 +339,7 @@ if ($sql){
                                             <td><input type="text" name="installManuverBebas[]" value="<?= $pembebasan["installasi"] ?>" style="width:8rem;padding:0rem;"></td>
                                             <td>
                                                 <button type="button" onclick="hapus_baris1(this)" class="btn btn-danger btn_remove">X</button>  <!--  -->
-                                                <input type="text" name="id_bebas_update2[]" value="<?= $pembebasan["id"] ?>">
+                                                <input type="text" name="id_bebas_update2[]" value="<?= $pembebasan["id"] ?>" hidden>
                                             </td>
                                         </tr>
                                         <?php $i++ ?>
@@ -383,7 +383,7 @@ if ($sql){
                                                 <td><input type="text" name="instalManuverNormal[]" value="<?= $penormalan["installasi"] ?>" style="width:8rem;padding:0rem;"></td>
                                                 <td>
                                                     <button type="button" onclick="hapus_baris2(this)" class="btn btn-danger btn_remove2">X</button>
-                                                    <input type="text" name="id_normal_update3[]" value="<?= $penormalan["id"] ?>">
+                                                    <input type="text" name="id_normal_update3[]" value="<?= $penormalan["id"] ?>" hidden>
                                                 </td>
                                             </tr>
                                             <?php $i++ ?>
@@ -439,7 +439,7 @@ if ($sql){
             var cell5 = row.insertCell(4);
             var cell6 = row.insertCell(5);
 
-            cell1.innerHTML = "<input type='text' name='lokasiPembebasan[]' id='' style='width:140px;border:1px solid #fff;'><input type='text' name='id_bebas_update[]' style='width:8rem;padding:0rem;' value='0'>";
+            cell1.innerHTML = "<input type='text' name='lokasiPembebasan[]' id='' style='width:140px;border:1px solid #fff;'><input type='text' name='id_bebas_update[]' style='width:8rem;padding:0rem;' value='0' hidden>";
             cell2.innerHTML = "<input type='text' name='pKerjaPembebasan[]' id='' style='width:140px;border:1px solid #fff;' disabled>";
             cell3.innerHTML = "<input type='text' name='pManuverPembebasan[]' id='' style='width:140px;border:1px solid #fff;' disabled>";
             cell4.innerHTML = "<input type='text' name='pK3Pembebasan[]' id='' style='width:140px;border:1px solid #fff;' disabled>";
@@ -490,7 +490,7 @@ if ($sql){
             cell4.innerHTML = "";
             cell5.innerHTML = "";
             cell6.innerHTML = "<input type='text' name='installManuverBebas[]' style='width:8rem;padding:0rem;'>";
-            cell7.innerHTML = "<button type='button' onclick='hapus_baris_new1(this)' class='btn btn-danger btn_remove'>X</button><input type='text' name='id_bebas_update2[]' value='0'>";
+            cell7.innerHTML = "<button type='button' onclick='hapus_baris_new1(this)' class='btn btn-danger btn_remove'>X</button><input type='text' name='id_bebas_update2[]' value='0' hidden>";
 
         }
 
@@ -511,7 +511,7 @@ if ($sql){
             cell4.innerHTML = "";
             cell5.innerHTML = "";
             cell6.innerHTML = "<input type='text' name='instalManuverNormal[]' style='width:8rem;padding:0rem;'>";
-            cell7.innerHTML = "<button type='button' onclick='hapus_baris_new2(this)' class='btn btn-danger btn_remove'>X</button><input type='text' name='id_normal_update3[]' value='0'>";
+            cell7.innerHTML = "<button type='button' onclick='hapus_baris_new2(this)' class='btn btn-danger btn_remove'>X</button><input type='text' name='id_normal_update3[]' value='0' hidden>";
 
         }
 
