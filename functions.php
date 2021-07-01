@@ -44,7 +44,6 @@ function tambah($post){
 
     // cara-1
     $jumlah_baris = count($_POST["lokasiPembebasan"]);
-<<<<<<< HEAD
     // print_r($jumlah_baris);exit;
     for ($i=0; $i<$jumlah_baris; $i++) {
         $lokasiManuverBebas = $_POST["lokasiPembebasan"][$i];
@@ -100,23 +99,6 @@ function tambah($post){
                 // };
         
     
-=======
-    for ($indexke=0; $indexke < $jumlah_baris; $indexke++){
-        $lokasiManuverBebas = $_POST["lokasiPembebasan"][$indexke];
-        $query = "INSERT INTO db_sub_form1 
-                    VALUE
-                 ('','$idTask','$lokasiManuverBebas','','','','','')
-                 ";
-        mysqli_query($conn,$query);              
-    }
-
-    $jumlah_baris_manuver_manuver = count($_POST["lokasiManuverBebas"]);
-    for ($indexke=0; $indexke<$jumlah_baris_manuver_manuver; $indexke++){
-        $lokasiManuver1 = $_POST["lokasiManuverBebas"][$indexke];
-        $installasiManuver1 = $_POST["installManuverBebas"][$indexke];
-        
-    }
->>>>>>> 0d8feaa (menambahkan border table berdasar main table(pengawas manuver dkk) dan db manuver dynamic table penormalan dan pembebasan)
 
     return mysqli_affected_rows($conn);
 }
