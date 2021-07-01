@@ -256,8 +256,16 @@ function ubah($post){
     }
 
     $jumlah_baris_bebas = count($_POST["lokasiManuverBebas"]);
-    for($i=0; $i<$jumlah_baris_bebas $i++){
-        $lokasiPembebasan = $_POST[""]
+    for($i=0; $i<$jumlah_baris_bebas; $i++){
+        $lokasiPembebasanManuver = $_POST["lokasiManuverBebas"][$i];
+        $intallasiPembebasan = $_POST["installManuverBebas"][$i];
+        $idUpdateBebas = $_POST["id_bebas_update2"][$i];
+        if ($idUpdateBebas == '0') {
+            $query = "INSERT INTO db_table_3 (id_form,lokasi,installasi) VALUES ('$idTask','$lokasiPembebasanManuver','$intallasiPembebasan')";
+        } else {
+            $query = "UPDATE db_table_3 SET lokasi = '$lokasiPembebasanManuver', installasi = '$intallasiPembebasan' WHERE id = $idUpdateBebas ";
+        }
+        mysqli_query($conn,$query);
     }
 
 

@@ -339,7 +339,7 @@ if ($sql){
                                             <td><input type="text" name="installManuverBebas[]" value="<?= $pembebasan["installasi"] ?>" style="width:8rem;padding:0rem;"></td>
                                             <td>
                                                 <button type="button" onclick="hapus_baris1(this)" class="btn btn-danger btn_remove">X</button>  <!--  -->
-                                                <input type="text" name="id_bebas_update[]" value="<?= $pembebasan["id"] ?>" hidden>
+                                                <input type="text" name="id_bebas_update2[]" value="<?= $pembebasan["id"] ?>">
                                             </td>
                                         </tr>
                                         <?php $i++ ?>
@@ -485,12 +485,12 @@ if ($sql){
             var cell7 = row.insertCell(6);
 
             cell1.innerHTML = jumlah_baris++;
-            cell2.innerHTML = "<input type='text' name='lokasi_ubah1[]' style='width:8rem;padding:0rem;'>";
+            cell2.innerHTML = "<input type='text' name='lokasiManuverBebas[]' style='width:8rem;padding:0rem;'>";
             cell3.innerHTML = "";
             cell4.innerHTML = "";
             cell5.innerHTML = "";
-            cell6.innerHTML = "<input type='text' name='installasi_ubah1[]' style='width:8rem;padding:0rem;'>";
-            cell7.innerHTML = "<button type='button' onclick='hapus_baris_new1(this)' class='btn btn-danger btn_remove'>X</button><input type='text' name='id_bebas_update[]' value='0'>";
+            cell6.innerHTML = "<input type='text' name='installManuverBebas[]' style='width:8rem;padding:0rem;'>";
+            cell7.innerHTML = "<button type='button' onclick='hapus_baris_new1(this)' class='btn btn-danger btn_remove'>X</button><input type='text' name='id_bebas_update2[]' value='0'>";
 
         }
 
