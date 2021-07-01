@@ -255,10 +255,10 @@ function ubah($post){
         }
     }
 
-    // $jumlah_baris_bebas = count($_POST["lokasiManuverBebas"]);
-    // for($i=0; $i<$jumlah_baris_bebas $i++){
-    //     $lokasiPembebasan = $_POST[""]
-    // }
+    $jumlah_baris_bebas = count($_POST["lokasiManuverBebas"]);
+    for($i=0; $i<$jumlah_baris_bebas $i++){
+        $lokasiPembebasan = $_POST[""]
+    }
 
 
     return mysqli_affected_rows($conn);
