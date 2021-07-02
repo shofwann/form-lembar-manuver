@@ -81,7 +81,7 @@ $user=$_SESSION["username"];
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Custom Form:</h6>
             <a class="collapse-item" href="?url=form-1">Form-1</a>
-            <a class="collapse-item" href="cards.html">Form-2</a>
+            <a class="collapse-item" href="">Form-2</a>
           </div>
         </div>
       </li>
@@ -89,8 +89,15 @@ $user=$_SESSION["username"];
       <!-- Nav Item - inbox -->
       <li class="nav-item">
         <a class="nav-link" href="?url=initiatorInbox">
-          <i class="fas fa-inbox"></i>
+          <i class="fas fa-inbox"></i> 
           <span>Inbox</span></a>
+      </li>
+
+      <!-- Nav Item - Draft -->
+      <li class="nav-item">
+        <a class="nav-link" href="">
+          <i class="far fa-edit"></i>
+          <span>Draft</span></a>
       </li>
 
       <!-- Nav Item - Tables -->

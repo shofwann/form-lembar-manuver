@@ -413,7 +413,21 @@ if ($sql){
                             <textarea name="" id="" cols="90" rows="5"></textarea>
                         </div>
                     </div>
-
+                <!-- aproval -->
+                    <div class="row">
+                        <div class="col-2">
+                            <label for="ae">AE</label>
+                            <input type="text" name="ae" id="ae" value="approve">
+                        </div>
+                        <div class="col-2">
+                            <label for="amn">AMN</label>
+                            <input type="text" name="amn" id="amn" value="process">
+                        </div>
+                        <div class="col-2">
+                            <label for="msb">MSB</label>
+                            <input type="text" name="msb" id="msb" value="process">
+                        </div>
+                    </div>
                 <!-- Baris/row submit-->
                     <br>
                     <div class="row">
