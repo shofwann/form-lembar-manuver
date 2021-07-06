@@ -31,6 +31,20 @@ if (isset($_GET['url']))
         include 'initiator-updateForm1.php';
         break;
 
+        case 'amnInbox';
+        include 'amn-inbox.php';
+        break;
+
+        case 'amnList';
+        include 'amn-list.php';
+        break;
+
+        case 'amnApprove';
+        include 'amn-approve.php';
+        break;
+
+        
+
         
         
     }
@@ -38,7 +52,7 @@ if (isset($_GET['url']))
 else
 {
     ?>
-    selamat datang <?php echo $_SESSION['username'];
+    User Level <?= $_SESSION['level']; ?> <br> Nama User: <?= $_SESSION['username']; 
 }
 ?>
 

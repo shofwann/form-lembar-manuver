@@ -24,6 +24,12 @@ $cek=mysqli_num_rows($sql);
             header("location:initiator-dashboard.php");
         }
 
+        elseif ($data["level"]=="amn"){
+            $_SESSION['username'] = $user;
+            $_SESSION["level"] = "amn";
+            header("location:amn-dashboard.php");
+        }
+
         elseif ($data["level"]=="dispa"){
             $_SESSION['username'] = $user;
             $_SESSION["level"] = "dispa";

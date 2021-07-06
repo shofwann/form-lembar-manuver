@@ -24,6 +24,7 @@ function tambah($post){
     $lokasi = htmlspecialchars($post["lokasi"]);
     $waktu = htmlspecialchars($post["waktu"]);
     $instal = htmlspecialchars($post["instal"]);
+    
 
     //upload gambar
     $foto = upload(); 
@@ -36,12 +37,8 @@ function tambah($post){
         return false;
     }
     //print_r($_POST);exit;
-    $query = "INSERT INTO db_form 
-              VALUE
-              ('$idTask','$create_date','$user','$pekerjaan','$start_date','$end_date','$report_date','$lokasi','$waktu','$instal','$foto','$foto2')
-             ";
+    $query = "INSERT INTO db_form (id,create_date,user,pekerjaan,start_date,end_date,report_date,lokasi,waktu,installasi,foto,foto2,ae) VALUES ('$idTask','$create_date','$user','$pekerjaan','$start_date','$end_date','$report_date','$lokasi','$waktu','$instal','$foto','$foto2','approve')";
     mysqli_query($conn,$query);
-
     // cara-1
     $jumlah_baris = count($_POST["lokasiPembebasan"]);
     // print_r($jumlah_baris);exit;
@@ -230,7 +227,7 @@ function ubah($post){
              installasi = '$instal',
              foto = '$foto', 
              foto2 = '$foto2' 
-             WHERE id= $idTask   
+             WHERE id= '$idTask'   
             ";
     mysqli_query($conn,$query);
 
@@ -304,6 +301,24 @@ function ubah($post){
 
     return mysqli_affected_rows($conn);
     
+}
+
+function aprovalAmn($post){
+    global $conn;
+    $idTask =$post["idTask"];
+    $userAmn = $post["userAmn"];
+    $aproval = $post["aproval"];
+
+    $query = "UPDATE db_form SET 
+             user_amn = '$userAmn',
+             ae = 'pending',
+             amn = '$aproval'
+             WHERE id = '$idTask'
+             ";
+    mysqli_query($conn,$query);
+
+    return mysqli_affected_rows($conn);
+
 }
 
 function hapus(){

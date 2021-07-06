@@ -1,11 +1,7 @@
-
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Halaman list</title>
@@ -38,7 +34,7 @@
                             </tr>
                             <?php
                                 require "functions.php";
-                                $datas=query("SELECT * FROM db_form WHERE user = '$_SESSION[username]' AND amn = 'disapprove' OR msb = 'disapprove'");
+                                $datas=query("SELECT * FROM db_form WHERE  ae = 'approve'");
                             ?>
                             <?php $i=1;?>
                             <?php foreach($datas as $row):?>
@@ -50,7 +46,7 @@
                                 <td><?= $row["lokasi"];?></td>
                                 <td>
                                     
-                                <a href="?url=updateForm-1&id=<?= $row["id"];?>" id="updateForm-1" class="btn btn-grey btn-icon-split"></span><span class="text far fa-edit"></span></a>
+                                <a href="?url=amnApprove&id=<?= $row["id"];?>" id="updateForm-1" class="btn btn-grey btn-icon-split"></span><span class="text far fa-edit"></span></a>
                                 <!-- <a href="remove.php?id=<?= $row["id"];?>" onclick="return confirm('yakin menghapus');">Delete</a></td> -->
                             </tr>
                             <?php $i++;?>

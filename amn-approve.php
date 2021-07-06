@@ -5,6 +5,28 @@ $tahapan_pembebasan=mysqli_query($conn,"SELECT * FROM db_table_3 WHERE id_form='
 $tahapan_pemnormalan=mysqli_query($conn,"SELECT * FROM db_table_4 WHERE id_form='$_GET[id]'");
 $sql=mysqli_query($conn,"SELECT * FROM db_form WHERE id='$_GET[id]'");
 $data=mysqli_fetch_assoc($sql);
+
+if( isset($_POST["submit"]) ){
+
+    if( aprovalAmn ($_POST) > 0){
+        //var_dump(tambah($_POST)); die;
+        echo "<script>
+                alert('data berhasil disubmit'); 
+                document.location.href = 'amn-dashboard.php';
+                </script>
+                ";  
+                
+    } else {
+       // var_dump(tambah($_POST)); die;
+        echo "<script>
+                alert('data gagal disubmit'); 
+                document.location.href = 'amn-dashboard.php';
+                </script>
+                "; die;
+                
+    }
+}
+
 if ($sql){
 
 ?>
@@ -30,9 +52,11 @@ if ($sql){
 
   <!-- Custom styles for this template -->
   <link href="css/sb-admin-2.min.css" rel="stylesheet">
+  <link href="css/shofwan.css" rel="stylesheet">
 
   <!-- Custom styles for this page -->
   <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+  
 
 
 </head>
@@ -45,7 +69,7 @@ if ($sql){
         </div>
         <div class="card-body">
             <div class="form-group cols-sm-6">
-                <a href="?url=list_pekerjaan2" class="btn btn-primary btn-icon-split">
+                <a href="?url=amnInbox" class="btn btn-primary btn-icon-split">
                     <span class="icon text-white-50">
                         <i class="fas fa-arrow-left"></i>              
                     </span>
@@ -64,24 +88,29 @@ if ($sql){
                                 
                                 <div class="col-2">
                                     <label for="id" class="control-label">id</label>
-                                    <input type="text" name="id" id="id" class="form-control" value="<?= $data["id"]; ?>" readonly>
+                                    <input type="text" name="idTask" id="idTask" class="form-control" value="<?= $data["id"]; ?>" readonly>
                                 </div> 
 
                                 <div class="col-3">
                                     <label>Create Date</label>
                                     <div class="col-0">
-                                    <input type="text" data-date="" data-date-format="" value="<?= $data['create_date'];?>" readonly>
+                                    <input type="text" data-date="" value="<?= $data['create_date'];?>" disabled>
                                     </div>
                                 </div>
 
                                 <div class="col-3">
-                                    <label>User :</label>
-                                    <input type="text" name="user" placeholder="" value="<?= $data['user'];?>" class="form-control" readonly>
+                                    <label>User Initiator :</label>
+                                    <input type="text" name="user" placeholder="" value="<?= $data['user'];?>" class="form-control" disabled>
                                 </div>
+
+                                <div class="col">
+                                    <label>User amn :</label>
+                                    <input type="text" name="userAmn" placeholder="" value="<?= $_SESSION['username'];?>" class="form-control">
+                                </div>                                
 
                                 <div class="col-2">
                                     <label for="fotoLama" class="control-label">foto</label>
-                                    <input type="text" name="fotoLama" id="fotoLama" class="form-control" value="<?= $data["foto"]; ?>" readonly> <!--untuk menyimpan foto lama, jika user tidak ganti foto maka foto ini yg digunakan-->
+                                    <input type="text" name="fotoLama" id="fotoLama" class="form-control" value="<?= $data["foto"]; ?>" disabled> <!--untuk menyimpan foto lama, jika user tidak ganti foto maka foto ini yg digunakan-->
                                 </div> 
 
                             </div>
@@ -90,19 +119,19 @@ if ($sql){
                         <div class="row">
                             <div class="col">
                                 <label for="pekerjaan" class="control-label">Pekerjaan</label>
-                                <input type="text" name="pekerjaan" id="pekerjaan" class="form-control" value="<?= $data["pekerjaan"]; ?>" readonly>
+                                <input type="text" name="pekerjaan" id="pekerjaan" class="form-control" value="<?= $data["pekerjaan"]; ?>" disabled>
                             </div>
                             <div class="col">
                                 <label for="start_date">Start</label>
-                                <input type="text" name="start_date" id="start_date" class="form-control" value="<?= $data["start_date"];?>" readonly>
+                                <input type="text" name="start_date" id="start_date" class="form-control" value="<?= $data["start_date"];?>" disabled>
                             </div>
                             <div class="col">
                                 <label for="end_date">End</label>
-                                <input type="text" name="end_date" id="end_date" class="form-control" value="<?= $data["end_date"];?>" readonly> <!-- nOte -->
+                                <input type="text" name="end_date" id="end_date" class="form-control" value="<?= $data["end_date"];?>" disabled> <!-- nOte -->
                             </div>
                             <div class="col">
                                 <label for="report_date">Req Date Received</label>
-                                <input type="text" name="report_date" id="report_date" class="form-control" value="<?= $data["report_date"]; ?>" readonly>
+                                <input type="text" name="report_date" id="report_date" class="form-control" value="<?= $data["report_date"]; ?>" disabled>
                             </div>
                         </div>
 
@@ -110,16 +139,16 @@ if ($sql){
                         <div class="row">
                             <div class="col">
                                 <label for="lokasi">Lokasi</label>
-                                <input type="text" name="lokasi" id="lokasi" class="form-control" value="<?= $data["lokasi"]; ?>" readonly>
+                                <input type="text" name="lokasi" id="lokasi" class="form-control" value="<?= $data["lokasi"]; ?>" disabled>
                             </div>
                             <div class="col">
                                 <label for="waktu">Waktu</label>
-                                <input type="text" name="waktu" id="waktu" class="form-control" value="<?= $data["waktu"]; ?>" readonly>
+                                <input type="text" name="waktu" id="waktu" class="form-control" value="<?= $data["waktu"]; ?>" disabled>
                             </div>
                         
                             <div class="col">
                                 <label for="instal">Installasi</label>
-                                <input type="text" name="instal" id="instal" class="form-control" value="<?= $data["installasi"]; ?>" readonly>
+                                <input type="text" name="instal" id="instal" class="form-control" value="<?= $data["installasi"]; ?>" disabled>
                             </div>
                         </div>
 
@@ -362,10 +391,19 @@ if ($sql){
                                 <textarea name="" id="" cols="90" rows="5"></textarea>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col">
+                                <br>
+                                <input type="radio" value="approve" class="btn-check" name="aproval" id="success-outlined" autocomplete="off">
+                                <label class="btn btn-outline-success" for="success-outlined">Aproved</label>
+                                <input type="radio" value="disapprove" class="btn-check" name="aproval" id="danger-outlined" autocomplete="off">
+                                <label class="btn btn-outline-danger" for="danger-outlined">Disapproved</label>
+                            </div>
+                        </div>
                         <br>
-                        <div class="row" hidden>
+                        <div class="row">
                             <div class="col-2">
-                            <button type="submit" name="submit" >Simpan Form Data Manuver</button>
+                            <button type="submit" name="submit" >Submit</button>
                             </div>
                     
                         </div>                                   
@@ -383,7 +421,7 @@ if ($sql){
 			z=document.getElementById("bodyTable2").insertRow(j);
         for (k=0; k<2; k++){
             q = z.insertCell(k);
-            q.innerHTML = "<input type='text' name='a[]' style='width:100px;height:10px;border:1px solid #fff;' readonly>"
+            q.innerHTML = "<input type='text' name='a[]' style='width:100px;height:10px;border:1px solid #fff;' disabled>"
         }
     }
     </script>
@@ -396,6 +434,9 @@ if ($sql){
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 
    
 

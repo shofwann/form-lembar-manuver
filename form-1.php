@@ -10,6 +10,25 @@ if (!isset($_SESSION["username"])) {
 
 
 require "functions.php";
+$value2='';
+
+$query = "SELECT id FROM db_form ORDER BY id DESC LIMIT 1";
+$stmt = $conn->query($query);
+if(mysqli_num_rows($stmt) > 0) {
+    if ($row = mysqli_fetch_assoc($stmt)) {
+        $value2 = $row['id'];
+        $value2 = substr($value2, 5, 8);//separating numeric part
+        $value2 = (int)$value2 + 1;//Incrementing numeric part
+        $value2 = "Task-" . sprintf('%03s', $value2);//concatenating incremented value
+        $value = $value2; 
+    }
+} 
+else {
+    $value2 = "Task-001";
+    $value = $value2;
+}
+
+
 
 
 if( isset($_POST["submit"]) ){
@@ -84,7 +103,7 @@ if( isset($_POST["submit"]) ){
 
                         <div class="col-2">
                             <label>ID Task:</label>
-                            <input type="text" name="idTask" value="" class="form-control" >
+                            <input type="text" name="idTask" value="<?= $value; ?>" class="form-control" readonly>
                         
                         </div>
                         
@@ -386,19 +405,19 @@ if( isset($_POST["submit"]) ){
         var cell6 = row.insertCell(5);
 
        cell1.innerHTML = "<input type='text' name='lokasiPembebasan[]' id='' style='width:140px;border:1px solid #fff;'>";
-       cell2.innerHTML = "<input type='text' name='pKerjaPembebasan[]' id='' style='width:140px;border:1px solid #fff;' disabled>";
-       cell3.innerHTML = "<input type='text' name='pManuverPembebasan[]' id='' style='width:140px;border:1px solid #fff;' disabled>";
-       cell4.innerHTML = "<input type='text' name='pK3Pembebasan[]' id='' style='width:140px;border:1px solid #fff;' disabled>";
-       cell5.innerHTML = "<input type='text' name='spvPembebasan[]' id='' style='width:140px;border:1px solid #fff;' disabled>";
-       cell6.innerHTML = "<input type='text' name='oprPembebasan[]' id='' style='width:140px;border:1px solid #fff;' disabled>";
+       cell2.innerHTML = "<input type='text' name='pKerjaPembebasan[]' id='' style='width:140px;border:1px solid #fff;' readonly>";
+       cell3.innerHTML = "<input type='text' name='pManuverPembebasan[]' id='' style='width:140px;border:1px solid #fff;' readonly>";
+       cell4.innerHTML = "<input type='text' name='pK3Pembebasan[]' id='' style='width:140px;border:1px solid #fff;' readonly>";
+       cell5.innerHTML = "<input type='text' name='spvPembebasan[]' id='' style='width:140px;border:1px solid #fff;' readonly>";
+       cell6.innerHTML = "<input type='text' name='oprPembebasan[]' id='' style='width:140px;border:1px solid #fff;' readonly>";
 
        table1 = document.getElementById("table2");
        var row1 = table1.insertRow(-1);
        var cell7 = row1.insertCell(0);
        var cell8 = row1.insertCell(1);
 
-       cell7.innerHTML = "<input type='text' name=spvPenormalan[] id='' style='width:140px;border:1px solid #fff;'>";
-       cell8.innerHTML = "<input type='text' name=oprPenormalan[] id='' style='width:140px;border:1px solid #fff;'>";
+       cell7.innerHTML = "<input type='text' name=spvPenormalan[] id='' style='width:140px;border:1px solid #fff;' readonly>";
+       cell8.innerHTML = "<input type='text' name=oprPenormalan[] id='' style='width:140px;border:1px solid #fff; readonly'>";
     }
 
     function kurang(){

@@ -30,6 +30,7 @@ $user=$_SESSION["username"];
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
   <!-- Custom styles for this template-->
   <link href="css/sb-admin-2.min.css" rel="stylesheet">
@@ -46,7 +47,7 @@ $user=$_SESSION["username"];
     <ul class="navbar-nav bg-gray-900 sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="initiator-dashboard.php">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="amn-dashboard.php">
         <div class="sidebar-brand-icon rotate-n-15">
           <i class=""></i>
         </div>
@@ -58,7 +59,7 @@ $user=$_SESSION["username"];
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item">
-        <a class="nav-link" href="initiator-dashboard.php">
+        <a class="nav-link" href="amn-dashboard.php">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
       </li>
@@ -71,38 +72,25 @@ $user=$_SESSION["username"];
         Interface
       </div>
 
-      <!-- Nav Item - Pages Collapse Menu -->
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-          <i class="fas fa-edit"></i>
-          <span>Create Form</span>
-        </a>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Custom Form:</h6>
-            <a class="collapse-item" href="?url=form-1">Form-1</a>
-            <a class="collapse-item" href="">Form-2</a>
-          </div>
-        </div>
-      </li>
+         
 
       <!-- Nav Item - inbox -->
       <li class="nav-item">
-        <a class="nav-link" href="?url=initiatorInbox">
+        <a class="nav-link" href="?url=amnInbox">
           <i class="fas fa-inbox"></i> 
           <span>Inbox</span></a>
       </li>
 
       <!-- Nav Item - Draft -->
       <li class="nav-item">
-        <a class="nav-link" href="">
+        <a class="nav-link" href="#">
           <i class="far fa-edit"></i>
           <span>Draft</span></a>
       </li>
 
       <!-- Nav Item - Tables -->
       <li class="nav-item">
-        <a class="nav-link" href="?url=list_pekerjaan2">
+        <a class="nav-link" href="?url=amnList">
           <i class="fas fa-fw fa-table"></i>
           <span>Participate</span></a>
       </li>
@@ -150,7 +138,7 @@ $user=$_SESSION["username"];
           </button>
 
           <!-- Topbar Search -->
-          <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+          <!-- <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
             <div class="input-group">
               <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
               <div class="input-group-append">
@@ -159,7 +147,7 @@ $user=$_SESSION["username"];
                 </button>
               </div>
             </div>
-          </form>
+          </form> -->
 
           <!-- Topbar Navbar -->
           <ul class="navbar-nav ml-auto">
@@ -192,9 +180,8 @@ $user=$_SESSION["username"];
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $user?></span>
-                <img src="icon/initiator.ico" style="height:30px; width:auto;"/>
+                <img src="icon/amn.ico" style="height:30px; width:auto;"/>
               </a>
-              
               <!-- Dropdown - User Information -->
               
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -229,7 +216,7 @@ $user=$_SESSION["username"];
 
           <!-- Page Heading -->
           
-          <?php include 'linkurl.php'; ?>
+          <?php include 'linkurl.php'; ?> <br> 
 
         
         

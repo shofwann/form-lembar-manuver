@@ -46,8 +46,8 @@
                 
                 <?php
 
-                require 'koneksi.php';
-                $sql=mysqli_query($conn,"SELECT * FROM db_form WHERE user='$_SESSION[username]'");
+                require "functions.php";
+                $sql=mysqli_query($conn,"SELECT * FROM db_form WHERE user_amn = '$_SESSION[username]'");
                 $no=0;
                 while ($data=mysqli_fetch_array($sql)){
                 $no++;
