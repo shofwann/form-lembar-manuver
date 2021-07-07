@@ -33,21 +33,25 @@
             <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
             </div>
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                <thead>
+                <thead class="">
                     <tr>
-                    <th style="width:5%">No</th>
-                    <th style="width:20%">Pekerjaan</th>
-                    <th>waktu</th>
-                    <th>lokasi</th>
+                    <th rowspan="2" style="width:5%">No</th>
+                    <th rowspan="2" style="width:20%">Pekerjaan</th>
+                    <th rowspan="2">waktu</th>
+                    <th rowspan="2">lokasi</th>
                     <th colspan="2">Status Aproval</th>
-                    <th>Aproval</th>
+                    <th rowspan="2">Aproval</th>
+                    </tr>
+                    <tr>
+                    <th>AMN</th>
+                    <th>MSB</th>
                     </tr>
                 </thead>
                 
                 <?php
 
-                require 'koneksi.php';
-                $sql=mysqli_query($conn,"SELECT * FROM db_form WHERE user='$_SESSION[username]'");
+                require "functions.php";
+                $sql=mysqli_query($conn,"SELECT * FROM db_form WHERE user_msb = '$_SESSION[username]'");
                 $no=0;
                 while ($data=mysqli_fetch_array($sql)){
                 $no++;
@@ -60,8 +64,8 @@
                     <td><?= $data['pekerjaan'];?></td>
                     <td><?= $data['waktu'];?></td>
                     <td><?= $data['lokasi'];?></td>
-                    <td><?= $data['amn'] == "disapprove" ? "<a href='#' class='btn btn-danger btn-icon-split'><span class='icon text-white-50'><i class='fas fa-thumbs-down'></i></span></a>" : "<a href='#' class='btn btn-success btn-icon-split'><span class='icon text-white-50'><i class='fas fa-thumbs-up'></i></span></a>";?></td>
-                    <td><?= $data['msb'] == "disapprove" ? "<a href='#' class='btn btn-danger btn-icon-split'><span class='icon text-white-50'><i class='fas fa-thumbs-down'></i></span></a>" : "<a href='#' class='btn btn-success btn-icon-split'><span class='icon text-white-50'><i class='fas fa-thumbs-up'></i></span></a>";?></td>
+                    <td><?= $data['amn'] == "disapprove" ? "<a href='#' class='btn btn-success btn-icon-split'><span class='icon text-white-50'><i class='fas fa-thumbs-down'></i></span></a>" : "<a href='#' class='btn btn-success btn-icon-split'><span class='icon text-white-50'><i class='fas fa-thumbs-up'></i></span></a>" ;?></td>
+                    <td><?= $data['msb'] == "disapprove" ? "<a href='#' class='btn btn-success btn-icon-split'><span class='icon text-white-50'><i class='fas fa-thumbs-down'></i></span></a>" : "<a href='#' class='btn btn-success btn-icon-split'><span class='icon text-white-50'><i class='fas fa-thumbs-up'></i></span></a>" ;?></td>
                     <td>
                         <a href="?url=show_detail&id=<?= $data['id'];?>" class="btn btn-info btn-icon-split">
                             <span class="icon text-white-50">

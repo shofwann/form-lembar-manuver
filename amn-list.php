@@ -33,14 +33,18 @@
             <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
             </div>
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                <thead>
+                <thead class="">
                     <tr>
-                    <th style="width:5%">No</th>
-                    <th style="width:20%">Pekerjaan</th>
-                    <th>waktu</th>
-                    <th>lokasi</th>
+                    <th rowspan="2" style="width:5%">No</th>
+                    <th rowspan="2" style="width:20%">Pekerjaan</th>
+                    <th rowspan="2">waktu</th>
+                    <th rowspan="2">lokasi</th>
                     <th colspan="2">Status Aproval</th>
-                    <th>Aproval</th>
+                    <th rowspan="2">Aproval</th>
+                    </tr>
+                    <tr>
+                    <th>AMN</th>
+                    <th>MSB</th>
                     </tr>
                 </thead>
                 
@@ -60,12 +64,12 @@
                     <td><?php echo $data['pekerjaan'];?></td>
                     <td><?php echo $data['waktu'];?></td>
                     <td><?php echo $data['lokasi'];?></td>
-                    <td><?php echo $data['amn'];?></td>
-                    <td><?php echo $data['msb'];?></td>
+                    <td><?php echo $data['amn']  == "disapprove" ? "<a href='#' class='btn btn-danger btn-icon-split'><span class='icon text-white-50'><i class='fas fa-thumbs-down'></i></span></a>" : "<a href='#' class='btn btn-success btn-icon-split'><span class='icon text-white-50'><i class='fas fa-thumbs-up'></i></span></a>" ;?></td>
+                    <td><?php echo $data['msb']  == "disapprove" ? "<a href='#' class='btn btn-danger btn-icon-split'><span class='icon text-white-50'><i class='fas fa-thumbs-down'></i></span></a>" : "<a href='#' class='btn btn-success btn-icon-split'><span class='icon text-white-50'><i class='fas fa-thumbs-up'></i></span></a>" ;?></td>
                     <td>
-                        <a href="?url=show_detail&id=<?php echo $data['id'];?>" class="btn btn-success btn-icon-split">
+                        <a href="?url=show_detail&id=<?php echo $data['id'];?>" class="btn btn-info btn-icon-split">
                             <span class="icon text-white-50">
-                            <i class="fas fa-check"></i>
+                            <i class="fas fa-info-circle"></i>
                             </span>
                             <span class="text">detail</span>
                         </a>

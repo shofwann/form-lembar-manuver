@@ -91,8 +91,8 @@ if( isset($_POST["submit"]) ){
                 <!-- Baris/row Ke-0 hide data auto-->
                     <div class="row" >
                         
-                        <div class="col-2">
-                            <label>Create Date:</label>
+                        <div class="col-2 ">
+                            <label class="" style="width: 150px;">Create Date:</label>
                             <input type="text" name="create_date" value="<?php echo date('d-M-Y');?>" class="form-control" readonly>
                         </div>
 
@@ -364,21 +364,7 @@ if( isset($_POST["submit"]) ){
                         </div>
                     </div>
                 <!-- Baris/row submit-->
-                <div class="row" hidden>
-                    <div class="col">
-                        <label for="">AE</label>
-                        <input type="text" value="approve">
-                    </div>
-                    <div class="col">
-                        <label for="">AMN</label>
-                        <input type="text" value="process">
-                    </div>
-                    <div class="col">
-                        <label for="">MSB</label>
-                        <input type="text" value="process">
-                    </div>
-                
-                </div>
+              
                 <!-- Baris/row submit-->
                     <br>
                     <div class="row">

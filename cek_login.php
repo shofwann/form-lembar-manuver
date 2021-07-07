@@ -30,6 +30,12 @@ $cek=mysqli_num_rows($sql);
             header("location:amn-dashboard.php");
         }
 
+        elseif ($data["level"]=="msb"){
+            $_SESSION['username'] = $user;
+            $_SESSION["level"] = "msb";
+            header("location:msb-dashboard.php");
+        }
+
         elseif ($data["level"]=="dispa"){
             $_SESSION['username'] = $user;
             $_SESSION["level"] = "dispa";

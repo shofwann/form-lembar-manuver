@@ -8,11 +8,11 @@ $data=mysqli_fetch_assoc($sql);
 
 if( isset($_POST["submit"]) ){
 
-    if( aprovalAmn ($_POST) > 0){
+    if( aprovalMsb ($_POST) > 0){
         //var_dump(tambah($_POST)); die;
         echo "<script>
                 alert('data berhasil disubmit'); 
-                document.location.href = 'amn-dashboard.php?url=amnInbox';
+                document.location.href = 'msb-dashboard.php?url=msbInbox';
                 </script>
                 ";  
                 
@@ -20,7 +20,7 @@ if( isset($_POST["submit"]) ){
        // var_dump(tambah($_POST)); die;
         echo "<script>
                 alert('data gagal disubmit'); 
-                document.location.href = 'amn-dashboard.php?url=amnInbox';
+                document.location.href = 'msb-dashboard.php?url=msbInbox';
                 </script>
                 "; die;
                 
@@ -69,7 +69,7 @@ if ($sql){
         </div>
         <div class="card-body">
             <div class="form-group cols-sm-6">
-                <a href="?url=amnInbox" class="btn btn-primary btn-icon-split">
+                <a href="?url=msbInbox" class="btn btn-primary btn-icon-split">
                     <span class="icon text-white-50">
                         <i class="fas fa-arrow-left"></i>              
                     </span>
@@ -104,8 +104,8 @@ if ($sql){
                                 </div>
 
                                 <div class="col">
-                                    <label>User amn :</label>
-                                    <input type="text" name="userAmn" placeholder="" value="<?= $_SESSION['username'];?>" class="form-control">
+                                    <label>User msb :</label>
+                                    <input type="text" name="userMsb" placeholder="" value="<?= $_SESSION['username'];?>" class="form-control" readonly>
                                 </div>                                
 
                                 <div class="col-2">

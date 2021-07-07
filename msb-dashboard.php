@@ -47,7 +47,7 @@ $user=$_SESSION["username"];
     <ul class="navbar-nav bg-gray-900 sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="amn-dashboard.php">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="msb-dashboard.php">
         <div class="sidebar-brand-icon rotate-n-15">
           <i class=""></i>
         </div>
@@ -59,7 +59,7 @@ $user=$_SESSION["username"];
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item">
-        <a class="nav-link" href="amn-dashboard.php">
+        <a class="nav-link" href="msb-dashboard.php">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
       </li>
@@ -76,14 +76,14 @@ $user=$_SESSION["username"];
 
       <!-- Nav Item - inbox -->
       <li class="nav-item">
-        <a class="nav-link" href="?url=amnInbox">
+        <a class="nav-link" href="?url=msbInbox">
           <i class="fas fa-inbox"></i> 
           <span>Inbox</span></a>
       </li>
 
       <!-- Nav Item - Tables -->
       <li class="nav-item">
-        <a class="nav-link" href="?url=amnList">
+        <a class="nav-link" href="?url=msbList">
           <i class="fas fa-fw fa-table"></i>
           <span>Participate</span></a>
       </li>

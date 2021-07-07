@@ -226,7 +226,10 @@ function ubah($post){
              waktu = '$waktu',
              installasi = '$instal',
              foto = '$foto', 
-             foto2 = '$foto2' 
+             foto2 = '$foto2',
+             ae = 'approve',
+             amn = 'waiting',
+             msb = 'waiting'
              WHERE id= '$idTask'   
             ";
     mysqli_query($conn,$query);
@@ -313,6 +316,24 @@ function aprovalAmn($post){
              user_amn = '$userAmn',
              ae = 'pending',
              amn = '$aproval'
+             WHERE id = '$idTask'
+             ";
+    mysqli_query($conn,$query);
+
+    return mysqli_affected_rows($conn);
+
+}
+
+function aprovalMsb($post){
+    global $conn;
+    $idTask =$post["idTask"];
+    $userMsb = $post["userMsb"];
+    $aproval = $post["aproval"];
+
+    $query = "UPDATE db_form SET 
+             user_msb = '$userMsb',
+             amn = 'pending',
+             msb = '$aproval'
              WHERE id = '$idTask'
              ";
     mysqli_query($conn,$query);

@@ -43,7 +43,17 @@ if (isset($_GET['url']))
         include 'amn-approve.php';
         break;
 
-        
+        case 'msbInbox';
+        include 'msb-inbox.php';
+        break;
+
+        case 'msbList';
+        include 'msb-list.php';
+        break;
+
+        case 'msbApprove';
+        include 'msb-approve.php';
+        break;
 
         
         
