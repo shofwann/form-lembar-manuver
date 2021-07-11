@@ -41,7 +41,7 @@ if (!isset($_SESSION["username"])) {
     <ul class="navbar-nav bg-gray-900 sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="initiator-dasboard2.php">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="dispa-dashboard.php">
         <div class="sidebar-brand-icon rotate-n-15">
           <i class=""></i>
         </div>
@@ -53,7 +53,7 @@ if (!isset($_SESSION["username"])) {
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item">
-        <a class="nav-link" href="initiator-dasboard2.php">
+        <a class="nav-link" href="dispa-dashboard.php">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
       </li>
@@ -71,14 +71,14 @@ if (!isset($_SESSION["username"])) {
 
       <!-- Nav Item - inbox -->
       <li class="nav-item">
-        <a class="nav-link" href="?url=initiatorInbox">
+        <a class="nav-link" href="?url=dispaInbox">
           <i class="fas fa-inbox"></i>
-          <span>TaskForm</span></a>
+          <span>Inbox</span></a>
       </li>
 
       <!-- Nav Item - Tables -->
       <li class="nav-item">
-        <a class="nav-link" href="?url=list_pekerjaan2">
+        <a class="nav-link" href="?url=dispaList">
           <i class="fas fa-fw fa-table"></i>
           <span>Participate</span></a>
       </li>

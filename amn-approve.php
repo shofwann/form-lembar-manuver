@@ -69,7 +69,7 @@ if ($sql){
         </div>
         <div class="card-body">
             <div class="form-group cols-sm-6">
-                <a href="?url=amnInbox" class="btn btn-primary btn-icon-split">
+                <a href="" onclick="window.history.go(-1); return false;" class="btn btn-primary btn-icon-split">
                     <span class="icon text-white-50">
                         <i class="fas fa-arrow-left"></i>              
                     </span>

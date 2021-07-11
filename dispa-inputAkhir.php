@@ -5,6 +5,28 @@ $tahapan_pembebasan=mysqli_query($conn,"SELECT * FROM db_table_3 WHERE id_form='
 $tahapan_pemnormalan=mysqli_query($conn,"SELECT * FROM db_table_4 WHERE id_form='$_GET[id]'");
 $sql=mysqli_query($conn,"SELECT * FROM db_form WHERE id='$_GET[id]'");
 $data=mysqli_fetch_assoc($sql);
+
+if( isset($_POST["submit"]) ){
+
+    if( aprovalMsb ($_POST) > 0){
+        //var_dump(tambah($_POST)); die;
+        echo "<script>
+                alert('data berhasil disubmit'); 
+                document.location.href = 'msb-dashboard.php?url=msbInbox';
+                </script>
+                ";  
+                
+    } else {
+       // var_dump(tambah($_POST)); die;
+        echo "<script>
+                alert('data gagal disubmit'); 
+                document.location.href = 'msb-dashboard.php?url=msbInbox';
+                </script>
+                "; die;
+                
+    }
+}
+
 if ($sql){
 
 ?>
@@ -30,9 +52,11 @@ if ($sql){
 
   <!-- Custom styles for this template -->
   <link href="css/sb-admin-2.min.css" rel="stylesheet">
+  <link href="css/shofwan.css" rel="stylesheet">
 
   <!-- Custom styles for this page -->
   <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+  
 
 
 </head>
@@ -57,31 +81,36 @@ if ($sql){
         
 
         
-            <form action="" method="post" class="form-horizontal" enctype="multipart/form-data">
+            <form action="cek.php" method="post" class="form-horizontal" enctype="multipart/form-data">
             
                     <!-- Baris/row Ke-0-->
                             <div class="row">
                                 
                                 <div class="col-2">
                                     <label for="id" class="control-label">id</label>
-                                    <input type="text" name="id" id="id" class="form-control" value="<?= $data["id"]; ?>" readonly>
+                                    <input type="text" name="idTask" id="idTask" class="form-control" value="<?= $data["id"]; ?>" readonly>
                                 </div> 
 
                                 <div class="col-3">
                                     <label>Create Date</label>
                                     <div class="col-0">
-                                    <input type="text" data-date="" data-date-format="" value="<?= $data['create_date'];?>" readonly>
+                                    <input type="text" data-date="" value="<?= $data['create_date'];?>" disabled>
                                     </div>
                                 </div>
 
                                 <div class="col-3">
-                                    <label>User :</label>
-                                    <input type="text" name="user" placeholder="" value="<?= $data['user'];?>" class="form-control" readonly>
+                                    <label>User Initiator :</label>
+                                    <input type="text" name="user" placeholder="" value="<?= $data['user'];?>" class="form-control" disabled>
                                 </div>
+
+                                <div class="col">
+                                    <label>User msb :</label>
+                                    <input type="text" name="userMsb" placeholder="" value="<?= $_SESSION['username'];?>" class="form-control" readonly>
+                                </div>                                
 
                                 <div class="col-2">
                                     <label for="fotoLama" class="control-label">foto</label>
-                                    <input type="text" name="fotoLama" id="fotoLama" class="form-control" value="<?= $data["foto"]; ?>" readonly> <!--untuk menyimpan foto lama, jika user tidak ganti foto maka foto ini yg digunakan-->
+                                    <input type="text" name="fotoLama" id="fotoLama" class="form-control" value="<?= $data["foto"]; ?>" disabled> <!--untuk menyimpan foto lama, jika user tidak ganti foto maka foto ini yg digunakan-->
                                 </div> 
 
                             </div>
@@ -90,19 +119,19 @@ if ($sql){
                         <div class="row">
                             <div class="col">
                                 <label for="pekerjaan" class="control-label">Pekerjaan</label>
-                                <input type="text" name="pekerjaan" id="pekerjaan" class="form-control" value="<?= $data["pekerjaan"]; ?>" readonly>
+                                <input type="text" name="pekerjaan" id="pekerjaan" class="form-control" value="<?= $data["pekerjaan"]; ?>" disabled>
                             </div>
                             <div class="col">
                                 <label for="start_date">Start</label>
-                                <input type="text" name="start_date" id="start_date" class="form-control" value="<?= $data["start_date"];?>" readonly>
+                                <input type="text" name="start_date" id="start_date" class="form-control" value="<?= $data["start_date"];?>" disabled>
                             </div>
                             <div class="col">
                                 <label for="end_date">End</label>
-                                <input type="text" name="end_date" id="end_date" class="form-control" value="<?= $data["end_date"];?>" readonly> <!-- nOte -->
+                                <input type="text" name="end_date" id="end_date" class="form-control" value="<?= $data["end_date"];?>" disabled> <!-- nOte -->
                             </div>
                             <div class="col">
                                 <label for="report_date">Req Date Received</label>
-                                <input type="text" name="report_date" id="report_date" class="form-control" value="<?= $data["report_date"]; ?>" readonly>
+                                <input type="text" name="report_date" id="report_date" class="form-control" value="<?= $data["report_date"]; ?>" disabled>
                             </div>
                         </div>
 
@@ -110,16 +139,16 @@ if ($sql){
                         <div class="row">
                             <div class="col">
                                 <label for="lokasi">Lokasi</label>
-                                <input type="text" name="lokasi" id="lokasi" class="form-control" value="<?= $data["lokasi"]; ?>" readonly>
+                                <input type="text" name="lokasi" id="lokasi" class="form-control" value="<?= $data["lokasi"]; ?>" disabled>
                             </div>
                             <div class="col">
                                 <label for="waktu">Waktu</label>
-                                <input type="text" name="waktu" id="waktu" class="form-control" value="<?= $data["waktu"]; ?>" readonly>
+                                <input type="text" name="waktu" id="waktu" class="form-control" value="<?= $data["waktu"]; ?>" disabled>
                             </div>
                         
                             <div class="col">
                                 <label for="instal">Installasi</label>
-                                <input type="text" name="instal" id="instal" class="form-control" value="<?= $data["installasi"]; ?>" readonly>
+                                <input type="text" name="instal" id="instal" class="form-control" value="<?= $data["installasi"]; ?>" disabled>
                             </div>
                         </div>
 
@@ -144,11 +173,11 @@ if ($sql){
                                                 <?php while ($manuverBebas = mysqli_fetch_array($sql_manuver)) { ?>
                                                 <tr>
                                                     <td><?= $manuverBebas["lokasi"]  ?></td>
-                                                    <td><?= $manuverBebas["pengawas_pekerjaan"]  ?></td>
-                                                    <td><?= $manuverBebas["pengawas_manuver"]  ?></td>
-                                                    <td><?= $manuverBebas["pengawas_manuver"]  ?></td>
-                                                    <td><?= $manuverBebas["spv_gitet"]  ?></td>
-                                                    <td><?= $manuverBebas["opr_gitet"]  ?></td>
+                                                    <td><input type="text" name="peng_pekerjaan[]" value="<?= $manuverBebas["pengawas_pekerjaan"]  ?>" style="width:120px;border:1px solid #fff"></td>
+                                                    <td><input type="text" name="peng_manuver[]" value="<?= $manuverBebas["pengawas_manuver"]  ?>" style="width:120px;border:1px solid #fff"></td>
+                                                    <td><input type="text" name="peng_k3[]" value="<?= $manuverBebas["pengawas_k3"]  ?>" style="width:120px;border:1px solid #fff"></td>
+                                                    <td><input type="text" name="spv_gitet[]" value="<?= $manuverBebas["spv_gitet"]  ?>" style="width:120px;border:1px solid #fff"></td>
+                                                    <td><input type="text" name="opr_gitet[]" value="<?= $manuverBebas["opr_gitet"]  ?>" style="width:120px;border:1px solid #fff"></td>
                                                 </tr>
                                                 <?php } ?>
                                             
@@ -187,12 +216,12 @@ if ($sql){
                                 <br>
                                     <label>Kelengkapan Dokumen :</label>
                                     <div action="">
-                                        <input type="checkbox" id="" name="" value="" disabled="disabled">
-                                        <label for="vehicle1"> WP</label><br>
-                                        <input type="checkbox" id="" name="" value="" disabled="disabled">
-                                        <label for="vehicle2"> IK</label><br>
-                                        <input type="checkbox" id="" name="" value="" disabled="disabled">
-                                        <label for="vehicle3"> K3</label><br>
+                                        <input type="checkbox" id="wp" name="wp" value="wp">
+                                        <label for="wp"> WP</label><br>
+                                        <input type="checkbox" id="ik" name="ik" value="ik">
+                                        <label for="ik"> IK</label><br>
+                                        <input type="checkbox" id="k3" name="k3" value="k3">
+                                        <label for="k3"> K3</label><br>
                                     </div>
                             </div>
                         </div>
@@ -224,16 +253,18 @@ if ($sql){
 
                         <div class="row">
                             <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
-                                <input type="text" style="border:1px solid #fff">
+                                <input type="text" name="scada_awal" style="border:1px solid #fff; width:300px; font-style:italic;" placeholder="Fill in Mw MVar Amper Volt">
                             </div>
                             <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
-                                <input type="text" style="border:1px solid #fff">
+                                <input type="text" name="dpf_awal_before" style="border:1px solid #fff; width:300px; font-style:italic;" placeholder="Fill in Mw MVar Amper Volt">
+                                <input type="file" name="dpfFile_awal">
                             </div>
                             <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
-                                <input type="text" style="border:1px solid #fff">
+                                <input type="text" name="scada_akhir" style="border:1px solid #fff; width:300px; font-style:italic;" placeholder="" disabled>
                             </div>
                             <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
-                                <input type="text" style="border:1px solid #fff">
+                                <input type="text" style="border:1px solid #fff; width:300px; font-style:italic;" placeholder="" disabled>
+                                <input type="file" name="dpfFile_akhir" disabled>
                             </div>
                         </div>
 
@@ -258,7 +289,7 @@ if ($sql){
 
                         <div class="row">
                             <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
-                                <input type="text" style="border:1px solid #fff">
+                            <input type="text" name="scada_awal_after" style="border:1px solid #fff; width:300px; font-style:italic;" placeholder="Fill in Mw MVar Amper Volt">
                             </div>
                             <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
                                 <input type="text" style="border:1px solid #fff">
@@ -304,6 +335,19 @@ if ($sql){
                                     </div>
                         </div>
                     <!-- Baris/ row ke-6-->
+                    <div class="row">
+                            <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
+                                <label for="">Catatan Pasca Pembebasan:</label>
+                            </div>
+                    
+                    </div>
+                    <div class="row">
+                            <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
+                                <textarea name="" id="" cols="190" rows="5"></textarea>
+                            </div>
+                    
+                    </div>    
+                    <!-- Baris/ row ke-6-->
                         <h2>Manuver Penormalan Installasi</h2>
                         <div class="row">
                                 <div class="col" style="border:1px solid">
@@ -331,9 +375,9 @@ if ($sql){
                                                 <tr>
                                                     <td><?= $i ?></td>
                                                     <td><?= $penormalan["lokasi"]  ?></td>
-                                                    <td><?= $penormalan["remote"]  ?></td>
-                                                    <td><?= $penormalan["real"]  ?></td>
-                                                    <td><?= $penormalan["ads"]  ?></td>
+                                                    <td><input type="time" value="<?= time(); ?>"> WIB</td>
+                                                    <td><input type="time" value="<?= time(); ?>"> WIB</td>
+                                                    <td><input type="time" value="<?= time(); ?>"> WIB</td>
                                                     <td><?= $penormalan["installasi"]  ?></td>
                                                 </tr>
                                                     <?php $i++ ?>
@@ -362,10 +406,11 @@ if ($sql){
                                 <textarea name="" id="" cols="90" rows="5"></textarea>
                             </div>
                         </div>
+                       
                         <br>
-                        <div class="row" hidden>
+                        <div class="row">
                             <div class="col-2">
-                            <button type="submit" name="submit" >Simpan Form Data Manuver</button>
+                            <button type="submit" name="submit" >Submit</button>
                             </div>
                     
                         </div>                                   
@@ -383,13 +428,9 @@ if ($sql){
 			z=document.getElementById("bodyTable2").insertRow(j);
         for (k=0; k<2; k++){
             q = z.insertCell(k);
-            q.innerHTML = "<input type='text' name='a[]' style='width:100px;height:10px;border:1px solid #fff;' readonly>"
+            q.innerHTML = "<input type='text' name='a[]' style='width:100px;height:10px;border:1px solid #fff;' disabled>"
         }
     }
-
-//     function kembali() {
-//   history.back(-2);
-// }
     </script>
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
@@ -400,6 +441,9 @@ if ($sql){
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 
    
 

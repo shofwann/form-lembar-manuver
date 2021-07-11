@@ -67,7 +67,7 @@
                             <span class="icon text-white-50">
                             <i class="fas fa-info-circle"></i>
                             </span>
-                            <span class="text">detail</span>
+                            <span class="text">edit</span>
                         </a>
                         
                     </tr>

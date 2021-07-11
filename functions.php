@@ -314,7 +314,7 @@ function aprovalAmn($post){
 
     $query = "UPDATE db_form SET 
              user_amn = '$userAmn',
-             ae = 'pending',
+             ae = 'waiting',
              amn = '$aproval'
              WHERE id = '$idTask'
              ";
@@ -332,7 +332,7 @@ function aprovalMsb($post){
 
     $query = "UPDATE db_form SET 
              user_msb = '$userMsb',
-             amn = 'pending',
+             amn = 'waiting',
              msb = '$aproval'
              WHERE id = '$idTask'
              ";
@@ -343,6 +343,116 @@ function aprovalMsb($post){
 }
 
 function hapus(){
+
+}
+
+function inputDispaAwal($post) {
+    global $conn;
+    $idTask = $post["idTask"]; 
+    $jumlah_baris_nama = count($_POST["peng_pekerjaan"]);
+    for ($i=0; $i<$jumlah_baris_nama; $i++) {
+        $nama_pekerja = $_POST["peng_pekerjaan"][$i];
+        $nama_manuver = $_POST["peng_manuver"][$i];
+        $nama_k3 = $_POST["peng_k3"][$i];
+        $nama_spv = $_POST["spv"][$i];
+        $nama_opr = $_POST["opr"][$i];
+        $id_isi = $_POST["sampel"][$i];
+        $query = "UPDATE db_table_1 SET
+                 pengawas_pekerjaan = '$nama_pekerja',
+                 pengawas_manuver = '$nama_manuver',
+                 pengawas_k3 = '$nama_k3',
+                 spv_gitet = '$nama_spv',
+                 opr_gitet = '$nama_opr'
+                 WHERE id = $id_isi
+                 ";
+                 mysqli_query($conn,$query);
+    }
+
+    $document = implode(",", $_POST["dokumen"]);
+    $scada_awal_before = htmlspecialchars($post["scada_awal_before"]);
+    $scada_awal_after = htmlspecialchars($post["scada_awal_after"]);
+    $dpf_awal = htmlspecialchars($post["dpf_awal"]);
+    $catatan = htmlspecialchars($post["catatan_pasca_pembebasan"]);
+    $userDispa = $post["userdispa"];
+
+     $foto = upload3();
+    //  if ( !$foto ) {
+    //      return false;
+    //  }
+
+    $query = "UPDATE db_form SET
+              user_dispa_awal = '$userDispa',
+              document = '$document',
+              scada_awal_before = '$scada_awal_before',
+              scada_awal_after = '$scada_awal_after',
+              dpf_awal = '$dpf_awal',
+              catatan_pasca_pembebasan = '$catatan',
+              dispa = 'penormalan',
+              foto_dpf1 = '$foto'
+              WHERE id = '$idTask'
+              ";
+    mysqli_query($conn,$query);
+    
+    $jumlah_manuver_bebas = count($_POST["remote_bebas"]);
+    for ($i=0; $i<$jumlah_manuver_bebas; $i++) {
+        $remote_bebas = $_POST["remote_bebas"][$i];
+        $real_bebas = $_POST["real_bebas"][$i];
+        $ads_bebas = $_POST["ads_bebas"][$i];
+        $id_isi2 = $_POST["sampel_manuver"][$i];
+        $query = "UPDATE db_table_3 SET 
+                 remote_bebas = '$remote_bebas',
+                 real_bebas = '$real_bebas',
+                 ads_bebas = '$ads_bebas'
+                 WHERE id = $id_isi2
+                 ";
+        mysqli_query($conn,$query);
+    }
+
+    return mysqli_affected_rows($conn);
+}
+
+function upload3() {
+    $namaFile = $_FILES["dpfFile_awal"]["name"];
+    $ukuranFile = $_FILES["dpfFile_awal"]["size"];
+    $error = $_FILES["dpfFile_awal"]["error"];
+    $tmpNama = $_FILES["dpfFile_awal"]["tmp_name"];
+
+    //cek apakah tidak ada gambar yg diupload
+    // if ($error === 4) {
+    //     echo "<script>
+    //             alert ('Anda belum upload gambar!');
+    //           </script>";
+    //     return false;
+    // }
+    //cek yang diupload gambar atau bukan
+    $ekstensiGambarValid = ['jpg','jpeg','png']; //menentukan format
+    $ekstensiGambar = explode('.',$namaFile); //explode untuk delimiter nama file menjadi array contoh shofwan.jpg menjadi ['shofwan'.'jpg']
+    $ekstensiGambar = strtolower(end($ekstensiGambar)); // end untuk mengambil array paling belakang dimana paling belakang jpg/png/jpeg strtolower untuk mengecilkan huruf jika format kapital
+    if( !in_array($ekstensiGambar,$ekstensiGambarValid)){
+        echo "<script>
+                alert ('Anda tidak mengupload gambar format jpg, jpeg dan png!');
+                </script>";
+        return false;
+
+    } 
+
+    //cek ukuran gambar
+    if( $ukuranFile > 1000000){
+        echo "<script>
+                alert ('Anda mengupload gambar ukuran diatas 1MW');
+                </script>";
+        return false;
+    }
+
+    //lolos upload
+    //generate nama gambar agar tidak ada yg sama
+    $namaFileBaru = uniqid();                               //membuat nama file random
+    $namaFileBaru .= '.';                                   //menggabungkan nama file baru dengan ekstensu eksisting
+    $namaFileBaru .= $ekstensiGambar;
+    move_uploaded_file($tmpNama, 'dpf/' . $namaFileBaru);
+    return  $namaFileBaru;
+
+
 
 }
 

@@ -55,6 +55,26 @@ if (isset($_GET['url']))
         include 'msb-approve.php';
         break;
 
+        case 'dispaInbox';
+        include 'dispa-inbox.php';
+        break;
+
+        case 'dispaInputAwal';
+        include 'dispa-inputAwal.php';
+        break;
+
+        case 'dispaInputAkhir';
+        include 'dispa-inputAkhir.php';
+        break;
+
+
+        case 'dispaList';
+        include 'dispa-list.php';
+        break;
+
+        
+
+
         
         
     }
