@@ -1,6 +1,7 @@
 <?php
 require 'functions.php';
 $sql_manuver=mysqli_query($conn,"SELECT * FROM db_table_1 WHERE id_form='$_GET[id]'");
+$sql_manuver2=mysqli_query($conn,"SELECT * FROM db_table_1 WHERE id_form='$_GET[id]'");
 $tahapan_pembebasan=mysqli_query($conn,"SELECT * FROM db_table_3 WHERE id_form='$_GET[id]'");
 $tahapan_pemnormalan=mysqli_query($conn,"SELECT * FROM db_table_4 WHERE id_form='$_GET[id]'");
 $sql=mysqli_query($conn,"SELECT * FROM db_form WHERE id='$_GET[id]'");
@@ -170,29 +171,27 @@ if ($sql){
                                             </tr>
                                         </thead>
                                         <tbody id="bodyTable2">
-                                            <?php while ($manuverBebas = mysqli_fetch_array($sql_manuver)) { ?>
+                                            <?php while ($manuverBebas2 = mysqli_fetch_array($sql_manuver2)) { ?>
                                                 <tr>
-                                                    <td><?= $manuverBebas["spvPenormalan"]  ?></td>
-                                                    <td><?= $manuverBebas["oprPenormalan"]  ?></td>
+                                                    <td><?= $manuverBebas2["spv_gitet_normal"]  ?></td>
+                                                    <td><?= $manuverBebas2["opr_gitet_normal"]  ?></td>
                                                 </tr>
                                             <?php } ?>
-                                        </tbody>
-                                            
-                                            
-                                    </table>
-                                    
+                                        </tbody>                                        
+                                    </table>  
                                 </div>
                             </div>
                             <div class="col-1 ml-3">
                                 <br>
+                                <?php $cekbok = explode(",", $data["document"]); ?>
                                     <label>Kelengkapan Dokumen :</label>
                                     <div action="">
-                                        <input type="checkbox" id="" name="" value="" disabled="disabled">
-                                        <label for="vehicle1"> WP</label><br>
-                                        <input type="checkbox" id="" name="" value="" disabled="disabled">
-                                        <label for="vehicle2"> IK</label><br>
-                                        <input type="checkbox" id="" name="" value="" disabled="disabled">
-                                        <label for="vehicle3"> K3</label><br>
+                                        <input type="checkbox" id="wp" name="document[]" value="wp" <?php in_array('wp', $cekbok) ? print 'checked' : ' '; ?> disabled>
+                                        <label for="wp">wp</label><br>
+                                        <input type="checkbox" id="ik" name="document[]" value="ik" <?php in_array('ik', $cekbok) ? print 'checked' : ' '; ?> disabled>
+                                        <label for="ik"> IK</label><br>
+                                        <input type="checkbox" id="k3" name="document[]" value="k3" <?php in_array('k3', $cekbok) ? print 'checked' : ' '; ?> disabled>
+                                        <label for="k3"> K3</label><br>
                                     </div>
                             </div>
                         </div>
@@ -224,16 +223,16 @@ if ($sql){
 
                         <div class="row">
                             <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
-                                <input type="text" style="border:1px solid #fff">
+                                <p><?= $data["scada_awal_before"]; ?></p>
                             </div>
                             <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
-                                <input type="text" style="border:1px solid #fff">
+                                <p><?= $data["dpf_awal"]; ?><a href="dpf/<?= $data["foto_dpf1"]; ?>" class="btn" download><span class="text fas fa-download"></span></a></p>
                             </div>
                             <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
-                                <input type="text" style="border:1px solid #fff">
+                                <p><?= $data["scada_akhir_before"]; ?></p>
                             </div>
                             <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
-                                <input type="text" style="border:1px solid #fff">
+                            <p><?= $data["dpf_akhir"]; ?><a href="dpf/<?= $data["foto_dpf2"]; ?>" class="btn" download><span class="text fas fa-download"></span></a></p>
                             </div>
                         </div>
 
@@ -258,10 +257,10 @@ if ($sql){
 
                         <div class="row">
                             <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
-                                <input type="text" style="border:1px solid #fff">
+                                <p><?= $data["scada_awal_after"]; ?></p>
                             </div>
                             <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
-                                <input type="text" style="border:1px solid #fff">
+                                <p><?= $data["scada_akhir_after"]; ?></p>
                             </div>
                         </div>
                     <!-- Baris/ row ke-5-->
@@ -292,9 +291,9 @@ if ($sql){
                                                 <tr>
                                                     <td><?= $i ?></td>
                                                     <td><?= $pembebasan["lokasi"]  ?></td>
-                                                    <td><?= $pembebasan["remote"]  ?></td>
-                                                    <td><?= $pembebasan["real"]  ?></td>
-                                                    <td><?= $pembebasan["ads"]  ?></td>
+                                                    <td><?= $pembebasan["remote_bebas"]  ?></td>
+                                                    <td><?= $pembebasan["real_bebas"]  ?></td>
+                                                    <td><?= $pembebasan["ads_bebas"]  ?></td>
                                                     <td><?= $pembebasan["installasi"]  ?></td>
                                                 </tr>
                                                     <?php $i++ ?>
@@ -303,6 +302,18 @@ if ($sql){
                                         </div>
                                     </div>
                         </div>
+                        <div class="row">
+                            <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
+                                <label for="">Catatan Pasca Pembebasan:</label>
+                            </div>
+                    
+                        </div>
+                        <div class="row">
+                            <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
+                                <p><?= $data["catatan_pasca_pembebasan"]; ?></p>
+                        </div>
+                    
+                    </div>    
                     <!-- Baris/ row ke-6-->
                         <h2>Manuver Penormalan Installasi</h2>
                         <div class="row">
@@ -331,9 +342,9 @@ if ($sql){
                                                 <tr>
                                                     <td><?= $i ?></td>
                                                     <td><?= $penormalan["lokasi"]  ?></td>
-                                                    <td><?= $penormalan["remote"]  ?></td>
-                                                    <td><?= $penormalan["real"]  ?></td>
-                                                    <td><?= $penormalan["ads"]  ?></td>
+                                                    <td><?= $penormalan["remote_normal"]  ?></td>
+                                                    <td><?= $penormalan["real_normal"]  ?></td>
+                                                    <td><?= $penormalan["ads_normal"]  ?></td>
                                                     <td><?= $penormalan["installasi"]  ?></td>
                                                 </tr>
                                                     <?php $i++ ?>
@@ -344,31 +355,19 @@ if ($sql){
                                 </div>
                         </div>
 
-                        <div class="row" style="background-color:#F2F4F4;">
-                    
-                            <div class="col-6" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
-                                <label for="">Catatan Pembebasan:</label>
-                            </div>
-
-                            <div class="col-6" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
-                                <label for="">Catatan Penormalan:</label>
-                            </div>
-                        </div>
-                        <div class="row" style="">
-                            <div class="col-6" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
-                                <textarea name="" id="" cols="90" rows="5"></textarea>
-                            </div>
-                            <div class="col-6" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
-                                <textarea name="" id="" cols="90" rows="5"></textarea>
-                            </div>
-                        </div>
-                        <br>
-                        <div class="row" hidden>
-                            <div class="col-2">
-                            <button type="submit" name="submit" >Simpan Form Data Manuver</button>
+                        <div class="row">
+                            <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
+                                <label for="">Catatan Pasca Penormalan:</label>
                             </div>
                     
-                        </div>                                   
+                    </div>
+                    <div class="row">
+                            <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
+                            <p><?= $data["catatan_pasca_penormalan"]; ?></p>
+                            </div>
+                    
+                    </div>   
+                                                        
             </form>
             <?php  } ?>
         </div>
@@ -377,15 +376,15 @@ if ($sql){
 
     <script>
     
-    table = document.getElementById("table1");
-    totalRow = table.rows.length;
-    for (j=0; j < totalRow; j++){
-			z=document.getElementById("bodyTable2").insertRow(j);
-        for (k=0; k<2; k++){
-            q = z.insertCell(k);
-            q.innerHTML = "<input type='text' name='a[]' style='width:100px;height:10px;border:1px solid #fff;' readonly>"
-        }
-    }
+    // table = document.getElementById("table1");
+    // totalRow = table.rows.length;
+    // for (j=0; j < totalRow; j++){
+	// 		z=document.getElementById("bodyTable2").insertRow(j);
+    //     for (k=0; k<2; k++){
+    //         q = z.insertCell(k);
+    //         q.innerHTML = "<input type='text' name='a[]' style='width:100px;height:10px;border:1px solid #fff;' readonly>"
+    //     }
+    // }
 
 //     function kembali() {
 //   history.back(-2);

@@ -67,9 +67,12 @@ if (isset($_GET['url']))
         include 'dispa-inputAkhir.php';
         break;
 
-
         case 'dispaList';
         include 'dispa-list.php';
+        break;
+
+        case 'tes';
+        include 'tes.php';
         break;
 
         

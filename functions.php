@@ -368,6 +368,7 @@ function inputDispaAwal($post) {
                  mysqli_query($conn,$query);
     }
 
+   
     $document = implode(",", $_POST["dokumen"]);
     $scada_awal_before = htmlspecialchars($post["scada_awal_before"]);
     $scada_awal_after = htmlspecialchars($post["scada_awal_after"]);
@@ -375,7 +376,7 @@ function inputDispaAwal($post) {
     $catatan = htmlspecialchars($post["catatan_pasca_pembebasan"]);
     $userDispa = $post["userdispa"];
 
-     $foto = upload3();
+    $foto = upload3();
     //  if ( !$foto ) {
     //      return false;
     //  }
@@ -451,9 +452,104 @@ function upload3() {
     $namaFileBaru .= $ekstensiGambar;
     move_uploaded_file($tmpNama, 'dpf/' . $namaFileBaru);
     return  $namaFileBaru;
+}
+
+function inputDispaAkhir($post) {
+    global $conn;
+    $idTask = $post["idTask"];
+    $jumlah_baris_nama = count($post["spv_gitet_normal"]);
+    for ($i=0; $i<$jumlah_baris_nama; $i++){
+        $nama_spv = $post["spv_gitet_normal"][$i];
+        $nama_opr = $post["opr_gitet_normal"][$i];
+        $id_isi = $post["sample"][$i];
+        $query = "UPDATE db_table_1 SET
+                 spv_gitet_normal = '$nama_spv',
+                 opr_gitet_normal = '$nama_opr'
+                 WHERE id = $id_isi
+                 ";
+                 mysqli_query($conn,$query);
+    }
+    $scada_akhir_before = htmlspecialchars($post["scada_akhir_before"]);
+    $scada_akhir_after = htmlspecialchars($post["scada_akhir_after"]);
+    $dpf_akhir = $post["dpf_akhir"];
+    $catatan = htmlspecialchars($post["catatan_pasca_penormalan"]);
+    $userDispa = $post["userdispa"]; 
+
+    $foto2 = upload4();
+
+    $query = "UPDATE db_form SET
+             user_dispa_akhir = '$userDispa',
+             scada_akhir_before = '$scada_akhir_before',
+             scada_akhir_after = '$scada_akhir_after',
+             dpf_akhir = '$dpf_akhir',
+             catatan_pasca_penormalan = '$catatan',
+             dispa = 'done',
+             foto_dpf2 = '$foto2'
+             WHERE id = '$idTask'
+             ";
+    mysqli_query($conn,$query);
+
+    $jumlah_manuver_normal = count($post["remote_normal"]);
+    for ($i=0; $i<$jumlah_manuver_normal; $i++){
+        $remote_normal = $post["remote_normal"][$i];
+        $real_normal = $post["real_normal"][$i];
+        $ads_normal = $post["ads_normal"][$i];
+        $id_isi2 = $post["sampel2"][$i];
+        $query = "UPDATE db_table_4 SET
+                 remote_normal = '$remote_normal',
+                 real_normal = '$real_normal',
+                 ads_normal = '$ads_normal'
+                 WHERE id = $id_isi2
+                 ";
+        mysqli_query($conn,$query);
+    }
+
+    return mysqli_affected_rows($conn);
 
 
 
+}
+
+function upload4() {
+    $namaFile = $_FILES["dpfFile_akhir"]["name"];
+    $ukuranFile = $_FILES["dpfFile_akhir"]["size"];
+    $error = $_FILES["dpfFile_akhir"]["error"];
+    $tmpNama = $_FILES["dpfFile_akhir"]["tmp_name"];
+
+    //cek apakah tidak ada gambar yg diupload
+    // if ($error === 4) {
+    //     echo "<script>
+    //             alert ('Anda belum upload gambar!');
+    //           </script>";
+    //     return false;
+    // }
+    //cek yang diupload gambar atau bukan
+    $ekstensiGambarValid = ['jpg','jpeg','png']; //menentukan format
+    $ekstensiGambar = explode('.',$namaFile); //explode untuk delimiter nama file menjadi array contoh shofwan.jpg menjadi ['shofwan'.'jpg']
+    $ekstensiGambar = strtolower(end($ekstensiGambar)); // end untuk mengambil array paling belakang dimana paling belakang jpg/png/jpeg strtolower untuk mengecilkan huruf jika format kapital
+    if( !in_array($ekstensiGambar,$ekstensiGambarValid)){
+        echo "<script>
+                alert ('Anda tidak mengupload gambar format jpg, jpeg dan png!');
+                </script>";
+        return false;
+
+    } 
+
+    //cek ukuran gambar
+    if( $ukuranFile > 1000000){
+        echo "<script>
+                alert ('Anda mengupload gambar ukuran diatas 1MW');
+                </script>";
+        return false;
+    }
+
+    //lolos upload
+    //generate nama gambar agar tidak ada yg sama
+    $namaFileBaru = uniqid();                               //membuat nama file random
+    $namaFileBaru .= '.';                                   //menggabungkan nama file baru dengan ekstensu eksisting
+    $namaFileBaru .= $ekstensiGambar;
+    move_uploaded_file($tmpNama, 'dpf/' . $namaFileBaru);
+    return  $namaFileBaru;
 }
 
 

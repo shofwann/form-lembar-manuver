@@ -173,7 +173,7 @@ if ($sql){
                                                 <?php while ($manuverBebas = mysqli_fetch_array($sql_manuver)) { ?>
                                                 <tr>
                                                     <td><?= $manuverBebas["lokasi"]  ?></td>
-                                                    <td><input type="text" name="peng_pekerjaan[]" value="" style="width:120px;border:1px solid #fff"><input type="text" name="sampel[]" value="<?= $manuverBebas["id"]  ?>"></td>
+                                                    <td><input type="text" name="peng_pekerjaan[]" value="" style="width:120px;border:1px solid #fff"><input type="text" name="sampel[]" value="<?= $manuverBebas["id"]  ?>" hidden></td>
                                                     <td><input type="text" name="peng_manuver[]" value="" style="width:120px;border:1px solid #fff"></td>
                                                     <td><input type="text" name="peng_k3[]" value="" style="width:120px;border:1px solid #fff"></td>
                                                     <td><input type="text" name="spv[]" value="" style="width:120px;border:1px solid #fff"></td>
@@ -216,7 +216,7 @@ if ($sql){
                                 <br>
                                     <label>Kelengkapan Dokumen :</label>
                                     <div action="">
-                                        <input type="checkbox" id="wp" name="dokumen[]" value="wp">
+                                        <input type="checkbox" id="wp" name="dokumen[]" value="wp" required>
                                         <label for="wp"> WP</label><br>
                                         <input type="checkbox" id="ik" name="dokumen[]" value="ik">
                                         <label for="ik"> IK</label><br>
@@ -253,17 +253,17 @@ if ($sql){
 
                         <div class="row">
                             <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
-                                <input type="text" name="scada_awal_before" style="border:1px solid #fff; width:300px; font-style:italic;" placeholder="Fill in Mw MVar Amper Volt">
+                                <input type="text" name="scada_awal_before" style="border:1px solid #fff; width:300px;" placeholder="Fill in Mw MVar Amper Volt">
                             </div>
                             <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
-                                <input type="text" name="dpf_awal" style="border:1px solid #fff; width:300px; font-style:italic;" placeholder="Fill in Mw MVar Amper Volt">
+                                <input type="text" name="dpf_awal" style="border:1px solid #fff; width:300px;" placeholder="Fill in Mw MVar Amper Volt">
                                 <input type="file" name="dpfFile_awal">
                             </div>
                             <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
-                                <input type="text" name="scada_akhir" style="border:1px solid #fff; width:300px; font-style:italic;" placeholder="" disabled>
+                                <input type="text" name="scada_akhir" style="border:1px solid #fff; width:300px; " placeholder="" disabled>
                             </div>
                             <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
-                                <input type="text" style="border:1px solid #fff; width:300px; font-style:italic;" placeholder="" disabled>
+                                <input type="text" style="border:1px solid #fff; width:300px;" placeholder="" disabled>
                                 <input type="file" name="dpfFile_akhir" disabled>
                             </div>
                         </div>
@@ -289,7 +289,7 @@ if ($sql){
 
                         <div class="row">
                             <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
-                            <input type="text" name="scada_awal_after" style="border:1px solid #fff; width:300px; font-style:italic;" placeholder="Fill in Mw MVar Amper Volt">
+                                <input type="text" name="scada_awal_after" style="border:1px solid #fff; width:300px; font-style:italic;" placeholder="Fill in Mw MVar Amper Volt">
                             </div>
                             <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
                                 <input type="text" style="border:1px solid #fff">
@@ -323,7 +323,7 @@ if ($sql){
                                                 <tr>
                                                     <td><?= $i ?></td>
                                                     <td><?= $pembebasan["lokasi"]  ?></td>
-                                                    <td><input type="time" value="<?= time(); ?>" name="remote_bebas[]"><input type="text" name="sampel_manuver[]" value="<?= $pembebasan["id"]  ?>"> WIB</td>
+                                                    <td><input type="time" value="<?= time(); ?>" name="remote_bebas[]"><input type="text" name="sampel_manuver[]" value="<?= $pembebasan["id"]  ?>" hidden> WIB</td>
                                                     <td><input type="time" value="<?= time(); ?>" name="real_bebas[]"> WIB</td>
                                                     <td><input type="time" value="<?= time(); ?>" name="ads_bebas[]"> WIB</td>
                                                     <td><?= $pembebasan["installasi"]  ?></td>
@@ -375,9 +375,9 @@ if ($sql){
                                                 <tr>
                                                     <td><?= $i ?></td>
                                                     <td><?= $penormalan["lokasi"]  ?></td>
-                                                    <td><?= $penormalan["remote"]  ?></td>
-                                                    <td><?= $penormalan["real"]  ?></td>
-                                                    <td><?= $penormalan["ads"]  ?></td>
+                                                    <td><?= $penormalan["remote_normal"]  ?></td>
+                                                    <td><?= $penormalan["real_normal"]  ?></td>
+                                                    <td><?= $penormalan["ads_normal"]  ?></td>
                                                     <td><?= $penormalan["installasi"]  ?></td>
                                                 </tr>
                                                     <?php $i++ ?>
