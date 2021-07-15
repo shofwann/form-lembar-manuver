@@ -1,6 +1,12 @@
 <?php
 $conn=mysqli_connect("localhost","root","","db_lemver");
 
+$jumlahDataPerHalaman = 5;
+$jumlahManuver = count(query("SELECT * FROM db_form"));
+$jumlahHalaman = ceil($jumlahManuver/$jumlahDataPerHalaman);
+$halamanAktif = ( isset($_GET["halaman"]) ) ? $_GET["halaman"] : 1;
+$awalData = ($jumlahDataPerHalaman * $halamanAktif) - $jumlahDataPerHalaman;
+
 function query($query){
     global $conn;
     $result = mysqli_query($conn,$query); //kotaknya

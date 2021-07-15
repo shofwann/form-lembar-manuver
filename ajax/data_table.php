@@ -1,0 +1,49 @@
+<?php
+require "../functions.php";
+$keyword = $_GET["keyword"];
+$query = "SELECT * FROM db_form WHERE pekerjaan LIKE '%$keyword%' OR start_date LIKE '%$keyword%' OR lokasi LIKE '%$keyword%'";
+$folder = query($query);
+
+
+
+ 
+
+?>
+
+<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                    <th style="width:5%">No</th>
+                    <th style="width:20%">Pekerjaan</th>
+                    <th>waktu</th>
+                    <th>lokasi</th>
+                    <th colspan="2">Status Aproval</th>
+                    <th>Aproval</th>
+                    </tr>
+                </thead>
+                <?php $no=1; ?>
+                <?php foreach ( $folder as $data) : ?>
+                <tbody>
+                    <tr>
+                    <td><?= $no+$awalData?></td>
+                    <td><?= $data['pekerjaan'];?></td>
+                    <td><?= $data['waktu'];?></td>
+                    <td><?= $data['lokasi'];?></td>
+                    <td><?= $data['amn'] == "disapprove" ? "<a href='#' class='btn btn-danger btn-icon-split'><span class='icon text-white-50'><i class='fas fa-thumbs-down'></i></span></a>" : "<a href='#' class='btn btn-success btn-icon-split'><span class='icon text-white-50'><i class='fas fa-thumbs-up'></i></span></a>";?></td>
+                    <td><?= $data['msb'] == "disapprove" ? "<a href='#' class='btn btn-danger btn-icon-split'><span class='icon text-white-50'><i class='fas fa-thumbs-down'></i></span></a>" : "<a href='#' class='btn btn-success btn-icon-split'><span class='icon text-white-50'><i class='fas fa-thumbs-up'></i></span></a>";?></td>
+                    <td>
+                        <a href="?url=show_detail&id=<?= $data['id'];?>" class="btn btn-info btn-icon-split">
+                            <span class="icon text-white-50">
+                            <i class="fas fa-info-circle"></i>
+                            </span>
+                            <span class="text">edit</span>
+                        </a>
+                    </tr>
+                </tbody>
+                <?php $no++ ?>
+                <?php endforeach; ?>
+            </table>
+           
+
+
+           

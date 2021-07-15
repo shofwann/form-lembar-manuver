@@ -15,7 +15,7 @@ if (isset($_GET['url']))
         include 'listManuverDispa.php';
         break;
 
-        case 'list_pekerjaan2';
+        case 'list_pekerjaan';
         include 'list_pekerjaan2.php';
         break;
 

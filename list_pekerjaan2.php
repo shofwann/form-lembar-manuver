@@ -1,3 +1,11 @@
+<?php
+                require 'functions.php';
+                
+                $folder = query("SELECT * FROM db_form WHERE user='$_SESSION[username]' ORDER BY id DESC LIMIT $awalData,$jumlahDataPerHalaman");               
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,12 +34,24 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary">DataTables Manuver</h6>
-    </div>
+    </div><br>
+
+    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+            <div class="input-group">
+              <input type="text" name="keyword" id="keyword" size="30" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2" autocomplete="off" autofocus>
+              <div class="input-group-append">
+                <button class="btn btn-primary" type="button" name="cari" id="cari">
+                  <i class="fas fa-search fa-sm"></i>
+                </button>
+              </div>
+            </div>
+    </form>
 
     <div class="card-body">
         <div class="table-responsive">
             <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
             </div>
+            <div id="bungkus">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
@@ -43,20 +63,11 @@
                     <th>Aproval</th>
                     </tr>
                 </thead>
-                
-                <?php
-
-                require 'koneksi.php';
-                $sql=mysqli_query($conn,"SELECT * FROM db_form WHERE user='$_SESSION[username]'");
-                $no=0;
-                while ($data=mysqli_fetch_array($sql)){
-                $no++;
-              
-                ?>
-
+                <?php $no=1; ?>
+                <?php foreach ( $folder as $data) : ?>
                 <tbody>
                     <tr>
-                    <td><?= $no?></td>
+                    <td><?= $no+$awalData?></td>
                     <td><?= $data['pekerjaan'];?></td>
                     <td><?= $data['waktu'];?></td>
                     <td><?= $data['lokasi'];?></td>
@@ -69,11 +80,19 @@
                             </span>
                             <span class="text">edit</span>
                         </a>
-                        
                     </tr>
                 </tbody>
-                <?php }?>
+                <?php $no++ ?>
+                <?php endforeach; ?>
             </table>
+            </div>
+            <?php for($i=1; $i<= $jumlahHalaman; $i++) : ?>
+                <?php if( $i == $halamanAktif) : ?>
+                    <a href="initiator-dashboard.php?url=list_pekerjaan&halaman=<?= $i; ?>" style="font-weight:bold;"><?= $i; ?></a>
+                <?php else : ?>
+                    <a href="initiator-dashboard.php?url=list_pekerjaan&halaman=<?= $i; ?>"><?= $i; ?></a>
+                <?php endif; ?>
+            <?php endfor?>
         </div>
     </div>
 
@@ -83,7 +102,7 @@
 
     </div>
 
-  
+<script src="js/shofwan.js"></script>
 </body>
 
 </html>
