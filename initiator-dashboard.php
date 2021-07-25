@@ -82,6 +82,7 @@ $user=$_SESSION["username"];
             <h6 class="collapse-header">Custom Form:</h6>
             <a class="collapse-item" href="?url=form-1">Form-1</a>
             <a class="collapse-item" href="">Form-2</a>
+            <a class="collapse-item" href="?url=trial">Trial-Form</a>
           </div>
         </div>
       </li>

@@ -13,12 +13,16 @@ $folder = query($query);
 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
-                    <th style="width:5%">No</th>
-                    <th style="width:20%">Pekerjaan</th>
-                    <th>waktu</th>
-                    <th>lokasi</th>
+                    <th rowspan="2" style="width:5%">No</th>
+                    <th rowspan="2" style="width:20%">Pekerjaan</th>
+                    <th rowspan="2">waktu</th>
+                    <th rowspan="2">lokasi</th>
                     <th colspan="2">Status Aproval</th>
-                    <th>Aproval</th>
+                    <th rowspan="2">Details</th>
+                    </tr>
+                    <tr>
+                    <th>AMN</th>
+                    <th>MSB</th>
                     </tr>
                 </thead>
                 <?php $no=1; ?>

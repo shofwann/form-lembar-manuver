@@ -1,11 +1,13 @@
 <?php
 $conn=mysqli_connect("localhost","root","","db_lemver");
-
+// untuk ae
 $jumlahDataPerHalaman = 5;
 $jumlahManuver = count(query("SELECT * FROM db_form"));
 $jumlahHalaman = ceil($jumlahManuver/$jumlahDataPerHalaman);
 $halamanAktif = ( isset($_GET["halaman"]) ) ? $_GET["halaman"] : 1;
 $awalData = ($jumlahDataPerHalaman * $halamanAktif) - $jumlahDataPerHalaman;
+
+// untuk amn
 
 function query($query){
     global $conn;
@@ -558,5 +560,3 @@ function upload4() {
     return  $namaFileBaru;
 }
 
-
-?>

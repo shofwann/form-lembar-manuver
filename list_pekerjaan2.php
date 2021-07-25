@@ -40,7 +40,7 @@
             <div class="input-group">
               <input type="text" name="keyword" id="keyword" size="30" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2" autocomplete="off" autofocus>
               <div class="input-group-append">
-                <button class="btn btn-primary" type="button" name="cari" id="cari">
+                <button class="btn btn-secondary" type="button" name="cari" id="cari">
                   <i class="fas fa-search fa-sm"></i>
                 </button>
               </div>
@@ -55,12 +55,16 @@
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
-                    <th style="width:5%">No</th>
-                    <th style="width:20%">Pekerjaan</th>
-                    <th>waktu</th>
-                    <th>lokasi</th>
+                    <th rowspan="2" style="width:5%">No</th>
+                    <th rowspan="2" style="width:20%">Pekerjaan</th>
+                    <th rowspan="2">waktu</th>
+                    <th rowspan="2">lokasi</th>
                     <th colspan="2">Status Aproval</th>
-                    <th>Aproval</th>
+                    <th rowspan="2">Details</th>
+                    </tr>
+                    <tr>
+                    <th>AMN</th>
+                    <th>MSB</th>
                     </tr>
                 </thead>
                 <?php $no=1; ?>
@@ -72,13 +76,13 @@
                     <td><?= $data['waktu'];?></td>
                     <td><?= $data['lokasi'];?></td>
                     <td><?= $data['amn'] == "disapprove" ? "<a href='#' class='btn btn-danger btn-icon-split'><span class='icon text-white-50'><i class='fas fa-thumbs-down'></i></span></a>" : "<a href='#' class='btn btn-success btn-icon-split'><span class='icon text-white-50'><i class='fas fa-thumbs-up'></i></span></a>";?></td>
-                    <td><?= $data['msb'] == "disapprove" ? "<a href='#' class='btn btn-danger btn-icon-split'><span class='icon text-white-50'><i class='fas fa-thumbs-down'></i></span></a>" : "<a href='#' class='btn btn-success btn-icon-split'><span class='icon text-white-50'><i class='fas fa-thumbs-up'></i></span></a>";?></td>
+                    <td><?= $data['msb'] == "disapprove" ? "<a href='#' class='btn btn-danger btn-icon-split'><span class='icon text-white-50'><i class='fas fa-thumbs-down'></i></span></a>" : "<a href='#' class='btn btn-success btn-icon-split'><span class='icon text-white-50'><i class='fas fa-thumbs-up'></i></span></a>";?><a href='createPDF.php?id=<?= $data['id'];?>&jumlah=' class=''><span class='icon text-danger'><i class='far fa-file-pdf fa-lg ml-3'></i></span></a></td>
                     <td>
                         <a href="?url=show_detail&id=<?= $data['id'];?>" class="btn btn-info btn-icon-split">
                             <span class="icon text-white-50">
                             <i class="fas fa-info-circle"></i>
                             </span>
-                            <span class="text">edit</span>
+                            <span class="text">details</span>
                         </a>
                     </tr>
                 </tbody>
@@ -96,12 +100,36 @@
         </div>
     </div>
 
+    <div id="demo"></div>
+
 
 
 
 
     </div>
+<script>
+var ab = document.getElementsByTagName('a');
+var ini = document.getElementById('ini');
+var clas = document.getElementsByClassName('btn btn-danger btn-icon-split');
+for (let i=0; i<clas.length; i++) {
+    clas[i].parentElement.children[1].style.display='none';
+}
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
 <script src="js/shofwan.js"></script>
 </body>
 

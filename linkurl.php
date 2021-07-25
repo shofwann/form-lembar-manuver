@@ -75,6 +75,19 @@ if (isset($_GET['url']))
         include 'tes.php';
         break;
 
+        case 'trial';
+        include 'auto.php';
+        break;
+
+        case 'autoForm1';
+        include 'auto-form1.php';
+        break;
+
+        case 'autoForm2';
+        include 'auto-form2.php';
+        break;
+
+
         
 
 
