@@ -40,7 +40,7 @@ $folder = query($query);
                             <span class="icon text-white-50">
                             <i class="fas fa-info-circle"></i>
                             </span>
-                            <span class="text">edit</span>
+                            <span class="text">detail</span>
                         </a>
                     </tr>
                 </tbody>
