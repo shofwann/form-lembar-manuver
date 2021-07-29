@@ -54,7 +54,7 @@ if( isset($_POST["submit"]) ){
     }
 }
 
-$sql_data = mysqli_query($conn, "SELECT * FROM db_table_1 WHERE id='$_GET[kecamatan]'");
+$sql_data = mysqli_query($conn, "SELECT * FROM db_table_1 WHERE id='$_GET[idz]'");
 $data=mysqli_fetch_assoc($sql_data);
 if ($sql_data) {
 ?>

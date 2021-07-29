@@ -12,18 +12,18 @@ class PDF extends FPDF {
 		// Header
 		foreach($header as $col)
 			$this->Cell(15 ,5,$col,1);
-		$this->Ln();
+		$this->Ln(0);
 		
 		// Data
-		$i = 7;
+		$i = 5;
 		$this->SetXY($x , $y + $i);
 		foreach($data as $row){
 			foreach($row as $col){
 				//$this->SetXY($x , $y + $i);
-				$this->Cell(15 ,6,$col,1);
+				$this->Cell(15 ,5,$col,1);
 				
 			}
-			$i= $i + 6 ;  // incremento el valor de la columna
+			$i= $i + 5 ;  // incremento el valor de la columna
 			$this->SetXY($x , $y + $i);		
 		  //$this->Ln();
 		}
@@ -195,6 +195,10 @@ $pdf->Cell(110,5,'   Dispatcher        AMN ORT','R',0,'L');
 $pdf->Cell(84,5,'','R',0);
 $pdf->Cell(88,5,'','R',1);
 
+$pdf->SetTextColor(255,0,0);
+$pdf->Cell(110,20,'','R');
+$pdf->Cell(84,20,'','R'); 
+$pdf->Cell(88,20,'','R',1,'C');
 $pdf->Cell(110,5,'','R');//1
 $pdf->Cell(84,5,'Catatan:'.substr($isi['pekerjaan'],0,40),'R'); 
 $pdf->Cell(88,5,'Catatan:'.substr($isi['pekerjaan'],0,43),'R',1);
@@ -208,28 +212,8 @@ $pdf->Cell(12,5,'','');
 $pdf->Cell(72,5,substr($isi['pekerjaan'],80,40),'R');
 $pdf->Cell(12,5,'','');
 $pdf->Cell(76,5,substr($isi['pekerjaan'],90,45),'R',1);
-$pdf->Cell(110,5,'','R');//4
-$pdf->Cell(12,5,'','');
-$pdf->Cell(72,5,substr($isi['pekerjaan'],120,40),'R');
-$pdf->Cell(12,5,'','');
-$pdf->Cell(76,5,substr($isi['pekerjaan'],136,45),'R',1);
-$pdf->Cell(110,5,'','R');//5
-$pdf->Cell(12,5,'','');
-$pdf->Cell(72,5,substr($isi['pekerjaan'],160,40),'R');
-$pdf->Cell(12,5,'','');
-$pdf->Cell(76,5,substr($isi['pekerjaan'],182,45),'R',1);
-$pdf->Cell(110,5,'','R');//6
-$pdf->Cell(12,5,'','');
-$pdf->Cell(72,5,substr($isi['pekerjaan'],200,40),'R');
-$pdf->Cell(12,5,'','');
-$pdf->Cell(76,5,substr($isi['pekerjaan'],228,45),'R',1);
-$pdf->Cell(110,5,'','R');//6
-$pdf->Cell(12,5,'','');
-$pdf->Cell(72,5,substr($isi['pekerjaan'],240,40),'R');
-$pdf->Cell(12,5,'','');
-$pdf->Cell(76,5,substr($isi['pekerjaan'],278,45),'R',1);
 
-
+$pdf->SetTextColor(0,0,0);
 $pdf->Cell(110,5,'','R');
 $pdf->Cell(84,5,'','R'); 
 $pdf->Cell(88,5,'Dibuat Oleh','R',1,'C');
@@ -260,7 +244,7 @@ $pdf->Cell(44,5,'AMN RORT','R,B',1,'C');
 
 
 
-
+$pdf->SetFont('Arial','','8');
 //TABLA 1
 $header = array('Lokasi', 'Remote', 'Real','ADS', 'Installasi');
 $data = [];

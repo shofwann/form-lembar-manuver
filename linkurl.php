@@ -31,6 +31,14 @@ if (isset($_GET['url']))
         include 'initiator-updateForm1.php';
         break;
 
+        case 'insertDB';
+        include 'initiator-insertDB.php';
+        break;
+
+        case 'updateDB';
+        include 'initiator-updateDB.php';
+        break;
+
         case 'amnInbox';
         include 'amn-inbox.php';
         break;

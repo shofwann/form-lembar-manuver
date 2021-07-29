@@ -1,5 +1,6 @@
 <?php
 
+include 'functions.php';
 
 
 
@@ -44,37 +45,35 @@
                 <div class="row">
                     <div class="col-3">
                         <label for="">Pilih Form :</label>
-                        <select name="form" id="form" onchange="pilih()">
+                        <select name="form" id="form">
                             <option value="">-SELECT-</option>
-                            <option value="1">Form-1</option>
-                            <option value="2">Form-2</option>
+                            <option value="1">form-1</option>
+                            <option value="2">form-2</option>
+                            
+                            
                         </select>
                     </div>
 
                     <div class="col-3">
                         <label for="">Piliih profinsi :</label>
-                        <select name="idx" id="">
+                        <select name="idx" id="jenis">
                             <option value="">-SELECT-</option>
-                            <option value="">Jakarta</option>
-                            <option value="">Jabar</option>
                         </select>
                     </div>
 
                     <div class="col-3">
                         <label for="">Piliih Kota :</label>
-                        <select name="idy" id="">
+                        <select name="idy" id="lokasi">
                             <option value="">-SELECT-</option>
-                            <option value="">Bandung</option>
-                            <option value="">Depok</option>
+
                         </select>
                     </div>
 
                     <div class="col-3">
                         <label for="">Piliih Kelurahan :</label>
-                        <select name="idz" id="kecamatan">
+                        <select name="idz" id="detail_lokasi">
                             <option value="">-SELECT-</option>
-                            <option value="1">Limo</option>
-                            <option value="2">Margonda</option>
+
                         </select>
                     </div>
                     
@@ -100,43 +99,64 @@
     
       
     <script type="text/javascript">
+        $(document).ready(function(){
+            $('#form').on('change',function(){
+                var form  = $(this).val();
+                $.ajax({
+                    url: 'get_data.php',
+                    type: "POST",
+                    data: {
+                        modul: 'jenis',
+                        id:form
+                    },
+                    success: function(respond){
+                        $('#jenis').html(respond);
+                    },
+                    error:function(){
+                        alert('gagal mengambil data');
+                    }
+                })
+            })
 
-    function pilih() {
-        var val = document.getElementById('kecamatan').value;
-        if (document.getElementById('form').value == '1') {
-           // document.getElementById('pesan').innerHTML = "1";
-            document.getElementById('ini').href='?url=autoForm1'+'&id='+ val;
-        } 
-        else if (document.getElementById('form').value == '2') {
-           // document.getElementById('pesan').innerHTML = "2";
-            document.getElementById('ini').href='?url=autoForm2'+'&id='+ val;
-        }
+            $('#jenis').on('change',function(){
+                var form = $(this).val();
+                $.ajax({
+                    url: 'get_data.php',
+                    type: "POST",
+                    data: {
+                        modul: 'lokasi',
+                        id:form
+                    },
+                    success: function(respond){
+                        $('#lokasi').html(respond);
+                    },
+                    error:function(){
+                        alert('gagal mengambil data');
+                    }
+                })
+            })
 
-        else {
-            document.getElementById('pesan').innerHTML = "anda belum pilih form";
-        }
-    }
-        // let select = document.querySelector('#lang').value;
-        // let result = document.querySelector('#result');
-        // select.addEventListener('change', function () {
-        //     result = this.value;
-        // });
-    function fungsi() {
-        var val = document.getElementById('kecamatan').value;
-        if (document.getElementById('form').value == '1') {
-           // document.getElementById('pesan').innerHTML = "1";
-            document.getElementById('ini').href='?url=autoForm1'+'&id='+ val;
-        } 
-        else if (document.getElementById('form').value == '2') {
-           // document.getElementById('pesan').innerHTML = "2";
-            document.getElementById('ini').href='?url=autoForm2'+'&id='+ val;
-        }
+            $('#lokasi').on('change',function(){
+                var form = $(this).val();
+                $.ajax({
+                    url: 'get_data.php',
+                    type: "POST",
+                    data: {
+                        modul: 'detail_lokasi',
+                        id:form
+                    },
+                    success: function(respond){
+                        $('#detail_lokasi').html(respond);
+                    },
+                    error:function(){
+                        alert('gagal mengambil data');
+                    }
+                })
+            })
+            
 
-        else {
-            document.getElementById('pesan').innerHTML = "anda belum pilih form";
-        }
-    }
-
+        });
+    
 
 
     </script>
@@ -147,6 +167,7 @@
 
     <!-- Core plugin JavaScript-->
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>

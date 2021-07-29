@@ -115,20 +115,6 @@ for (let i=0; i<clas.length; i++) {
     clas[i].parentElement.children[1].style.display='none';
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </script>
 <script src="js/shofwan.js"></script>
 </body>
