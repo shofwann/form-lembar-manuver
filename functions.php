@@ -560,3 +560,147 @@ function upload4() {
     return  $namaFileBaru;
 }
 
+function tambahDB($post) {
+    global $conn;
+    $form = $post["form"];
+    $jenis = $post["jenis"];
+    $lokasi = $post["lokasi"];
+    $detail = $post["detailLokasi"];
+
+    $cek_lokasi = mysqli_query($conn,"SELECT * FROM db_ajax_lokasi WHERE nama='$lokasi'");
+    $ambil_cek_lokasi = mysqli_fetch_assoc($cek_lokasi);
+    
+    //error_reporting(0);
+    $cek_detail = mysqli_query($conn,"SELECT * FROM db_ajax_detail_lokasi WHERE nama='$detail' AND id_lokasi='$ambil_cek_lokasi[id_lokasi]'");
+    $jumlah_detail = mysqli_num_rows($cek_detail);
+    if($cek_detail->num_rows >0){
+        echo "
+        <script>
+        alert ('data sudah ada dalam database');
+        history.back(-1);
+        </script>
+        ";
+        die;
+    }
+    // var_dump($jumlah_detail);  die;
+
+    $query = mysqli_query($conn,"SELECT * FROM db_ajax_lokasi WHERE nama='$lokasi' AND id_jenis='$jenis'");
+    
+    $idNext = mysqli_query($conn,"SELECT * FROM db_ajax_lokasi ORDER BY id_lokasi DESC LIMIT 1");
+    $isiIdNext = mysqli_fetch_assoc($idNext);
+    
+    $idNext2 = mysqli_query($conn, "SELECT * FROM db_ajax_detail_lokasi ORDER BY id_detail_lokasi DESC LIMIT 1");
+    $isiIdNext2 = mysqli_fetch_assoc($idNext2);
+
+    
+
+    if ($query->num_rows > 0){
+        $data = mysqli_fetch_assoc($query);
+        mysqli_query($conn,"INSERT INTO db_ajax_detail_lokasi (id_lokasi,nama) VALUES ($data[id_lokasi],'$detail')");
+    } else {
+        mysqli_query($conn,"INSERT INTO db_ajax_lokasi (id_jenis,nama) VALUES ($jenis,'$lokasi')");
+        mysqli_query($conn,"INSERT INTO db_ajax_detail_lokasi (id_lokasi,nama) VALUES ($isiIdNext[id_lokasi]+1,'$detail')");
+    }
+    
+
+    $baris_table1 = count($_POST["lokasiGitet"]); 
+    
+    for($i=0; $i<$baris_table1; $i++){
+        $lokasiGitet = $_POST["lokasiGitet"][$i];
+        //var_dump($lokasiGitet); die;
+        mysqli_query($conn,"INSERT INTO db_ajax_table1 (id_detail_lokasi,lokasi) VALUES ($isiIdNext2[id_detail_lokasi]+1,'$lokasiGitet')");
+    }
+
+    $baris_table2 = count($post["lokasiOpen"]);
+    for($i=0; $i<$baris_table2; $i++) {
+        $lokasiOpen = $_POST["lokasiOpen"][$i];
+        $installasiOpen = $_POST["installasiOpen"][$i];
+        mysqli_query($conn,"INSERT INTO db_ajax_table2 (id_detail_lokasi,lokasi,installasi) VALUES ($isiIdNext2[id_detail_lokasi]+1,'$lokasiOpen','$installasiOpen')");
+    }
+
+    $baris_table3 = count($post["lokasiClose"]);
+    for($i=0; $i<$baris_table3; $i++) {
+        $lokasiClose = $_POST["lokasiClose"][$i];
+        $installasiClose = $_POST["installasiClose"][$i];
+        mysqli_query($conn,"INSERT INTO db_ajax_table3 (id_detail_lokasi,lokasi,installasi) VALUES ($isiIdNext2[id_detail_lokasi]+1,'$lokasiClose' ,'$installasiClose')");
+    }
+
+    return mysqli_affected_rows($conn);
+
+}
+
+function ubahDB($post) {
+    global $conn;
+    $idDetailLokasi = $post["idz"];
+
+    $jumlah_baris1 = count($_POST["lokasi1"]);
+    for ($i=0; $i<$jumlah_baris1; $i++) {
+        $lokasi = $post["lokasi1"][$i];
+        $idUpdate = $post["id1"][$i];
+        if ($idUpdate == "0"){
+            $query = "INSERT INTO db_ajax_table1 (id_detail_lokasi,lokasi) VALUES ($idDetailLokasi,'$lokasi')";
+        } else {
+            $query = "UPDATE db_ajax_table1 SET id_detail_lokasi = $idDetailLokasi, lokasi = '$lokasi' WHERE id=$idUpdate";
+        }
+        mysqli_query($conn,$query);
+    }
+
+    if(isset($post["id1_hapus"])){
+        $jumlah_hapus = count($post["id1_hapus"]);
+        for ($i=0; $i<$jumlah_hapus; $i++){
+            $id_hapus = $post["id1_hapus"][$i];
+            $query = "DELETE FROM db_ajax_table1 WHERE id=$id_hapus";
+            mysqli_query($conn,$query);
+        }
+    }
+
+    $jumlah_baris2 = count($post["lokasi2"]);
+    for ($i=0; $i<$jumlah_baris2; $i++){
+        $lokasi = $post["lokasi2"][$i];
+        $installasi = $post["installasi2"][$i];
+        $idUpdate = $post["id2"][$i];
+        if ($idUpdate == "0"){
+            $query = "INSERT INTO db_ajax_table2 (id_detail_lokasi,lokasi,installasi) VALUES ($idDetailLokasi,'$lokasi','$installasi')";
+        } else{
+            $query = "UPDATE db_ajax_table2 SET id_detail_lokasi=$idDetailLokasi, lokasi='$lokasi', installasi='$installasi' WHERE id=$idUpdate";
+        }
+        mysqli_query($conn,$query);
+    }
+
+    if(isset($post["id2_hapus"])){
+        $jumlah_hapus = count($post["id2_hapus"]);
+        for ($i=0; $i<$jumlah_hapus; $i++){
+            $id_hapus = $post["id2_hapus"][$i];
+            $query = "DELETE FROM db_ajax_table2 WHERE id=$id_hapus";
+            mysqli_query($conn,$query);
+        }
+    }
+
+    $jumlah_baris3 = count($post["lokasi3"]);
+    for ($i=0; $i<$jumlah_baris3; $i++){
+        $lokasi = $post["lokasi3"][$i];
+        $installasi = $post["installasi3"][$i];
+        $idUpdate = $post["id3"][$i];
+        if ($idUpdate == "0"){
+            $query = "INSERT INTO db_ajax_table3 (id_detail_lokasi,lokasi,installasi) VALUES ($idDetailLokasi,'$lokasi','$installasi')";
+        } else{
+            $query = "UPDATE db_ajax_table3 SET id_detail_lokasi=$idDetailLokasi, lokasi='$lokasi', installasi='$installasi' WHERE id=$idUpdate";
+        }
+        mysqli_query($conn,$query);
+    }
+
+    if(isset($post["id3_hapus"])){
+        $jumlah_hapus = count($post["id3_hapus"]);
+        for ($i=0; $i<$jumlah_hapus; $i++){
+            $id_hapus = $post["id3_hapus"][$i];
+            $query = "DELETE FROM db_ajax_table3 WHERE id=$id_hapus";
+            mysqli_query($conn,$query);
+        }
+    }
+
+    return mysqli_affected_rows($conn);
+
+}
+
+
+

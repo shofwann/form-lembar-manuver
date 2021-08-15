@@ -2,9 +2,6 @@
 
 include 'functions.php';
 
-
-
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -55,14 +52,14 @@ include 'functions.php';
                     </div>
 
                     <div class="col-3">
-                        <label for="">Piliih profinsi :</label>
+                        <label for="">Jenis Pekerjaan  :</label>
                         <select name="idx" id="jenis">
                             <option value="">-SELECT-</option>
                         </select>
                     </div>
 
                     <div class="col-3">
-                        <label for="">Piliih Kota :</label>
+                        <label for="">Lokasi :</label>
                         <select name="idy" id="lokasi">
                             <option value="">-SELECT-</option>
 
@@ -70,7 +67,7 @@ include 'functions.php';
                     </div>
 
                     <div class="col-3">
-                        <label for="">Piliih Kelurahan :</label>
+                        <label for="">Detail Lokasi :</label>
                         <select name="idz" id="detail_lokasi">
                             <option value="">-SELECT-</option>
 

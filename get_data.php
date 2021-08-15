@@ -33,4 +33,6 @@ elseif ($modul == 'detail_lokasi') {
 
     echo $detail;
 }
+
+
 ?>

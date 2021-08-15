@@ -26,3 +26,21 @@ xhr.send();
 
 
 });
+
+function pilihan() {
+    var x = document.getElementById('detail_lokasi').value;
+
+    $.ajax({
+        url:'ajax/fetchtable1.php',
+        method:'POST',
+        data: {
+            idx : x
+        },
+        success:function(data){
+            $('#table').html(data);
+        }
+    })
+
+
+
+}

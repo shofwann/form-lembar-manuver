@@ -1,3 +1,5 @@
+<!-- catatan untuk id yg dihapus mengikuti id yg di hidden -->
+
 <?php
 
 if (!isset($_SESSION["username"])) {
@@ -333,9 +335,9 @@ if ($sql){
                                         <tr>
                                             <td><?= $i ?></td>
                                             <td><input type="text" name="lokasiManuverBebas[]" value="<?= $pembebasan["lokasi"] ?>" style="width:8rem;padding:0rem;"></td>
-                                            <td><?= $pembebasan["remote"] == "00:00:00" ?"": $pembebasan["remote"] ?></td>
-                                            <td><?= $pembebasan["real"] == "00:00:00" ?"": $pembebasan["real"] ?></td>
-                                            <td><?= $pembebasan["ads"]== "00:00:00" ?"": $pembebasan["ads"] ?></td>
+                                            <td><?= $pembebasan["remote_bebas"] == "00:00:00" ?"": $pembebasan["remote_bebas"] ?></td>
+                                            <td><?= $pembebasan["real_bebas"] == "00:00:00" ?"": $pembebasan["real_bebas"] ?></td>
+                                            <td><?= $pembebasan["ads_bebas"]== "00:00:00" ?"": $pembebasan["ads_bebas"] ?></td>
                                             <td><input type="text" name="installManuverBebas[]" value="<?= $pembebasan["installasi"] ?>" style="width:8rem;padding:0rem;"></td>
                                             <td>
                                                 <button type="button" onclick="hapus_baris1(this)" class="btn btn-danger btn_remove">X</button>  <!--  -->
@@ -377,9 +379,9 @@ if ($sql){
                                             <tr>
                                                 <td><?= $i ?></td>
                                                 <td><input type="text" name="lokasiManuverNormal[]" value="<?= $penormalan["lokasi"] ?>" style="width:8rem;padding:0rem;"></td>
-                                                <td><?= $penormalan["remote"] == "00:00:00" ?"": $penormalan["remote"] ?></td>
-                                                <td><?= $penormalan["real"] == "00:00:00" ?"": $penormalan["real"] ?></td>
-                                                <td><?= $penormalan["ads"] == "00:00:00" ?"": $penormalan["ads"] ?></td>
+                                                <td><?= $penormalan["remote_normal"] == "00:00:00" ?"": $penormalan["remote_normal"] ?></td>
+                                                <td><?= $penormalan["real_normal"] == "00:00:00" ?"": $penormalan["real_normal"] ?></td>
+                                                <td><?= $penormalan["ads_normal"] == "00:00:00" ?"": $penormalan["ads_normal"] ?></td>
                                                 <td><input type="text" name="instalManuverNormal[]" value="<?= $penormalan["installasi"] ?>" style="width:8rem;padding:0rem;"></td>
                                                 <td>
                                                     <button type="button" onclick="hapus_baris2(this)" class="btn btn-danger btn_remove2">X</button>
