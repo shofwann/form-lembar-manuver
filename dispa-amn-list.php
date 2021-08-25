@@ -1,7 +1,7 @@
 <?php
                 require 'functions.php';
                 
-                $folder = query("SELECT * FROM db_form WHERE user_msb='$_SESSION[username]' ORDER BY id DESC LIMIT $awalData,$jumlahDataPerHalaman");               
+                $folder = query("SELECT * FROM db_form WHERE user_amn_dispa_akhir ='$_SESSION[username]' OR user_amn_dispa_awal ='$_SESSION[username]' ORDER BY id DESC LIMIT $awalData,$jumlahDataPerHalaman");               
 
 ?>
 
@@ -55,16 +55,12 @@
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
-                        <th rowspan="2" style="width:5%">No</th>
-                        <th rowspan="2" style="width:20%">Pekerjaan</th>
-                        <th rowspan="2">waktu</th>
-                        <th rowspan="2">lokasi</th>
-                        <th colspan="2">Status Aproval</th>
-                        <th rowspan="2">Details</th>
-                        </tr>
-                        <tr>
-                        <th>AMN</th>
-                        <th>MSB</th>
+                        <th style="width:5%">No</th>
+                        <th style="width:20%">Pekerjaan</th>
+                        <th >waktu</th>
+                        <th >lokasi</th>
+                        <th >Status Aproval</th>
+                        <th >Details</th>
                     </tr>
                 </thead>
                 <?php $no=1; ?>
@@ -75,25 +71,8 @@
                     <td><?= $data['pekerjaan'];?></td>
                     <td><?= $data['waktu'];?></td>
                     <td><?= $data['lokasi'];?></td>
-                    <td><?php if($data['amn'] == "approve") {
-                                echo "<a href='#' class='btn btn-success btn-icon-split' data-toggle='tooltip' data-placement='left' title='approve'><span class='icon text-white-50'><i class='fas fa-thumbs-up'></i></span></a>";
-                            }elseif ($data['amn'] == "disapprove") {
-                                echo "<a href='#' class='btn btn-danger btn-icon-split' data-toggle='tooltip' data-placement='left' title='disapprove'><span class='icon text-white-50'><i class='fas fa-thumbs-down'></i></span></a>";
-                            }else{
-                                echo "<a href='#' class='btn btn-warning btn-icon-split' data-toggle='tooltip' data-placement='left' title='pending'><span class='icon text-white-50'><i class='fas fa-spinner'></i></span></a>";
-                            }?>
-                            
-                    </td>
-                    <td><?php if($data['msb'] == "approve") {
-                                echo "<a href='#' class='btn btn-success btn-icon-split' data-toggle='tooltip' data-placement='left' title='approve'><span class='icon text-white-50'><i class='fas fa-thumbs-up'></i></span></a>";
-                            }elseif ($data['msb'] == "disapprove") {
-                                echo "<a href='#' class='btn btn-danger btn-icon-split' data-toggle='tooltip' data-placement='left' title='disapprove'><span class='icon text-white-50'><i class='fas fa-thumbs-down'></i></span></a>";
-                            }else{
-                                echo "<a href='#' class='btn btn-warning btn-icon-split' data-toggle='tooltip' data-placement='left' title='pending'><span class='icon text-white-50'><i class='fas fa-spinner'></i></span></a>";
-                            }?>
-                            
+                    <td><?php echo $data['status']?></td>
 
-                    </td>
                     <td>
                         <a href="?url=show_detail&id=<?= $data['id'];?>" class="btn btn-info btn-icon-split">
                             <span class="icon text-white-50">

@@ -92,15 +92,13 @@ if ($sql){
                                 </div> 
 
                                 <div class="col-3">
-                                    <label>Create Date</label>
-                                    <div class="col-0">
-                                    <input type="text" data-date="" value="<?= $data['create_date'];?>" disabled>
-                                    </div>
+                                    <label>Time Aproval</label>
+                                    <input type="text" name="time" data-date="" class="form-control" value="<?= $data['create_date'];?>" disabled>
                                 </div>
 
                                 <div class="col-3">
-                                    <label>User Initiator :</label>
-                                    <input type="text" name="user" placeholder="" value="<?= $data['user'];?>" class="form-control" disabled>
+                                    <label>Level MSB :</label>
+                                    <input type="text" name="level" class="form-control" placeholder="" value="<?= $_SESSION['level']; ?>" class="form-control" disabled>
                                 </div>
 
                                 <div class="col">
@@ -108,10 +106,7 @@ if ($sql){
                                     <input type="text" name="userMsb" placeholder="" value="<?= $_SESSION['username'];?>" class="form-control" readonly>
                                 </div>                                
 
-                                <div class="col-2">
-                                    <label for="fotoLama" class="control-label">foto</label>
-                                    <input type="text" name="fotoLama" id="fotoLama" class="form-control" value="<?= $data["foto"]; ?>" disabled> <!--untuk menyimpan foto lama, jika user tidak ganti foto maka foto ini yg digunakan-->
-                                </div> 
+                                
 
                             </div>
 
@@ -321,9 +316,9 @@ if ($sql){
                                                 <tr>
                                                     <td><?= $i ?></td>
                                                     <td><?= $pembebasan["lokasi"]  ?></td>
-                                                    <td><?= $pembebasan["remote"]  ?></td>
-                                                    <td><?= $pembebasan["real"]  ?></td>
-                                                    <td><?= $pembebasan["ads"]  ?></td>
+                                                    <td><?= $pembebasan["remote_bebas"]  ?></td>
+                                                    <td><?= $pembebasan["real_bebas"]  ?></td>
+                                                    <td><?= $pembebasan["ads_bebas"]  ?></td>
                                                     <td><?= $pembebasan["installasi"]  ?></td>
                                                 </tr>
                                                     <?php $i++ ?>
@@ -360,9 +355,9 @@ if ($sql){
                                                 <tr>
                                                     <td><?= $i ?></td>
                                                     <td><?= $penormalan["lokasi"]  ?></td>
-                                                    <td><?= $penormalan["remote"]  ?></td>
-                                                    <td><?= $penormalan["real"]  ?></td>
-                                                    <td><?= $penormalan["ads"]  ?></td>
+                                                    <td><?= $penormalan["remote_normal"]  ?></td>
+                                                    <td><?= $penormalan["real_normal"]  ?></td>
+                                                    <td><?= $penormalan["ads_normal"]  ?></td>
                                                     <td><?= $penormalan["installasi"]  ?></td>
                                                 </tr>
                                                     <?php $i++ ?>

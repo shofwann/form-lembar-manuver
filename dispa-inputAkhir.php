@@ -97,25 +97,18 @@ if ($sql){
                                 </div> 
 
                                 <div class="col-3">
-                                    <label>Create Date</label>
-                                    <div class="col-0">
-                                    <input type="text" data-date="" value="<?= $data['create_date'];?>" disabled>
-                                    </div>
+                                    <label>Aprove date :</label>
+                                    <input type="text" name="time" placeholder="" value="<?php echo date('d-M-Y H:i:s');?>" class="form-control" readonly>
                                 </div>
 
-                                <div class="col-3">
-                                    <label>User Initiator :</label>
-                                    <input type="text" name="user" placeholder="" value="<?= $data['user'];?>" class="form-control" disabled>
-                                </div>
-
-                                <div class="col">
+                                <div class="col-2">
                                     <label>User dispa :</label>
                                     <input type="text" name="userdispa" placeholder="" value="<?= $_SESSION['username'];?>" class="form-control" readonly>
                                 </div>                                
 
                                 <div class="col-2">
                                     <label for="fotoLama" class="control-label">foto</label>
-                                    <input type="text" name="fotoLama" id="fotoLama" class="form-control" value="<?= $data["foto"]; ?>" disabled> <!--untuk menyimpan foto lama, jika user tidak ganti foto maka foto ini yg digunakan-->
+                                    <input type="text" name="fotoLama" id="fotoLama" class="form-control" value="<?= $data["foto_dpf2"]; ?>" readonly> <!--untuk menyimpan foto lama, jika user tidak ganti foto maka foto ini yg digunakan-->
                                 </div> 
 
                             </div>
@@ -269,7 +262,7 @@ if ($sql){
                             </div>
                             <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
                                 <input type="text" name="dpf_akhir" style="border:1px solid #fff; width:300px; font-style:italic;" placeholder="Fill in Mw MVar Amper Volt" >
-                                <input type="file" name="dpfFile_akhir" required>
+                                <input type="file" name="dpfFile_akhir">
                             </div>
                         </div>
 
@@ -300,8 +293,24 @@ if ($sql){
                                 <input type="text" name="scada_akhir_after" style="border:1px solid #fff; width:300px;" placeholder="Fill in Mw MVar Amper Volt">
                             </div>
                         </div>
+
+
                     <!-- Baris/ row ke-5-->
                         <h2>Manuver Pembebasan Installasi</h2>
+
+                        <div class="row">
+                            <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
+                                <label for="">Catatan Pra Pembebasan :</label>
+                            </div>
+                    
+                        </div>
+
+                        <div class="row">
+                                <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
+                                    <textarea name="catatan_pra_pembebasan" id="" cols="230" rows="5" disabled><?= $data["catatan_pra_pembebasan"]; ?></textarea>
+                                </div>
+                        </div>  
+
                         <div class="row">
                                     <div class="col-6" style="border:1px solid">
                                         <div class="form-group ml-2">
@@ -348,12 +357,22 @@ if ($sql){
                     </div>
                     <div class="row">
                             <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
-                                <p><?= $data["catatan_pasca_pembebasan"]; ?></p>
+                                <textarea name="catatan_pasca_pembebasan" id="" cols="230" rows="5" disabled><?= $data["catatan_pasca_pembebasan"]; ?></textarea>
+                            </div>
+                    </div>
+                    <!-- Baris/ row ke-6-->
+                    <h2>Manuver Penormalan Installasi</h2>
+                    <div class="row">
+                            <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
+                                <label for="">Catatan Pra Penormalan:</label>
                             </div>
                     
-                    </div>    
-                    <!-- Baris/ row ke-6-->
-                        <h2>Manuver Penormalan Installasi</h2>
+                        </div>
+                        <div class="row">
+                                <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
+                                    <textarea name="catatan_pra_penormalan" id="" cols="230" rows="5" disabled><?= $data["catatan_pra_penormalan"]; ?></textarea>
+                                </div>
+                        </div> 
                         <div class="row">
                                 <div class="col" style="border:1px solid">
                                     <div class="form-group ml-2">
@@ -380,7 +399,7 @@ if ($sql){
                                                 <tr>
                                                     <td><?= $i ?></td>
                                                     <td><?= $penormalan["lokasi"]  ?></td>
-                                                    <td><input type="time" name="remote_normal[]" value="<?= time(); ?>"><input type="text" name="sampel2[]" value="<?= $penormalan["id"]  ?>"> WIB</td>
+                                                    <td><input type="time" name="remote_normal[]" value="<?= time(); ?>"><input type="text" name="sampel2[]" value="<?= $penormalan["id"]  ?>" hidden> WIB</td>
                                                     <td><input type="time" name="real_normal[]" value="<?= time(); ?>"> WIB</td>
                                                     <td><input type="time" name="ads_normal[]" value="<?= time(); ?>"> WIB</td>
                                                     <td><?= $penormalan["installasi"]  ?></td>
@@ -402,7 +421,7 @@ if ($sql){
                     </div>
                     <div class="row">
                             <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
-                                <textarea name="catatan_pasca_penormalan" id="" cols="190" rows="5"></textarea>
+                                <textarea name="catatan_pasca_penormalan" id="" cols="230" rows="5"></textarea>
                             </div>
                     
                     </div>   

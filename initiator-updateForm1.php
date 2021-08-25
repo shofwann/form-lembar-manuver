@@ -79,7 +79,7 @@ if ($sql){
         <div class="card-body">
             <form action="" method="post" class="form-horizontal" enctype="multipart/form-data" id="form_id">
                 <!-- Baris/row Ke-0-->
-                    <div class="row" hidden>
+                    <div class="row" >
                         <div class="col-2">
                             <label for="id" class="control-label">id</label>
                             <input type="text" name="idTask" id="idTask" class="form-control" value="<?= $data["id"]; ?>" readonly>
@@ -400,11 +400,11 @@ if ($sql){
                     <div class="row" style="background-color:#F2F4F4;">
                     
                         <div class="col-6" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
-                            <label for="">Catatan Pembebasan:</label>
+                            <label for="">Catatan AMN:</label>
                         </div>
 
                         <div class="col-6" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
-                            <label for="">Catatan Penormalan:</label>
+                            <label for="">Catatan MSB:</label>
                         </div>
                     </div>
                     <div class="row" style="">

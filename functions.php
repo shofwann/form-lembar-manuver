@@ -1,5 +1,6 @@
 <?php
 $conn=mysqli_connect("localhost","root","","db_lemver");
+date_default_timezone_set('Asia/Jakarta');
 // untuk ae
 $jumlahDataPerHalaman = 5;
 $jumlahManuver = count(query("SELECT * FROM db_form"));
@@ -8,6 +9,7 @@ $halamanAktif = ( isset($_GET["halaman"]) ) ? $_GET["halaman"] : 1;
 $awalData = ($jumlahDataPerHalaman * $halamanAktif) - $jumlahDataPerHalaman;
 
 // untuk amn
+
 
 function query($query){
     global $conn;
@@ -45,7 +47,7 @@ function tambah($post){
         return false;
     }
     //print_r($_POST);exit;
-    $query = "INSERT INTO db_form (id,create_date,user,pekerjaan,start_date,end_date,report_date,lokasi,waktu,installasi,foto,foto2,ae) VALUES ('$idTask','$create_date','$user','$pekerjaan','$start_date','$end_date','$report_date','$lokasi','$waktu','$instal','$foto','$foto2','approve')";
+    $query = "INSERT INTO db_form (id,create_date,user,pekerjaan,start_date,end_date,report_date,lokasi,waktu,installasi,foto,foto2,ae,amn,msb) VALUES ('$idTask','$create_date','$user','$pekerjaan','$start_date','$end_date','$report_date','$lokasi','$waktu','$instal','$foto','$foto2','approve','process','process')";
     mysqli_query($conn,$query);
     // cara-1
     $jumlah_baris = count($_POST["lokasiPembebasan"]);
@@ -236,8 +238,8 @@ function ubah($post){
              foto = '$foto', 
              foto2 = '$foto2',
              ae = 'approve',
-             amn = 'waiting',
-             msb = 'waiting'
+             amn = 'process',
+             msb = 'process'
              WHERE id= '$idTask'   
             ";
     mysqli_query($conn,$query);
@@ -319,10 +321,14 @@ function aprovalAmn($post){
     $idTask =$post["idTask"];
     $userAmn = $post["userAmn"];
     $aproval = $post["aproval"];
+    $level = $post["level"];
+    $time =$post["time"];
 
     $query = "UPDATE db_form SET 
              user_amn = '$userAmn',
-             ae = 'waiting',
+             level_amn = '$level',
+             time_amn_aprove = '$time',
+             ae = 'aprovAmn',
              amn = '$aproval'
              WHERE id = '$idTask'
              ";
@@ -337,11 +343,19 @@ function aprovalMsb($post){
     $idTask =$post["idTask"];
     $userMsb = $post["userMsb"];
     $aproval = $post["aproval"];
+    $level = $post["level"];
+    $time = $post["time"];
 
+
+    // rencana ditambahkan dispa = pembebasan dan status = pembebasan
     $query = "UPDATE db_form SET 
              user_msb = '$userMsb',
-             amn = 'waiting',
-             msb = '$aproval'
+             level_msb ='$level',
+             time_msb_aprove = '$time',
+             ae = 'aprovMsb',
+             msb = '$aproval',
+             status = 'pembebasan',
+             dispa = 'pembebasan'
              WHERE id = '$idTask'
              ";
     mysqli_query($conn,$query);
@@ -376,27 +390,35 @@ function inputDispaAwal($post) {
                  mysqli_query($conn,$query);
     }
 
+    if (isset($_POST["document"])){
+        $document = implode(",", $post["document"]);
+        mysqli_query($conn,"UPDATE db_form SET document = '$document' WHERE id='$idTask'");
+    }
+
    
-    $document = implode(",", $_POST["dokumen"]);
+    $fotolama = $post["fotoLama"];
     $scada_awal_before = htmlspecialchars($post["scada_awal_before"]);
     $scada_awal_after = htmlspecialchars($post["scada_awal_after"]);
     $dpf_awal = htmlspecialchars($post["dpf_awal"]);
     $catatan = htmlspecialchars($post["catatan_pasca_pembebasan"]);
     $userDispa = $post["userdispa"];
+    $timeDispaAproveAwal = $post["timeAproveDispaAwal"];
 
-    $foto = upload3();
-    //  if ( !$foto ) {
-    //      return false;
-    //  }
+    if( $_FILES['dpfFile_awal']['error'] === 4){
+        $foto = $fotolama;
+    } else {
+        $foto = upload3();
+    }
 
     $query = "UPDATE db_form SET
               user_dispa_awal = '$userDispa',
-              document = '$document',
               scada_awal_before = '$scada_awal_before',
               scada_awal_after = '$scada_awal_after',
+              dispa = 'approve',
               dpf_awal = '$dpf_awal',
+              amn_dispa = 'checked',
               catatan_pasca_pembebasan = '$catatan',
-              dispa = 'penormalan',
+              time_dispa_awal_aprove = '$timeDispaAproveAwal',
               foto_dpf1 = '$foto'
               WHERE id = '$idTask'
               ";
@@ -462,6 +484,7 @@ function upload3() {
     return  $namaFileBaru;
 }
 
+
 function inputDispaAkhir($post) {
     global $conn;
     $idTask = $post["idTask"];
@@ -477,21 +500,31 @@ function inputDispaAkhir($post) {
                  ";
                  mysqli_query($conn,$query);
     }
+
+    $fotolama = $post["fotoLama"];
     $scada_akhir_before = htmlspecialchars($post["scada_akhir_before"]);
     $scada_akhir_after = htmlspecialchars($post["scada_akhir_after"]);
-    $dpf_akhir = $post["dpf_akhir"];
+    $dpf_akhir = htmlspecialchars($post["dpf_akhir"]);
     $catatan = htmlspecialchars($post["catatan_pasca_penormalan"]);
     $userDispa = $post["userdispa"]; 
+    $timeDispaAproveAkhir = $post["time"];
 
-    $foto2 = upload4();
+    if( $_FILES['dpfFile_akhir']['error'] === 4){
+        $foto2 = $fotolama;
+    } else {
+        $foto2 = upload4();
+    }
 
+    
     $query = "UPDATE db_form SET
              user_dispa_akhir = '$userDispa',
              scada_akhir_before = '$scada_akhir_before',
              scada_akhir_after = '$scada_akhir_after',
              dpf_akhir = '$dpf_akhir',
              catatan_pasca_penormalan = '$catatan',
-             dispa = 'done',
+             time_dispa_akhir_aprove = '$timeDispaAproveAkhir',
+             amn_dispa = 'checked',
+             dispa = 'approve',
              foto_dpf2 = '$foto2'
              WHERE id = '$idTask'
              ";
@@ -558,6 +591,56 @@ function upload4() {
     $namaFileBaru .= $ekstensiGambar;
     move_uploaded_file($tmpNama, 'dpf/' . $namaFileBaru);
     return  $namaFileBaru;
+}
+
+function amnDispaAproveAwal($post) {
+    global $conn;
+    $idTask = $post["idTask"];
+    $userAmnDispa = $post["userAmnDispa"];
+    $aproval = $post["aproval"];
+    $timaAprovalAmnDispaAwal = $post["time"];
+
+    $query = "UPDATE db_form SET
+              user_amn_dispa_awal = '$userAmnDispa',
+              amn_dispa = '$aproval',
+              time_amnDispa_awal_aprove = '$timaAprovalAmnDispaAwal',
+              dispa = 'process'
+              WHERE id = '$idTask'
+             ";
+    mysqli_query($conn,$query);
+
+    if ($aproval == 'approve') {
+        mysqli_query($conn,"UPDATE db_form SET status = 'penormalan' WHERE id='$idTask'");
+    }
+
+    return mysqli_affected_rows($conn);
+
+
+
+}
+
+function amnDispaAproveAkhir($post) {
+    global $conn;
+    $idTask = $post["idTask"];
+    $userAmnDispa = $post["userAmnDispa"];
+    $aproval = $post["aproval"];
+    $timeAprovalAmnDispaAkhir = $post["time"];
+
+    $query = "UPDATE db_form SET
+              user_amn_dispa_awal = '$userAmnDispa',
+              amn_dispa = '$aproval',
+              time_amnDispa_akhir_aprove = '$timeAprovalAmnDispaAkhir',
+              dispa = 'done'
+              WHERE id = '$idTask'
+             ";
+    mysqli_query($conn,$query);
+
+    if ($aproval == 'approve') {
+        mysqli_query($conn,"UPDATE db_form SET status = 'done' WHERE id='$idTask'");
+    }
+
+    return mysqli_affected_rows($conn);
+
 }
 
 function tambahDB($post) {

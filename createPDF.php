@@ -61,6 +61,8 @@ if ($rencana == 2){
     $b = 20;
     $c = '           .....           .....            .....';
     $d = '        .....                .....                  .....';
+} elseif ($rencana == 1){
+	
 }
 
 $query2 = mysqli_query($conn,"SELECT * FROM db_table_1 WHERE id_form='$_GET[id]'");

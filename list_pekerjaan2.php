@@ -1,7 +1,7 @@
 <?php
-                require 'functions.php';
+        require 'functions.php';
                 
-                $folder = query("SELECT * FROM db_form WHERE user='$_SESSION[username]' ORDER BY id DESC LIMIT $awalData,$jumlahDataPerHalaman");               
+        $folder = query("SELECT * FROM db_form WHERE user='$_SESSION[username]' ORDER BY id DESC LIMIT $awalData,$jumlahDataPerHalaman");               
 
 ?>
 
@@ -75,8 +75,24 @@
                     <td><?= $data['pekerjaan'];?></td>
                     <td><?= $data['waktu'];?></td>
                     <td><?= $data['lokasi'];?></td>
-                    <td><?= $data['amn'] == "disapprove" ? "<a href='#' class='btn btn-danger btn-icon-split'><span class='icon text-white-50'><i class='fas fa-thumbs-down'></i></span></a>" : "<a href='#' class='btn btn-success btn-icon-split'><span class='icon text-white-50'><i class='fas fa-thumbs-up'></i></span></a>";?></td>
-                    <td><?= $data['msb'] == "disapprove" ? "<a href='#' class='btn btn-danger btn-icon-split'><span class='icon text-white-50'><i class='fas fa-thumbs-down'></i></span></a>" : "<a href='#' class='btn btn-success btn-icon-split'><span class='icon text-white-50'><i class='fas fa-thumbs-up'></i></span></a>";?><a href='createPDF.php?id=<?= $data['id'];?>&jumlah=' class=''><span class='icon text-danger'><i class='far fa-file-pdf fa-lg ml-3'></i></span></a></td>
+                    <td><?php if($data['amn'] == "approve") {
+                                echo "<a href='#' class='btn btn-success btn-icon-split' data-toggle='tooltip' data-placement='left' title='approve'><span class='icon text-white-50'><i class='fas fa-thumbs-up'></i></span></a>";
+                            }elseif ($data['amn'] == "disapprove") {
+                                echo "<a href='#' class='btn btn-danger btn-icon-split' data-toggle='tooltip' data-placement='left' title='disapprove'><span class='icon text-white-50'><i class='fas fa-thumbs-down'></i></span></a>";
+                            }else{
+                                echo "<a href='#' class='btn btn-warning btn-icon-split' data-toggle='tooltip' data-placement='left' title='pending'><span class='icon text-white-50'><i class='fas fa-spinner'></i></span></a>";
+                            }?>
+                            <a href='createPDF.php?id=<?= $data['id'];?>&jumlah=' class='' hidden><span class='icon text-danger'><i class='far fa-file-pdf fa-lg ml-3'></i></span></a>
+                    </td>
+                    <td><?php if($data['msb'] == "approve") {
+                                echo "<a href='#' class='btn btn-success btn-icon-split' data-toggle='tooltip' data-placement='left' title='approve'><span class='icon text-white-50'><i class='fas fa-thumbs-up'></i></span></a>";
+                            }elseif ($data['msb'] == "disapprove") {
+                                echo "<a href='#' class='btn btn-danger btn-icon-split' data-toggle='tooltip' data-placement='left' title='disapprove'><span class='icon text-white-50'><i class='fas fa-thumbs-down'></i></span></a>";
+                            }else{
+                                echo "<a href='#' class='btn btn-warning btn-icon-split' data-toggle='tooltip' data-placement='left' title='pending'><span class='icon text-white-50'><i class='fas fa-spinner'></i></span></a>";
+                            }?>
+                            <a href='createPDF.php?id=<?= $data['id'];?>&jumlah=' class=''><span class='icon text-danger'><i class='far fa-file-pdf fa-lg ml-3'></i></span></a>
+                    </td>
                     <td>
                         <a href="?url=show_detail&id=<?= $data['id'];?>" class="btn btn-info btn-icon-split">
                             <span class="icon text-white-50">
@@ -110,9 +126,15 @@
 <script>
 var ab = document.getElementsByTagName('a');
 var ini = document.getElementById('ini');
-var clas = document.getElementsByClassName('btn btn-danger btn-icon-split');
-for (let i=0; i<clas.length; i++) {
-    clas[i].parentElement.children[1].style.display='none';
+var clas1 = document.getElementsByClassName('btn btn-warning btn-icon-split');
+var clas2 = document.getElementsByClassName('btn btn-danger btn-icon-split');
+
+for (let i=0; i<clas1.length; i++) {
+    clas1[i].parentElement.children[1].style.display='none';
+}
+
+for (let i=0; i<clas2.length; i++) {
+    clas2[i].parentElement.children[1].style.display='none';
 }
 
 </script>

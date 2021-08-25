@@ -16,7 +16,7 @@
 <body id="page-top">
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Data Manuver Memerlukan Persetujuan</h6>
+        <h6 class="m-0 font-weight-bold text-primary">Data Manuver Memerlukan Perbaikan</h6>
     </div>
             
             <div class="card-body">
@@ -30,11 +30,12 @@
                                 <th>Waktu</th>
                                 <th>Installasi</th>
                                 <th>lokasi</th>
+                                <th>status</th>
                                 <th>action</th>
                             </tr>
                             <?php
                                 require "functions.php";
-                                $datas=query("SELECT * FROM db_form WHERE amn = 'approve' AND ae = 'aprovAmn'");
+                                $datas=query("SELECT * FROM db_form WHERE  dispa = 'approve' AND status = 'pembebasan'");
                             ?>
                             <?php $i=1;?>
                             <?php foreach($datas as $row):?>
@@ -44,13 +45,33 @@
                                 <td><?= $row["waktu"];?></td>
                                 <td><?= $row["installasi"];?></td>
                                 <td><?= $row["lokasi"];?></td>
+                                <td><?= $row["status"];?></td>
                                 <td>
-                                    
-                                <a href="?url=msbApprove&id=<?= $row["id"];?>" id="updateForm-1" class="btn btn-grey btn-icon-split"></span><span class="text far fa-edit"></span></a>
+                                    <a href="?url=amnApproveAwal&id=<?= $row["id"];?>" id="updateForm-1" class="btn btn-grey btn-icon-split"></span><span class="text far fa-edit"></span></a>
                                 </td>
+                            </tr>
                             <?php $i++;?>
                             <?php endforeach; ?>
 
+                            <?php
+                                $datas=query("SELECT * FROM db_form WHERE  dispa = 'approve' AND status = 'penormalan'");
+                            ?>
+                            
+                            <?php foreach($datas as $row):?>
+                            <tr>
+                                <td><?=$i;?></td>
+                                <td><?= $row["pekerjaan"];?></td>
+                                <td><?= $row["waktu"];?></td>
+                                <td><?= $row["installasi"];?></td>
+                                <td><?= $row["lokasi"];?></td>
+                                <td><?= $row["status"];?></td>
+                                <td>
+                                    <a href="?url=amnApproveAkhir&id=<?= $row["id"];?>" id="updateForm-1" class="btn btn-grey btn-icon-split"></span><span class="text far fa-edit"></span></a>
+                                </td>
+                            </tr>
+                            <?php $i++;?>
+                            <?php endforeach; ?>
+                            
                     </table>
                 </div>
             </div>

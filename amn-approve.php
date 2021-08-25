@@ -92,10 +92,13 @@ if ($sql){
                                 </div> 
 
                                 <div class="col-3">
-                                    <label>Create Date</label>
-                                    <div class="col-0">
-                                    <input type="text" data-date="" value="<?= $data['create_date'];?>" disabled>
-                                    </div>
+                                    <label for="">Time Aproved</label>
+                                    <input type="text" data-date="" name="time" class="form-control" value="<?php echo date('d-M-Y');?>" readonly>
+                                </div>
+
+                                <div class="col">
+                                    <label for="">level amn</label>
+                                    <input type="text" name="level" class="form-control" value="<?= $_SESSION['level']; ?>">
                                 </div>
 
                                 <div class="col-3">
@@ -108,10 +111,7 @@ if ($sql){
                                     <input type="text" name="userAmn" placeholder="" value="<?= $_SESSION['username'];?>" class="form-control">
                                 </div>                                
 
-                                <div class="col-2">
-                                    <label for="fotoLama" class="control-label">foto</label>
-                                    <input type="text" name="fotoLama" id="fotoLama" class="form-control" value="<?= $data["foto"]; ?>" disabled> <!--untuk menyimpan foto lama, jika user tidak ganti foto maka foto ini yg digunakan-->
-                                </div> 
+                               
 
                             </div>
 
@@ -321,9 +321,9 @@ if ($sql){
                                                 <tr>
                                                     <td><?= $i ?></td>
                                                     <td><?= $pembebasan["lokasi"]  ?></td>
-                                                    <td><?= $pembebasan["remote"]  ?></td>
-                                                    <td><?= $pembebasan["real"]  ?></td>
-                                                    <td><?= $pembebasan["ads"]  ?></td>
+                                                    <td><?= $pembebasan["remote_bebas"]  ?></td>
+                                                    <td><?= $pembebasan["real_bebas"]  ?></td>
+                                                    <td><?= $pembebasan["ads_bebas"]  ?></td>
                                                     <td><?= $pembebasan["installasi"]  ?></td>
                                                 </tr>
                                                     <?php $i++ ?>
@@ -360,9 +360,9 @@ if ($sql){
                                                 <tr>
                                                     <td><?= $i ?></td>
                                                     <td><?= $penormalan["lokasi"]  ?></td>
-                                                    <td><?= $penormalan["remote"]  ?></td>
-                                                    <td><?= $penormalan["real"]  ?></td>
-                                                    <td><?= $penormalan["ads"]  ?></td>
+                                                    <td><?= $penormalan["remote_normal"]  ?></td>
+                                                    <td><?= $penormalan["real_normal"]  ?></td>
+                                                    <td><?= $penormalan["ads_normal"]  ?></td>
                                                     <td><?= $penormalan["installasi"]  ?></td>
                                                 </tr>
                                                     <?php $i++ ?>
@@ -394,9 +394,9 @@ if ($sql){
                         <div class="row">
                             <div class="col">
                                 <br>
-                                <input type="radio" value="approve" class="btn-check" name="aproval" id="success-outlined" autocomplete="off">
+                                <input type="radio" value="approve" class="btn-check" name="aproval" id="success-outlined" required autocomplete="off">
                                 <label class="btn btn-outline-success" for="success-outlined">Aproved</label>
-                                <input type="radio" value="disapprove" class="btn-check" name="aproval" id="danger-outlined" autocomplete="off">
+                                <input type="radio" value="disapprove" class="btn-check" name="aproval" id="danger-outlined" required autocomplete="off">
                                 <label class="btn btn-outline-danger" for="danger-outlined">Disapproved</label>
                             </div>
                         </div>

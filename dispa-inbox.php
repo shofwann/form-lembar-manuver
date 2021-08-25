@@ -35,7 +35,7 @@
                             </tr>
                             <?php
                                 require "functions.php";
-                                $datas=query("SELECT * FROM db_form WHERE  dispa = 'pembebasan'");
+                                $datas=query("SELECT * FROM db_form WHERE  msb = 'approve' AND dispa = 'pembebasan' AND ae ='aprovMsb'");
                             ?>
                             <?php $i=1;?>
                             <?php foreach($datas as $row):?>
@@ -45,19 +45,17 @@
                                 <td><?= $row["waktu"];?></td>
                                 <td><?= $row["installasi"];?></td>
                                 <td><?= $row["lokasi"];?></td>
-                                <td><?= $row["dispa"];?></td>
+                                <td><?= $row["status"];?></td>
                                 <td>
                                     
                                 <a href="?url=dispaInputAwal&id=<?= $row["id"];?>" id="updateForm-1" class="btn btn-grey btn-icon-split"><span class="text far fa-edit"></span></a>
                                 </td>
                             <?php $i++;?>
                             <?php endforeach; ?>
-
                                 <!-- untuk percobaan -->
                             <?php
-                                $datas=query("SELECT * FROM db_form WHERE  dispa = 'penormalan'");
+                                $datas=query("SELECT * FROM db_form WHERE amn_dispa = 'approve' AND status = 'penormalan'");
                             ?>
-                            
                             <?php foreach($datas as $row):?>
                             <tr>
                                 <td><?=$i;?></td>
@@ -65,23 +63,47 @@
                                 <td><?= $row["waktu"];?></td>
                                 <td><?= $row["installasi"];?></td>
                                 <td><?= $row["lokasi"];?></td>
-                                <td><?= $row["dispa"];?></td>
+                                <td><?= $row["status"];?></td>
                                 <td>
                                 <a href="?url=dispaInputAkhir&id=<?= $row["id"];?>" id="updateForm-1" class="btn btn-grey btn-icon-split"><span class="text far fa-edit"></span></a>
-                                <a href="?url=tes&id=<?= $row["id"];?>" id="" class="btn btn-grey btn-icon-split"><span class="text fas fa-exclamation-triangle"></span></a>
                                 </td>
                             <?php $i++;?>
                             <?php endforeach; ?>
 
 
-                            
+                            <?php
+                                $datas=query("SELECT * FROM db_form WHERE  amn_dispa = 'disapprove' AND status = 'pembebasan' AND user_dispa_awal = '$_SESSION[username]'");
+                            ?>
+                            <?php foreach($datas as $row):?>
+                            <tr>
+                                <td><?=$i;?></td>
+                                <td><?= $row["pekerjaan"];?></td>
+                                <td><?= $row["waktu"];?></td>
+                                <td><?= $row["installasi"];?></td>
+                                <td><?= $row["lokasi"];?></td>
+                                <td><?= $row["status"];?></td>
+                                <td> 
+                                <a href="?url=dispaUpdateAwal&id=<?= $row["id"];?>" id="updateForm-1" class="btn btn-grey btn-icon-split"><span class="text far fa-edit"></span></a>
+                                </td>
+                            <?php $i++;?>
+                            <?php endforeach; ?>
 
-                            
-
-                            
-                            
-
-                            
+                            <?php
+                                $datas=query("SELECT * FROM db_form WHERE amn_dispa = 'disapprove' AND status = 'penormalan' AND user_dispa_awal = '$_SESSION[username]'");
+                            ?>
+                            <?php foreach($datas as $row):?>
+                            <tr>
+                                <td><?=$i;?></td>
+                                <td><?= $row["pekerjaan"];?></td>
+                                <td><?= $row["waktu"];?></td>
+                                <td><?= $row["installasi"];?></td>
+                                <td><?= $row["lokasi"];?></td>
+                                <td><?= $row["status"];?></td>
+                                <td>
+                                <a href="?url=dispaUpdateAkhir&id=<?= $row["id"];?>" id="updateForm-1" class="btn btn-grey btn-icon-split"><span class="text far fa-edit"></span></a>
+                                </td>
+                            <?php $i++;?>
+                            <?php endforeach; ?> 
                     </table>
                 </div>
             </div>

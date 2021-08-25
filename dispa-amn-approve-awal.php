@@ -8,11 +8,11 @@ $data=mysqli_fetch_assoc($sql);
 
 if( isset($_POST["submit"]) ){
 
-    if( inputDispaAwal ($_POST) > 0){
+    if( amnDispaAproveAwal ($_POST) > 0){
         //var_dump(tambah($_POST)); die;
         echo "<script>
                 alert('data berhasil disubmit'); 
-                document.location.href = 'dispa-dashboard.php?url=dispaInbox';
+                document.location.href = 'dispa-amn-dashboard.php?url=amnDispaInbox';
                 </script>
                 ";  
                 
@@ -20,7 +20,7 @@ if( isset($_POST["submit"]) ){
        // var_dump(tambah($_POST)); die;
         echo "<script>
                 alert('data gagal disubmit'); 
-                document.location.href = 'dispa-dashboard.php?url=dispaInbox';
+                document.location.href = 'dispa-amn-dashboard.php?url=amnDispaInbox';
                 </script>
                 "; die;
                 
@@ -69,7 +69,7 @@ if ($sql){
         </div>
         <div class="card-body">
             <div class="form-group cols-sm-6">
-                <a href="" onclick="window.history.go(-1); return false;" class="btn btn-primary btn-icon-split">
+                <a href="?url=amnDispaInbox" class="btn btn-primary btn-icon-split">
                     <span class="icon text-white-50">
                         <i class="fas fa-arrow-left"></i>              
                     </span>
@@ -84,7 +84,7 @@ if ($sql){
             <form action="" method="post" class="form-horizontal" enctype="multipart/form-data">
             
                     <!-- Baris/row Ke-0-->
-                    <div class="row">
+                            <div class="row">
                                 
                                 <div class="col-2">
                                     <label for="id" class="control-label">id</label>
@@ -92,24 +92,21 @@ if ($sql){
                                 </div> 
 
                                 <div class="col-3">
-                                    <label>Create Date</label>
-                                    <input type="text" data-date="" class="form-control" value="<?= $data['create_date'];?>" readonly>
+                                    <label>Time Aproval</label>
+                                    <input type="text" name="time" data-date="" class="form-control" value="<?= date('d-M-Y H:i:s'); ?>" readonly>
                                 </div>
 
                                 <div class="col-3">
-                                    <label>User Initiator :</label>
-                                    <input type="text" name="user" placeholder="" value="<?= $data['user'];?>" class="form-control" disabled>
+                                    <label>Level AMN :</label>
+                                    <input type="text" name="level" class="form-control" placeholder="" value="<?= $_SESSION['level']; ?>" class="form-control" disabled>
                                 </div>
 
                                 <div class="col">
-                                    <label>User msb :</label>
-                                    <input type="text" name="userdispa" placeholder="" value="<?= $_SESSION['username'];?>" class="form-control" readonly>
+                                    <label>User AMN Dispa :</label>
+                                    <input type="text" name="userAmnDispa" placeholder="" value="<?= $_SESSION['username'];?>" class="form-control" readonly>
                                 </div>                                
 
-                                <div class="col-2">
-                                    <label for="fotoLama" class="control-label">foto</label>
-                                    <input type="text" name="fotoLama" id="fotoLama" class="form-control" value="<?= $data["foto"]; ?>" disabled> <!--untuk menyimpan foto lama, jika user tidak ganti foto maka foto ini yg digunakan-->
-                                </div> 
+                                
 
                             </div>
 
@@ -171,11 +168,11 @@ if ($sql){
                                                 <?php while ($manuverBebas = mysqli_fetch_array($sql_manuver)) { ?>
                                                 <tr>
                                                     <td><?= $manuverBebas["lokasi"]  ?></td>
-                                                    <td><input type="text" name="peng_pekerjaan[]" value="" style="width:120px;border:1px solid #fff"><input type="text" name="sampel[]" value="<?= $manuverBebas["id"]  ?>" hidden></td>
-                                                    <td><input type="text" name="peng_manuver[]" value="" style="width:120px;border:1px solid #fff"></td>
-                                                    <td><input type="text" name="peng_k3[]" value="" style="width:120px;border:1px solid #fff"></td>
-                                                    <td><input type="text" name="spv[]" value="" style="width:120px;border:1px solid #fff"></td>
-                                                    <td><input type="text" name="opr[]" value="" style="width:120px;border:1px solid #fff"></td>
+                                                    <td><?= $manuverBebas["pengawas_pekerjaan"]  ?></td>
+                                                    <td><?= $manuverBebas["pengawas_manuver"]  ?></td>
+                                                    <td><?= $manuverBebas["pengawas_manuver"]  ?></td>
+                                                    <td><?= $manuverBebas["spv_gitet"]  ?></td>
+                                                    <td><?= $manuverBebas["opr_gitet"]  ?></td>
                                                 </tr>
                                                 <?php } ?>
                                             
@@ -212,14 +209,15 @@ if ($sql){
                             </div>
                             <div class="col-1 ml-3">
                                 <br>
+                                <?php $cekbok = explode(",", $data["document"]); ?> 
                                     <label>Kelengkapan Dokumen :</label>
                                     <div action="">
-                                        <input type="checkbox" id="wp" name="dokumen[]" value="wp" required>
-                                        <label for="wp"> WP</label><br>
-                                        <input type="checkbox" id="ik" name="dokumen[]" value="ik">
-                                        <label for="ik"> IK</label><br>
-                                        <input type="checkbox" id="k3" name="dokumen[]" value="k3">
-                                        <label for="k3"> K3</label><br>
+                                        <input type="checkbox" id="" name="" value="wp" <?php in_array('wp', $cekbok) ? print 'checked' : ' '; ?> disabled="disabled">
+                                        <label for="vehicle1"> WP</label><br>
+                                        <input type="checkbox" id="" name="" value="ik" <?php in_array('ik', $cekbok) ? print 'checked' : ' '; ?> disabled="disabled">
+                                        <label for="vehicle2"> IK</label><br>
+                                        <input type="checkbox" id="" name="" value="k3" <?php in_array('k3', $cekbok) ? print 'checked' : ' '; ?>  disabled="disabled">
+                                        <label for="vehicle3"> K3</label><br>
                                     </div>
                             </div>
                         </div>
@@ -251,18 +249,17 @@ if ($sql){
 
                         <div class="row">
                             <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
-                                <input type="text" name="scada_awal_before" style="border:1px solid #fff; width:300px;" placeholder="Fill in Mw MVar Amper Volt">
+                                <input type="text" name="scada_awal_before" style="border:1px solid #fff; width:300px; font-style:italic;" value="<?= $data["scada_awal_before"]; ?>" disabled>
                             </div>
                             <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
-                                <input type="text" name="dpf_awal" style="border:1px solid #fff; width:300px;" placeholder="Fill in Mw MVar Amper Volt">
-                                <input type="file" name="dpfFile_awal">
+                                <input type="text" name="dpf_awal" style="border:1px solid #fff; width:300px; font-style:italic;" value="<?= $data["dpf_awal"]; ?>" disabled>
+                                <a href="dpf/<?= $data["foto_dpf1"]; ?>" class="btn" download><span class="text fas fa-download"></span></a>
                             </div>
                             <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
-                                <input type="text" name="scada_akhir" style="border:1px solid #fff; width:300px; " placeholder="" disabled>
+                                <input type="text" style="border:1px solid #fff">
                             </div>
                             <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
-                                <input type="text" style="border:1px solid #fff; width:300px;" placeholder="" disabled>
-                                <input type="file" name="dpfFile_akhir" disabled>
+                                <input type="text" style="border:1px solid #fff">
                             </div>
                         </div>
 
@@ -287,12 +284,23 @@ if ($sql){
 
                         <div class="row">
                             <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
-                                <input type="text" name="scada_awal_after" style="border:1px solid #fff; width:300px; font-style:italic;" placeholder="Fill in Mw MVar Amper Volt">
+                            <input type="text" name="scada_awal_after" style="border:1px solid #fff; width:300px; font-style:italic;" value="<?= $data["scada_awal_after"]; ?>" disabled>
                             </div>
                             <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
                                 <input type="text" style="border:1px solid #fff">
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
+                                <label for="">Catatan Pra Pembebasan:</label>
+                            </div>
+                    
+                        </div>
+                        <div class="row">
+                                <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
+                                    <textarea name="catatan_pra_pembebasan" id="" cols="230" rows="5" disabled><?= $data["catatan_pra_pembebasan"]; ?></textarea>
+                                </div>
+                        </div>   
                     <!-- Baris/ row ke-5-->
                         <h2>Manuver Pembebasan Installasi</h2>
                         <div class="row">
@@ -321,9 +329,9 @@ if ($sql){
                                                 <tr>
                                                     <td><?= $i ?></td>
                                                     <td><?= $pembebasan["lokasi"]  ?></td>
-                                                    <td><input type="time" value="<?= time(); ?>" name="remote_bebas[]"><input type="text" name="sampel_manuver[]" value="<?= $pembebasan["id"]  ?>" hidden> WIB</td>
-                                                    <td><input type="time" value="<?= time(); ?>" name="real_bebas[]"> WIB</td>
-                                                    <td><input type="time" value="<?= time(); ?>" name="ads_bebas[]"> WIB</td>
+                                                    <td><?= $pembebasan["remote_bebas"]  ?></td>
+                                                    <td><?= $pembebasan["real_bebas"]  ?></td>
+                                                    <td><?= $pembebasan["ads_bebas"]  ?></td>
                                                     <td><?= $pembebasan["installasi"]  ?></td>
                                                 </tr>
                                                     <?php $i++ ?>
@@ -341,71 +349,82 @@ if ($sql){
                     </div>
                     <div class="row">
                             <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
-                                <textarea name="catatan_pasca_pembebasan" id="" cols="190" rows="5"></textarea>
+                                <textarea name="catatan_pasca_pembebasan" id="" cols="190" rows="5" disabled><?= $data["catatan_pasca_pembebasan"]; ?></textarea>
+                            </div>
+                    </div>
+     
+                    <h2>Manuver Penormalan Installasi</h2>
+                    <div class="row">
+                            <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
+                                <label for="">Catatan Pra Penormalan:</label>
                             </div>
                     
-                    </div>    
-                    <!-- Baris/ row ke-6-->
-                        <h2>Manuver Penormalan Installasi</h2>
+                        </div>
                         <div class="row">
-                                <div class="col" style="border:1px solid">
-                                    <div class="form-group ml-2">
-                                        <img src="img/<?= $data["foto2"];?>" id="output2" height="auto" width="770px" style="padding-top:.50rem;padding-right:.50rem"><br>
-                                    </div>
+                                <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
+                                    <textarea name="catatan_pra_penormalan" id="" cols="190" rows="5" disabled><?= $data["catatan_pra_penormalan"]; ?></textarea>
                                 </div>
-                                <div class="col" style="border:1px solid">
-                                    <div class="table-responsive">
-                                        <table class="table table-bordered mt-2" id="dynamic_field2" style="">
-                                            <tr>
-                                                <th rowspan="2" style="padding-top:35px;width:28px">No.</th>
-                                                <th rowspan="2" style="width:.78rem;text-align:center;padding-top:35px">Lokasi</th>
-                                                <th colspan="3"style="width:7rem;text-align:center">Jam Manuver Tutup</th>
-                                                <th rowspan="2"style="padding-top:35px;width:7rem;">Installasi</th>
-                                                
-                                            </tr>
-                                            <tr>
-                                                <th>Remote</th>
-                                                <th>Real (R/L)</th>
-                                                <th>ADS</th>
-                                            </tr>
-                                            <?php $i=1; ?>
-                                                    <?php while ($penormalan = mysqli_fetch_assoc($tahapan_pemnormalan) ) : ?>
-                                                <tr>
-                                                    <td><?= $i ?></td>
-                                                    <td><?= $penormalan["lokasi"]  ?></td>
-                                                    <td><?= $penormalan["remote_normal"]  ?></td>
-                                                    <td><?= $penormalan["real_normal"]  ?></td>
-                                                    <td><?= $penormalan["ads_normal"]  ?></td>
-                                                    <td><?= $penormalan["installasi"]  ?></td>
-                                                </tr>
-                                                    <?php $i++ ?>
-                                                    <?php endwhile; ?>
-                                        </table>
-                                    </div>
-
+                        </div>  
+                    <div class="row">
+                            <div class="col" style="border:1px solid">
+                                <div class="form-group ml-2">
+                                    <img src="img/<?= $data["foto2"];?>" id="output2" height="auto" width="770px" style="padding-top:.50rem;padding-right:.50rem"><br>
                                 </div>
-                        </div>
+                            </div>
+                            <div class="col" style="border:1px solid">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered mt-2" id="dynamic_field2" style="">
+                                        <tr>
+                                            <th rowspan="2" style="padding-top:35px;width:28px">No.</th>
+                                            <th rowspan="2" style="width:.78rem;text-align:center;padding-top:35px">Lokasi</th>
+                                            <th colspan="3"style="width:7rem;text-align:center">Jam Manuver Tutup</th>
+                                            <th rowspan="2"style="padding-top:35px;width:7rem;">Installasi</th>
+                                            
+                                        </tr>
+                                        <tr>
+                                            <th>Remote</th>
+                                            <th>Real (R/L)</th>
+                                            <th>ADS</th>
+                                        </tr>
+                                        <?php $i=1; ?>
+                                                <?php while ($penormalan = mysqli_fetch_assoc($tahapan_pemnormalan) ) : ?>
+                                            <tr>
+                                                <td><?= $i ?></td>
+                                                <td><?= $penormalan["lokasi"]  ?></td>
+                                                <td><?= $penormalan["remote_normal"]  ?></td>
+                                                <td><?= $penormalan["real_normal"]  ?></td>
+                                                <td><?= $penormalan["ads_normal"]  ?></td>
+                                                <td><?= $penormalan["installasi"]  ?></td>
+                                            </tr>
+                                                <?php $i++ ?>
+                                                <?php endwhile; ?>
+                                    </table>
+                                </div>
 
-                        <!-- <div class="row" style="background-color:#F2F4F4;">
+                            </div>
+                    </div>
+                    <div class="row">
+                            <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
+                                <label for="">Catatan Pasca Penormalan:</label>
+                            </div>
+                    </div>
+                    <div class="row">
+                            <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
+                                <textarea name="catatan_pasca_pembebasan" id="" cols="190" rows="5" disabled><?= $data["catatan_pasca_penormalan"]; ?></textarea>
+                            </div>
+                    </div>   
                     
-                            <div class="col-6" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
-                                <label for="">Catatan Pembebasan:</label>
+                    <div class="row">
+                            <div class="col">
+                                <br>
+                                <input type="radio" value="approve" class="btn-check" name="aproval" id="success-outlined" required autocomplete="off">
+                                <label class="btn btn-outline-success" for="success-outlined">Aproved</label>
+                                <input type="radio" value="disapprove" class="btn-check" name="aproval" id="danger-outlined" required autocomplete="off">
+                                <label class="btn btn-outline-danger" for="danger-outlined">Disapproved</label>
                             </div>
+                    </div>
 
-                            <div class="col-6" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
-                                <label for="">Catatan Penormalan:</label>
-                            </div>
-                        </div>
-                        <div class="row" style="">
-                            <div class="col-6" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
-                                <textarea name="" id="" cols="90" rows="5"></textarea>
-                            </div>
-                            <div class="col-6" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
-                                <textarea name="" id="" cols="90" rows="5"></textarea>
-                            </div>
-                        </div> -->
-                       
-                        <br>
+
                         <div class="row">
                             <div class="col-2">
                             <button type="submit" name="submit" >Submit</button>

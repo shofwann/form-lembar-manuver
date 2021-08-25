@@ -41,6 +41,30 @@ $cek=mysqli_num_rows($sql);
             $_SESSION["level"] = "dispa";
             header("location:dispa-dashboard.php");
         }
+
+        elseif ($data["level"]=="amn_dispa"){
+            $_SESSION['username'] = $user;
+            $_SESSION["level"] = "amn_dispa";
+            header("location:dispa-amn-dashboard.php");
+        }
+
+        elseif ($data["level"]=="plh_amn"){
+            $_SESSION['username'] = $user;
+            $_SESSION["level"] = "plh_amn";
+            header("location:plh-amn-dashboard.php");
+        }
+
+        elseif ($data["level"]=="plh_msb"){
+            $_SESSION['username'] = $user;
+            $_SESSION["level"] = "plh_msb";
+            header("location:plh-msb-dashboard.php");
+        }
+
+        elseif ($data["level"]=="plh_amn_dispa"){
+            $_SESSION['username'] = $user;
+            $_SESSION["level"] = "plh_amn_dispa";
+            header("location:plh-amn-dispa-dashboard.php");
+        }
     }
     else
     {

@@ -34,7 +34,7 @@
                             </tr>
                             <?php
                                 require "functions.php";
-                                $datas=query("SELECT * FROM db_form WHERE  ae = 'approve'");
+                                $datas=query("SELECT * FROM db_form WHERE ae = 'approve'");
                             ?>
                             <?php $i=1;?>
                             <?php foreach($datas as $row):?>

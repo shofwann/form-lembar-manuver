@@ -24,7 +24,7 @@ if (isset($_GET['url']))
         break;
 
         case 'initiatorInbox';
-        include 'initiatorInbox.php';
+        include 'initiator-Inbox.php';
         break;
         
         case 'updateForm-1';
@@ -94,6 +94,33 @@ if (isset($_GET['url']))
         case 'autoForm2';
         include 'auto-form2.php';
         break;
+
+        case 'amnDispaInbox';
+        include 'dispa-amn-inbox.php';
+        break;
+
+        case 'amnDispaList';
+        include 'dispa-amn-list.php';
+        break;
+
+        case 'amnApproveAwal';
+        include 'dispa-amn-approve-awal.php';
+        break;
+
+        case 'amnApproveAkhir';
+        include 'dispa-amn-approve-akhir.php';
+        break;
+
+        case 'dispaUpdateAwal';
+        include 'dispa-update-awal.php';
+        break;
+
+        case 'dispaUpdateAkhir';
+        include 'dispa-update-akhir.php';
+        break;
+
+
+        
 
 
         
