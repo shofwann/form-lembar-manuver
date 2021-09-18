@@ -34,8 +34,8 @@ if( isset($_POST["submit"]) ){
 $sql=mysqli_query($conn,"SELECT * FROM db_form WHERE id='$_GET[id]'");
 $sql_manuver=mysqli_query($conn,"SELECT * FROM db_table_1 WHERE id_form='$_GET[id]'"); //table1
 $sql_manuver2=mysqli_query($conn,"SELECT * FROM db_table_1 WHERE id_form='$_GET[id]'"); //table2
-$tahapan_pembebasan=mysqli_query($conn,"SELECT * FROM db_table_3 WHERE id_form='$_GET[id]'"); //table3
-$tahapan_penormalan=mysqli_query($conn,"SELECT * FROM db_table_4 WHERE id_form='$_GET[id]'"); //table4
+$tahapan_pembebasan=mysqli_query($conn,"SELECT * FROM db_table_2 WHERE id_form='$_GET[id]'"); //table3
+$tahapan_penormalan=mysqli_query($conn,"SELECT * FROM db_table_3 WHERE id_form='$_GET[id]'"); //table4
 
 $data=mysqli_fetch_assoc($sql);
 if ($sql){
@@ -68,6 +68,17 @@ if ($sql){
   <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script> 
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <style>
+        textarea:disabled {
+            background-color: #fff;
+        }
+        input[type="datetime-local"][disabled] {
+            background-color: #fff;
+        }
+        input[type="text"][disabled] {
+            background-color: #fff;
+        }
+    </style>
 </head>
 
 <body id="page-top">
@@ -78,110 +89,117 @@ if ($sql){
         </div>
         <div class="card-body">
             <form action="" method="post" class="form-horizontal" enctype="multipart/form-data" id="form_id">
-                <!-- Baris/row Ke-0-->
-                    <div class="row" >
-                        <div class="col-2">
-                            <label for="id" class="control-label">id</label>
-                            <input type="text" name="idTask" id="idTask" class="form-control" value="<?= $data["id"]; ?>" readonly>
-                        </div>  
 
-                        <div class="col-2">
-                            <label>Create Date:</label>
-                            <input type="text" name="create_date" value="<?php echo date('d-M-Y');?>" class="form-control">
+                            <!-- Baris/row Ke-0 hide data auto-->
+                    <div class="row">
+                        <div class="col-2 ">
+                            <label class="" style="width: 150px;">Create Date:</label>
+                            <input type="text" name="create_date" value="<?= $data["create_date"];?>" class="form-control" readonly>
                         </div>
 
                         <div class="col-2">
                             <label>User :</label>
-                            <input type="text" name="user" placeholder="" value="<?php echo $_SESSION['username'];?>" class="form-control">
+                            <input type="text" name="user" placeholder="" value="<?= $_SESSION['username'];?>" class="form-control" readonly>
                         </div>
 
                         <div class="col-2">
-                                    <label for="fotoLama1" class="control-label">fotolama 1</label>
-                                    <input type="text" name="fotoLama1" id="fotoLama1" class="form-control" value="<?= $data["foto"]; ?>" readonly> <!--untuk menyimpan foto lama, jika user tidak ganti foto maka foto ini yg digunakan-->
-                        </div> 
+                            <label>ID Task:</label>
+                            <input type="text" name="idTask" value="<?= $data['id']; ?>" class="form-control" readonly>
+                        </div>
                         <div class="col-2">
-                                    <label for="fotoLama2" class="control-label">fotolama 2</label>
-                                    <input type="text" name="fotoLama2" id="fotoLama2" class="form-control" value="<?= $data["foto2"]; ?>" readonly> <!--untuk menyimpan foto lama, jika user tidak ganti foto maka foto ini yg digunakan-->
-                        </div> 
+                            <label for="">foto Lama pembebasan</label>
+                            <input type="text" name="fotoLama1" value="<?= $data["foto"] ?>" class="form-control" readonly>
+                        </div>
+                        <div class="col-2">
+                            <label for="">foto Lama penormalan</label>
+                            <input type="text" name="fotoLama2" value="<?= $data["foto2"] ?>" class="form-control" readonly>
+                        </div>
+                        <div class="col-2">
+                            <label for="">level user:</label>
+                            <input type="text" name="level" value="<?= $_SESSION['level'];?>" class="form-control" readonly>
+                        </div>
+                    </div>
+                    <div class="row " >
+                        <div class="col-4" style="border:1px solid #B2BABB; background-color:#F2F4F4;font-weight: bold;">
+                            <label for="" class="pt-2 pl-2">PEKERJAAN :</label>
+                        </div>
+                        <div class="col" style="border:1px solid #B2BABB; background-color:#F2F4F4;font-weight: bold;">
+                            <label for="" class="pt-2">TANGGAL PELAKSANAAN :</label>
+                        </div>
+                        <div class="col-2" style="border:1px solid #B2BABB; background-color:#F2F4F4;font-weight: bold;">
+                            <label for="" class="pt-2">MULAI</label>
+                        </div>
+                        <div class="col-2" style="border:1px solid #B2BABB; background-color:#F2F4F4;font-weight: bold;">
+                            <label for="" class="pt-2">SELESAI</label>
+                        </div>
                     </div>
 
+                    <div class="row" style="height:80px;">
+                        <div class="col-4 pt-3" style="border:1px solid #B2BABB;">
+                            <input type="text" name="pekerjaan" id="pekerjaan" class="form-control" style="border:1px solid #fff;" value="<?= $data["pekerjaan"]; ?>">
+                        </div>
+                        <div class="col pt-3" style="border:1px solid #B2BABB;">
+                            <input type="date" name="date" id="start_date" class="form-control" style="border:1px solid #fff;" value="<?= $data["date"]; ?>">
+                        </div>
+                        <div class="col-2 pt-3" style="border:1px solid #B2BABB;">
+                            <input type="time" name="start" id="end_date" class="" style="border:1px solid #fff;" value="<?= $data["start"]; ?>"> WIB
+                        </div>
+                        <div class="col-2 pt-3" style="border:1px solid #B2BABB;">
+                            <input type="time" name="end" id="report_date" class="" style="border:1px solid #fff;" value="<?= $data["end"]; ?>"> WIB
+                        </div>
+                    </div>
 
-                <!-- Baris/row Ke-1-->
+                    <div class="row" >
+                        <div class="col" style="border:1px solid #B2BABB; background-color:#F2F4F4;font-weight: bold;">
+                            <label for="" class="pt-2 pl-2">LOKASI :</label>
+                        </div>
+                        <div class="col" style="border:1px solid #B2BABB; background-color:#F2F4F4;font-weight: bold;">
+                            <label for="" class="pt-2 pl-2">INSTALLASI :</label>
+                        </div>
+                        <div class="col" style="border:1px solid #B2BABB; background-color:#F2F4F4;font-weight: bold;">
+                            <label for="" class="pt-2 pl-2">Permintaan pembebanan diterima</label>
+                        </div>
+                    </div>
+                    <div class="row" style="height:80px;">
+                        <div class="col border border-secondary pt-3">
+                            <input type="text" name="lokasi" value="<?= $data["lokasi"]; ?>" id="lokasi" class="form-control" style="border:1px solid #fff;">
+                        </div>
+                        <div class="col border border-secondary pt-3">
+                            <input type="text" name="instal" value="<?= $data["installasi"]; ?>"id="instal" class="form-control" style="border:1px solid #fff;">
+                        </div>
+                        <div class="col border border-secondary pt-3">
+                            <input type="datetime-local" name="report_date" id="report_date" class="form-control" style="border:1px solid #fff;" disabled>
+                        </div>
+                    </div>
+
                     <div class="row">
-                        
-                        <div class="col-4">
-                            <label>Pekerjaan :</label>
-                            <input type="text" name="pekerjaan" placeholder="" value="<?= $data["pekerjaan"]; ?>" class="form-control">
+                        <div class="col-7" style="border:1px solid #B2BABB; background-color:#F2F4F4;font-weight: bold;">
+                            <label for="" class="pt-2 pl-2">MANUVER PEMBEBASAN INSTALLASI</label>
                         </div>
-
-                        <div class="col">
-                            <label>Mulai</label>
-                            <div class="col-0">
-                            <input type="datetime" name="start_date" value="<?= $data["start_date"];?>">
-                            </div>
+                        <div class="col-3" style="border:1px solid #B2BABB; background-color:#F2F4F4;font-weight: bold;">
+                            <label for="" class="pt-2 pl-2">MANUVER PENORMALAN INSTALLASI</label>
                         </div>
-
-                        <div class="col">
-                            <label>Target</label>
-                            <div class="col-0">
-                            <input type="datetime" name="end_date" value="<?= $data["end_date"];?>">
-                            </div>
+                        <div class="col" style="border:1px solid #B2BABB; background-color:#F2F4F4;font-weight: bold;">
+                            <label for="" class="pt-2 pl-2">KELENGKAPAN DOKUMEN</label>
                         </div>
-                        <div class="col">
-                                <label for="report_date">Req Date Received</label>
-                                <div class="col-0">
-                                <input type="datetime" name="report_date" id="report_date" class="form-control" value="<?= $data["report_date"]; ?>" >
-                                </div>
-                        </div>
-
                     </div>
-
-                <!-- Baris/row Ke-2-->
                     <div class="row">
-                        <div class="col">
+                        <div class="col-7" style="border:1px solid #B2BABB; ">
                             <br>
-                            <label>Lokasi :</label>
-                            <input type="text" value="<?= $data["lokasi"]; ?>" name="lokasi" class="form-control" placeholder="">
-                        </div>
-
-                        <div class="col">
-                            <br>
-                            <label>Waktu Pekerjaan :</label>
-                            <input type="date" value="<?= $data["waktu"]; ?>" name="waktu" class="form-control" placeholder="">
-                        </div>
-
-                        <div class="col">
-                            <br>
-                            <label>Installasi :</label>
-                            <input type="text" value="<?= $data["installasi"]; ?>" name="instal" class="form-control" placeholder="">
-                        </div>
-
-
-                    </div>
-
-                
-
-                
-                <!-- Baris/row ke-3-->
-                    <br>
-                    <div class="row"> 
-                        
-                        <div col="col-7">
-                            <div class="table-responsive ml-2">
-                            <h4 style="text-align:center;">Manuver Pembebasan Instalasi</h4>  
-                               <table class="table table-bordered"> 
-                                    <thead>
-                                        <tr style="background-color:#F2F4F4;">  
+                            <div class="table-responsive"> 
+                                <table class="table table-bordered" > 
+                                <thead>
+                                        <tr id="mirrodHead" style="background-color:#F8F9F9;">  
                                             <th style="width:158px;">Lokasi</th>
                                             <th style="width:158px;">Peng. Pekerjaan</th>
                                             <th style="width:158px;">Peng. Manuver</th>
                                             <th style="width:158px;">Peng. K3</th>
                                             <th style="width:158px;">Spv GITET</th>
                                             <th style="width:158px;">Opr GITET</th>
-                                        </tr> 
-                                    </thead> 
-                                    <tbody id="table1">
-                                        <?php while ($manuverBebas = mysqli_fetch_array($sql_manuver)) { ?>
+                                        </tr>
+                                </thead> 
+                                <tbody id="table1">
+                                    <?php while ($manuverBebas = mysqli_fetch_array($sql_manuver)) { ?>
                                                 <tr>
                                                     <td><input type="text" name="lokasiPembebasan[]" value="<?= $manuverBebas["lokasi"]  ?>" style="border:1px solid #fff;width:100px;"><input type="text" name="id_bebas_update[]" value="<?= $manuverBebas["id"]  ?>" style="border:1px solid #fff;width:50px;" hidden></td>
                                                     <td><?= $manuverBebas["pengawas_pekerjaan"]  ?></td>
@@ -191,65 +209,61 @@ if ($sql){
                                                     <td><?= $manuverBebas["opr_gitet"]  ?></td>
                                                 </tr>
                                         <?php } ?> 
-                                    
-                                    </tbody>
-                               </table> 
-                                <button type="button" id="add1" class="btn btn-success" onclick="addRow()">+</button>
-                                <button type="button" id="remove1" class="btn btn-danger" onclick="removeRow()">-</button>   
-                            </div>  
-                        </div> 
-
-                        <div class="col-3 ml-5">
+        
+                                </tbody>
+                                </table> 
+                                    <button type="button" id="add1" class="btn btn-success" onclick="addRow()">+</button>
+                                    <button type="button" id="remove1" class="btn btn-danger" onclick="removeRow()">-</button> 
+                                     
+                            </div>
+                            <br>  
+                        </div>
+                        <div class="col-3" style="border:1px solid #B2BABB; ">
                             <div class="table-responsive">
-                            <h4 style="text-align:center;">Manuver Penormalan Instalasi</h4>
+                                <br>
                                 <table class="table table-bordered">
                                     <thead>
-                                        <tr style="background-color:#F2F4F4;">
+                                        <tr style="background-color:#F8F9F9;">
                                             <th>Spv GITET</th>
                                             <th>Opr GITET</th>
                                         </tr>
                                     </thead>
                                     <tbody id="table2">
-                                    <?php while ($manuverBebas1 = mysqli_fetch_array($sql_manuver2)) { ?>
+                                        <?php while ($manuverBebas1 = mysqli_fetch_array($sql_manuver2)) { ?>
                                                 <tr  style="height:53px;">
                                                     <td><?= $manuverBebas1["spv_gitet_normal"]  ?></td>
                                                     <td><?= $manuverBebas1["opr_gitet_normal"]  ?></td>
                                                 </tr>
                                         <?php } ?> 
-                                    
-                                    
+
                                     </tbody>
-                                        
-                                        
-                                </table> 
+                                </table>
+                                 
                             </div>
                         </div>
 
-                        <div class="col-1 ml-3">
-                            <br>
-                                <label>Kelengkapan Dokumen :</label>
+                        <div class="col" style="border:1px solid #B2BABB; font-weight: bold;">
+                        <br>
                                 <div action="">
-                                    <input type="checkbox" id="" name="" value="" disabled="disabled">
+                                    <input type="checkbox" id="" name="wp" value="" disabled>
                                     <label for="vehicle1"> WP</label><br>
-                                    <input type="checkbox" id="" name="" value="" disabled="disabled">
+                                    <input type="checkbox" id="" name="ik" value="" disabled>
                                     <label for="vehicle2"> IK</label><br>
-                                    <input type="checkbox" id="" name="" value="" disabled="disabled">
+                                    <input type="checkbox" id="" name="k3" value="" disabled>
                                     <label for="vehicle3"> K3</label><br>
                                 </div>
                         </div>
-                            
                     </div>
-                <!-- Baris/row ke-4 TM-->
-                    <br>
+
                     <div class="row">
-                        <div class="col-6">
-                            <label>Aliran daya pada installasi menjelang dibebaskan</label>
+                        <div class="col" style="border:1px solid #B2BABB; background-color:#F2F4F4;font-weight: bold;">
+                            <label for="" class="pt-2 pl-2">ALIRAN DAYA PADA INSTALLASI MENJELANG DIBEBASKAN</label>
                         </div>
-                        <div class="col-6">
-                            <label>Aliran daya pada installasi menjelang dinormalkan</label>
+                        <div class="col" style="border:1px solid #B2BABB; background-color:#F2F4F4;font-weight: bold;">
+                            <label for="" class="pt-2 pl-2">ALIRAN DAYA PADA INSTALLASI MENJELANG DINORMALKAN</label>
                         </div>
                     </div>
-                    <div class="row" style="background-color:#F2F4F4;">
+                    <div class="row" style="background-color:#F8F9F9;">
                         <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
                             <label>Pembacaan SCADA</label>
                         </div>
@@ -264,53 +278,66 @@ if ($sql){
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem" >
-                            <input type="text" style="border:1px solid #fff;" readonly>
+                        <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
+                            <input type="text" style="border:1px solid #fff;" disabled>
                         </div>
                         <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
-                            <input type="text" style="border:1px solid #fff;" readonly>
+                            <input type="text" style="border:1px solid #fff;" disabled>
                         </div>
                         <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
-                            <input type="text" style="border:1px solid #fff;" readonly>
+                            <input type="text" style="border:1px solid #fff;" disabled>
                         </div>
                         <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
-                            <input type="text" style="border:1px solid #fff;" readonly>
+                            <input type="text" style="border:1px solid #fff;" disabled>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-6">
-                            <label>Aliran daya pada installasi setelah dibebaskan</label>
+                        <div class="col" style="border:1px solid #B2BABB; background-color:#F2F4F4;font-weight: bold;">
+                            <label for="" class="pt-2 pl-2">ALIRAN DAYA SETELAH DIBEBASKAN</label>
                         </div>
-                        <div class="col-6">
-                            <label>Aliran daya pada installasi setelah dinormalkan</label>
+                        <div class="col" style="border:1px solid #B2BABB; background-color:#F2F4F4;font-weight: bold;">
+                            <label for="" class="pt-2 pl-2">ALIRAN DAYA SETELAH DINORMALKAN</label>
                         </div>
-                    </div>
-                    <div class="row" style="background-color:#F2F4F4;">
-                        <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
-                            <label>Pembacaan SCADA</label>
-                        </div>
-                        
-                        <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
-                            <label>Pembacaan SCADA</label>
-                        </div>
-                        
                     </div>
                     <div class="row">
                         <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
-                            <input type="text" style="border:1px solid #fff;" readonly>
+                            <input type="text" style="border:1px solid #fff;" disabled>
                         </div>
                         <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
-                            <input type="text" style="border:1px solid #fff;" readonly>
+                            <input type="text" style="border:1px solid #fff;" disabled>
                         </div>
-                        
+                        <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
+                            <input type="text" style="border:1px solid #fff;" disabled>
+                        </div>
+                        <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
+                            <input type="text" style="border:1px solid #fff;" disabled>
+                        </div>
                     </div>
-                <!-- Baris/row ke-5 image-->
-                    <h2>Manuver Pembebasan Installasi</h2>
+                    <div class="row">
+                        <div class="col" style="border:1px solid #B2BABB; background-color:#F2F4F4;font-weight: bold;">
+                            <label for="" class="pt-2 pl-2">MANUVER PEMBEBASAN INSTALLASI</label>
+                        </div>
+                    </div>
+                    <div class="row" style="background-color:#F8F9F9;">
+                        <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
+                            <label for="">Catatan Pra Pembebasan :</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
+                            <textarea name="catatan_pra_bebas" id="" cols="232" rows="3" style="border:1px solid #fff;color:red;"><?= $data["catatan_pra_pembebasan"]; ?></textarea>
+                        </div>
+                    </div>
+                    <div class="row" style="background-color:#F8F9F9;">
+                        <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
+                            <label for="">Tahapan Manuver Pembebasan :</label>
+                        </div>
+                    </div>
                     <div class="row">
                             <div class="col-6" style="border:1px solid">
                                 <div class="form-group ml-2">
                                     <img src="img/<?= $data["foto"];?>" id="output1" height="auto" width="780px" style="padding-top:.50rem;padding-right:.50rem"><br>
-                                    <input type="file" name="foto" accept="image/*" onchange="loadFile1(event)">
+                                    <input type="file" accept="image/*" onchange="loadFile1(event)" name="foto">
                                 </div>
                             </div>
 
@@ -335,9 +362,9 @@ if ($sql){
                                         <tr>
                                             <td><?= $i ?></td>
                                             <td><input type="text" name="lokasiManuverBebas[]" value="<?= $pembebasan["lokasi"] ?>" style="width:8rem;padding:0rem;"></td>
-                                            <td><?= $pembebasan["remote_bebas"] == "00:00:00" ?"": $pembebasan["remote_bebas"] ?></td>
-                                            <td><?= $pembebasan["real_bebas"] == "00:00:00" ?"": $pembebasan["real_bebas"] ?></td>
-                                            <td><?= $pembebasan["ads_bebas"]== "00:00:00" ?"": $pembebasan["ads_bebas"] ?></td>
+                                            <td><?= $pembebasan["remote_"] == "00:00:00" ?"": $pembebasan["remote_"] ?></td>
+                                            <td><?= $pembebasan["real_"] == "00:00:00" ?"": $pembebasan["real_"] ?></td>
+                                            <td><?= $pembebasan["ads"]== "00:00:00" ?"": $pembebasan["ads"] ?></td>
                                             <td><input type="text" name="installManuverBebas[]" value="<?= $pembebasan["installasi"] ?>" style="width:8rem;padding:0rem;"></td>
                                             <td>
                                                 <button type="button" onclick="hapus_baris1(this)" class="btn btn-danger btn_remove">X</button>  <!--  -->
@@ -350,16 +377,45 @@ if ($sql){
                                 </div>
                             </div>
                     </div>
-                <!-- Baris/row ke-6 image-->
-                        <h2>Manuver Penormalan Installasi</h2>
-                        <div class="row">
-                                <div class="col-6" style="border:1px solid">
+                    <div class="row" style="background-color:#F8F9F9;">
+                        <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
+                            <label for="">Catatan Pasca Pembebasan :</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
+                            <textarea name="catatan_pasca_bebas" id="" cols="232" rows="3" style="border:1px solid #fff;" disabled></textarea>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col" style="border:1px solid #B2BABB; background-color:#F2F4F4;font-weight: bold;">
+                            <label for="" class="pt-2 pl-2">MANUVER PENORMALAN INSTALLASI</label>
+                        </div>
+                    </div>
+                    <div class="row" style="background-color:#F8F9F9;">
+                        <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
+                            <label for="">Catatan Pra Penormalan :</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
+                            <textarea name="catatan_pra_normal" id="" cols="232" rows="3" style="border:1px solid #fff;color:red;"><?= $data["catatan_pra_penormalan"]; ?></textarea>
+                        </div>
+                    </div>
+                    <div class="row" style="background-color:#F8F9F9;">
+                        <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
+                            <label for="">Tahapan Manuver Penormalan :</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                                <div class="col" style="border:1px solid">
                                     <div class="form-group ml-2">
                                         <img src="img/<?= $data["foto2"];?>" id="output2" height="auto" width="780px" style="padding-top:.50rem;padding-right:.50rem"><br>
-                                        <input type="file" accept="image/*" onchange="loadFile2(event)" name="foto2" >
+                                        <input type="file" accept="image/*" onchange="loadFile2(event)" name="foto2">
                                     </div>
                                 </div>
-                                <div class="col-6" style="border:1px solid">
+                                <div class="col" style="border:1px solid">
                                     <div class="table-responsive">
                                         <table class="table table-bordered mt-2" id="dynamic_field2" style="">
                                             <tr>
@@ -379,9 +435,9 @@ if ($sql){
                                             <tr>
                                                 <td><?= $i ?></td>
                                                 <td><input type="text" name="lokasiManuverNormal[]" value="<?= $penormalan["lokasi"] ?>" style="width:8rem;padding:0rem;"></td>
-                                                <td><?= $penormalan["remote_normal"] == "00:00:00" ?"": $penormalan["remote_normal"] ?></td>
-                                                <td><?= $penormalan["real_normal"] == "00:00:00" ?"": $penormalan["real_normal"] ?></td>
-                                                <td><?= $penormalan["ads_normal"] == "00:00:00" ?"": $penormalan["ads_normal"] ?></td>
+                                                <td><?= $penormalan["remote"] == "00:00:00" ?"": $penormalan["remote"] ?></td>
+                                                <td><?= $penormalan["real_"] == "00:00:00" ?"": $penormalan["real_"] ?></td>
+                                                <td><?= $penormalan["ads"] == "00:00:00" ?"": $penormalan["ads"] ?></td>
                                                 <td><input type="text" name="instalManuverNormal[]" value="<?= $penormalan["installasi"] ?>" style="width:8rem;padding:0rem;"></td>
                                                 <td>
                                                     <button type="button" onclick="hapus_baris2(this)" class="btn btn-danger btn_remove2">X</button>
@@ -394,26 +450,33 @@ if ($sql){
                                     </div>
 
                                 </div>
-                        </div>    
-                <!-- Baris/row ke-7 Catatan-->
-                    <br>
-                    <div class="row" style="background-color:#F2F4F4;">
-                    
-                        <div class="col-6" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
-                            <label for="">Catatan AMN:</label>
-                        </div>
-
-                        <div class="col-6" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
-                            <label for="">Catatan MSB:</label>
+                    </div> 
+                    <div class="row" style="background-color:#F8F9F9;">
+                        <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
+                            <label for="">Catatan Pasca Penormalan :</label>
                         </div>
                     </div>
-                    <div class="row" style="">
+                    <div class="row">
                         <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
-                            <textarea name="" id="" cols="90" rows="5"></textarea>
+                            <textarea name="catatan_pasca_normal" id="" cols="232" rows="3" style="border:1px solid #fff;" disabled></textarea>
+                        </div>
+                    </div>
+                    <div class="row" style="background-color:#F8F9F9;">
+                        <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem;font-weight: bold;">
+                            <label for="">Masukan AMN jika ada Kekeliruan</label>
+                        </div>
+                        <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem;font-weight: bold;">
+                            <label for="">Masukan MSB Jika ada Kkeliruan</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
+                            <textarea name="catatan_amn" id="" cols="113" rows="5" style="border:1px solid #fff;" disabled><?= $data["catatan_amn"]; ?></textarea>
                         </div>
                         <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
-                            <textarea name="" id="" cols="90" rows="5"></textarea>
+                            <textarea name="catatan_msb" id="" cols="113" rows="5" style="border:1px solid #fff;" disabled><?= $data["catatan_msb"]; ?></textarea>
                         </div>
+                        
                     </div>
                 <!-- Baris/row submit-->
                     <br>

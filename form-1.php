@@ -13,6 +13,7 @@ require "functions.php";
 $value2='';
 
 $query = "SELECT id FROM db_form ORDER BY id DESC LIMIT 1";
+
 $stmt = $conn->query($query);
 if(mysqli_num_rows($stmt) > 0) {
     if ($row = mysqli_fetch_assoc($stmt)) {
@@ -28,7 +29,8 @@ else {
     $value = $value2;
 }
 
-
+$query2 = mysqli_query($conn,"SELECT id FROM db_form ORDER BY id DESC LIMIT 1");
+$idnext = mysqli_fetch_array($query2);
 
 
 if( isset($_POST["submit"]) ){
@@ -89,99 +91,118 @@ if( isset($_POST["submit"]) ){
         <div class="card-body">
             <form action="" method="post" class="form-horizontal" enctype="multipart/form-data">
                 <!-- Baris/row Ke-0 hide data auto-->
-                    <div class="row" >
-                        
+                    <div class="row">
                         <div class="col-2 ">
                             <label class="" style="width: 150px;">Create Date:</label>
-                            <input type="text" name="create_date" value="<?php echo date('d-M-Y');?>" class="form-control" readonly>
+                            <input type="text" name="create_date" value="<?= date('d-M-Y H:i:s');?>" class="form-control" readonly>
                         </div>
 
                         <div class="col-2">
                             <label>User :</label>
-                            <input type="text" name="user" placeholder="" value="<?php echo $_SESSION['username'];?>" class="form-control" readonly>
+                            <input type="text" name="user" placeholder="" value="<?= $_SESSION['username'];?>" class="form-control" readonly>
                         </div>
 
                         <div class="col-2">
                             <label>ID Task:</label>
-                            <input type="text" name="idTask" value="<?= $value; ?>" class="form-control" readonly>
+                            <input type="text" name="idTask" value="<?= $idnext['id']+1; ?>" class="form-control" readonly>
                         
                         </div>
-                        
-
+                    </div>
+                    <div class="row " >
+                        <div class="col-4" style="border:1px solid #B2BABB; background-color:#F2F4F4;font-weight: bold;">
+                            <label for="" class="pt-2 pl-2">PEKERJAAN :</label>
+                        </div>
+                        <div class="col" style="border:1px solid #B2BABB; background-color:#F2F4F4;font-weight: bold;">
+                            <label for="" class="pt-2">TANGGAL PELAKSANAAN :</label>
+                        </div>
+                        <div class="col-2" style="border:1px solid #B2BABB; background-color:#F2F4F4;font-weight: bold;">
+                            <label for="" class="pt-2">MULAI</label>
+                        </div>
+                        <div class="col-2" style="border:1px solid #B2BABB; background-color:#F2F4F4;font-weight: bold;">
+                            <label for="" class="pt-2">SELESAI</label>
+                        </div>
                     </div>
 
-                <!-- Baris/row Ke-1 Titel Pekerjaan-->
+                    <div class="row" style="height:80px;">
+                        <div class="col-4 pt-3" style="border:1px solid #B2BABB;">
+                            <input type="text" name="pekerjaan" id="pekerjaan" class="form-control" style="border:1px solid #fff;">
+                        </div>
+                        <div class="col pt-3" style="border:1px solid #B2BABB;">
+                            <input type="date" name="date" id="start_date" class="form-control" style="border:1px solid #fff;">
+                        </div>
+                        <div class="col-2 pt-3" style="border:1px solid #B2BABB;">
+                            <input type="time" name="start" id="end_date" class="" style="border:1px solid #fff;"> WIB
+                        </div>
+                        <div class="col-2 pt-3" style="border:1px solid #B2BABB;">
+                            <input type="time" name="end" id="report_date" class="" style="border:1px solid #fff;"> WIB
+                        </div>
+                    </div>
+
+                    <div class="row" >
+                        <div class="col" style="border:1px solid #B2BABB; background-color:#F2F4F4;font-weight: bold;">
+                            <label for="" class="pt-2 pl-2">LOKASI :</label>
+                        </div>
+                        <div class="col" style="border:1px solid #B2BABB; background-color:#F2F4F4;font-weight: bold;">
+                            <label for="" class="pt-2 pl-2">INSTALLASI :</label>
+                        </div>
+                        <div class="col" style="border:1px solid #B2BABB; background-color:#F2F4F4;font-weight: bold;">
+                            <label for="" class="pt-2 pl-2">Permintaan pembebanan diterima</label>
+                        </div>
+                    </div>
+                    <div class="row" style="height:80px;">
+                        <div class="col border border-secondary pt-3">
+                            <input type="text" name="lokasi" id="lokasi" class="form-control" style="border:1px solid #fff;">
+                        </div>
+                        <div class="col border border-secondary pt-3">
+                            <input type="text" name="instal" id="instal" class="form-control" style="border:1px solid #fff;">
+                        </div>
+                        <div class="col border border-secondary pt-3">
+                            <input type="datetime-local" name="report_date" id="report_date" class="form-control" style="border:1px solid #fff;" disabled>
+                        </div>
+                    </div>
+
                     <div class="row">
-                        <div class="col-4">
-                            <label for="pekerjaan" class="control-label">Pekerjaan</label>
-                            <input type="text" name="pekerjaan" id="pekerjaan" class="form-control">
+                        <div class="col-7" style="border:1px solid #B2BABB; background-color:#F2F4F4;font-weight: bold;">
+                            <label for="" class="pt-2 pl-2">MANUVER PEMBEBASAN INSTALLASI</label>
                         </div>
-                        <div class="col">
-                            <label for="start_date">Start</label>
-                            <input type="datetime-local" name="start_date" id="start_date" class="form-control">
+                        <div class="col-3" style="border:1px solid #B2BABB; background-color:#F2F4F4;font-weight: bold;">
+                            <label for="" class="pt-2 pl-2">MANUVER PENORMALAN INSTALLASI</label>
                         </div>
-                        <div class="col">
-                            <label for="end_date">End</label>
-                            <input type="datetime-local" name="end_date" id="end_date" class="form-control">
-                        </div>
-                        <div class="col">
-                            <label for="report_date">Req Date Received</label>
-                            <input type="datetime-local" name="report_date" id="report_date" class="form-control">
+                        <div class="col" style="border:1px solid #B2BABB; background-color:#F2F4F4;font-weight: bold;">
+                            <label for="" class="pt-2 pl-2">KELENGKAPAN DOKUMEN</label>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col">
-                            <label for="lokasi">Lokasi</label>
-                            <input type="text" name="lokasi" id="lokasi" class="form-control">
+                        <div class="col-7" style="border:1px solid #B2BABB; ">
+                            <br>
+                            <div class="table-responsive"> 
+                                <table class="table table-bordered" > 
+                                <thead>
+                                        <tr id="mirrodHead" style="background-color:#F8F9F9;">  
+                                            <th style="width:158px;">Lokasi</th>
+                                            <th style="width:158px;">Peng. Pekerjaan</th>
+                                            <th style="width:158px;">Peng. Manuver</th>
+                                            <th style="width:158px;">Peng. K3</th>
+                                            <th style="width:158px;">Spv GITET</th>
+                                            <th style="width:158px;">Opr GITET</th>
+                                        </tr>
+                                </thead> 
+                                <tbody id="table1">
+        
+                                </tbody>
+                                </table> 
+                                    <button type="button" id="add1" class="btn btn-success" onclick="tambah()" >+</button>
+                                    <button type="button" id="remove1" class="btn btn-danger" onclick="kurang()">-</button> 
+                                     
+                            </div>
+                            <br>  
                         </div>
-                        <div class="col">
-                            <label for="waktu">Waktu</label>
-                            <input type="datetime-local" name="waktu" id="waktu" class="form-control">
-                        </div>
-                        
-                        <div class="col">
-                            <label for="instal">Installasi</label>
-                            <input type="text" name="instal" id="instal" class="form-control">
-                        </div>
-                    </div>
-
-                
-
-                
-                <!-- Baris/row ke-3 Pengawas-->
-                    <br>
-                    
-                    <div class="row"> 
-                        
-                        <div col="col-7">
-                            <div class="table-responsive ml-2">
-                            <h4 style="text-align:center;">Manuver Pembebasan Instalasi</h4>  
-                               <table class="table table-bordered" > 
-                               <thead>
-                                    <tr id="mirrodHead" style="background-color:#F2F4F4;">  
-                                        <th style="width:158px;">Lokasi</th>
-                                        <th style="width:158px;">Peng. Pekerjaan</th>
-                                        <th style="width:158px;">Peng. Manuver</th>
-                                        <th style="width:158px;">Peng. K3</th>
-                                        <th style="width:158px;">Spv GITET</th>
-                                        <th style="width:158px;">Opr GITET</th>
-                                    </tr>
-                               </thead> 
-                               <tbody id="table1">
-     
-                               </tbody>
-                               </table> 
-                                <button type="button" id="add1" class="btn btn-success" onclick="tambah()" >+</button>
-                                <button type="button" id="remove1" class="btn btn-danger" onclick="kurang()">-</button>   
-                            </div>  
-                        </div> 
-
-                        <div class="col-3 ml-5">
+                        <div class="col-3" style="border:1px solid #B2BABB; ">
                             <div class="table-responsive">
-                            <h4 style="text-align:center;">Manuver Penormalan Instalasi</h4>
+                                <br>
                                 <table class="table table-bordered">
                                     <thead>
-                                        <tr style="background-color:#F2F4F4;">
+                                        <tr style="background-color:#F8F9F9;">
                                             <th>Spv GITET</th>
                                             <th>Opr GITET</th>
                                         </tr>
@@ -193,9 +214,8 @@ if( isset($_POST["submit"]) ){
                             </div>
                         </div>
 
-                        <div class="col-1 ml-3">
-                            <br>
-                                <label>Kelengkapan Dokumen :</label>
+                        <div class="col" style="border:1px solid #B2BABB; font-weight: bold;">
+                        <br>
                                 <div action="">
                                     <input type="checkbox" id="" name="wp" value="" disabled>
                                     <label for="vehicle1"> WP</label><br>
@@ -205,19 +225,17 @@ if( isset($_POST["submit"]) ){
                                     <label for="vehicle3"> K3</label><br>
                                 </div>
                         </div>
-                            
                     </div>
-                <!-- Baris/row ke-4 TM-->
-                    <br>
+
                     <div class="row">
-                        <div class="col-6">
-                            <h4>Aliran daya pada installasi menjelang dibebaskan</h4>
+                        <div class="col" style="border:1px solid #B2BABB; background-color:#F2F4F4;font-weight: bold;">
+                            <label for="" class="pt-2 pl-2">ALIRAN DAYA PADA INSTALLASI MENJELANG DIBEBASKAN</label>
                         </div>
-                        <div class="col-6">
-                            <h4>Aliran daya pada installasi menjelang dinormalkan</h4>
+                        <div class="col" style="border:1px solid #B2BABB; background-color:#F2F4F4;font-weight: bold;">
+                            <label for="" class="pt-2 pl-2">ALIRAN DAYA PADA INSTALLASI MENJELANG DINORMALKAN</label>
                         </div>
                     </div>
-                    <div class="row" style="background-color:#F2F4F4;">
+                    <div class="row" style="background-color:#F8F9F9;">
                         <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
                             <label>Pembacaan SCADA</label>
                         </div>
@@ -246,22 +264,12 @@ if( isset($_POST["submit"]) ){
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-6">
-                            <label>Aliran daya pada installasi setelah dibebaskan</label>
+                        <div class="col" style="border:1px solid #B2BABB; background-color:#F2F4F4;font-weight: bold;">
+                            <label for="" class="pt-2 pl-2">ALIRAN DAYA SETELAH DIBEBASKAN</label>
                         </div>
-                        <div class="col-6">
-                            <label>Aliran daya pada installasi setelah dinormalkan</label>
+                        <div class="col" style="border:1px solid #B2BABB; background-color:#F2F4F4;font-weight: bold;">
+                            <label for="" class="pt-2 pl-2">ALIRAN DAYA SETELAH DINORMALKAN</label>
                         </div>
-                    </div>
-                    <div class="row" style="background-color:#F2F4F4;">
-                        <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
-                            <label>Pembacaan SCADA</label>
-                        </div>
-                        
-                        <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
-                            <label>Pembacaan SCADA</label>
-                        </div>
-                        
                     </div>
                     <div class="row">
                         <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
@@ -270,17 +278,33 @@ if( isset($_POST["submit"]) ){
                         <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
                             <input type="text" style="border:1px solid #fff;" disabled>
                         </div>
-                        
+                        <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
+                            <input type="text" style="border:1px solid #fff;" disabled>
+                        </div>
+                        <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
+                            <input type="text" style="border:1px solid #fff;" disabled>
+                        </div>
                     </div>
-                <!-- Baris/row ke-5 image-->
-                    <br>
-                    <div class="row" style="background-color:#F2F4F4;">
-                    <div class="col" style="border:1px solid; padding-top:10px;">
-                    <h2 style="text-align:center;" >Manuver Pembebasan Installasi</h2>
+                    <div class="row">
+                        <div class="col" style="border:1px solid #B2BABB; background-color:#F2F4F4;font-weight: bold;">
+                            <label for="" class="pt-2 pl-2">MANUVER PEMBEBASAN INSTALLASI</label>
+                        </div>
                     </div>
-                    
+                    <div class="row" style="background-color:#F8F9F9;">
+                        <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
+                            <label for="">Catatan Pra Pembebasan :</label>
+                        </div>
                     </div>
-                    
+                    <div class="row">
+                        <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
+                            <textarea name="catatan_pra_bebas" id="" cols="232" rows="3" style="border:1px solid #fff;"></textarea>
+                        </div>
+                    </div>
+                    <div class="row" style="background-color:#F8F9F9;">
+                        <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
+                            <label for="">Tahapan Manuver Pembebasan :</label>
+                        </div>
+                    </div>
                     <div class="row">
                             <div class="col-6" style="border:1px solid">
                                 <div class="form-group ml-2">
@@ -308,15 +332,38 @@ if( isset($_POST["submit"]) ){
                                 </div>
                             </div>
                     </div>
-                <!-- Baris/row ke-6 image-->
-                        <br>
-                        <div class="row" style="background-color:#F2F4F4;">
-                            <div class="col" style="border:1px solid; padding-top:10px;">
-                            <h2 style="text-align:center;">Manuver Penormalan Installasi</h2>
-                            </div>
+                    <div class="row" style="background-color:#F8F9F9;">
+                        <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
+                            <label for="">Catatan Pasca Pembebasan :</label>
                         </div>
-                        
-                        <div class="row">
+                    </div>
+                    <div class="row">
+                        <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
+                            <textarea name="catatan_pasca_bebas" id="" cols="232" rows="3" style="border:1px solid #fff;" disabled></textarea>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col" style="border:1px solid #B2BABB; background-color:#F2F4F4;font-weight: bold;">
+                            <label for="" class="pt-2 pl-2">MANUVER PENORMALAN INSTALLASI</label>
+                        </div>
+                    </div>
+                    <div class="row" style="background-color:#F8F9F9;">
+                        <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
+                            <label for="">Catatan Pra Penormalan :</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
+                            <textarea name="catatan_pra_normal" id="" cols="232" rows="3" style="border:1px solid #fff;"></textarea>
+                        </div>
+                    </div>
+                    <div class="row" style="background-color:#F8F9F9;">
+                        <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
+                            <label for="">Tahapan Manuver Penormalan :</label>
+                        </div>
+                    </div>
+                    <div class="row">
                                 <div class="col" style="border:1px solid">
                                     <div class="form-group ml-2">
                                         <img id="output2" height="auto" width="780px" style="padding-top:.50rem;padding-right:.50rem"><br>
@@ -342,28 +389,18 @@ if( isset($_POST["submit"]) ){
                                     </div>
 
                                 </div>
-                        </div>    
-                <!-- Baris/row ke-7 Catatan-->
-                    <br>
-                    <div class="row" style="background-color:#F2F4F4;">
-                    
-                        <div class="col-6" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
-                            <label for="">Catatan Pembebasan:</label>
+                    </div> 
+                    <div class="row" style="background-color:#F8F9F9;">
+                        <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
+                            <label for="">Catatan Pasca Penormalan :</label>
                         </div>
+                    </div>
+                    <div class="row">
+                        <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
+                            <textarea name="catatan_pasca_normal" id="" cols="232" rows="3" style="border:1px solid #fff;" disabled></textarea>
+                        </div>
+                    </div>
 
-                        <div class="col-6" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
-                            <label for="">Catatan Penormalan:</label>
-                        </div>
-                    </div>
-                    <div class="row" style="">
-                        <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
-                            <textarea name="catatanBebas" id="" cols="90" rows="5"></textarea>
-                        </div>
-                        <div class="col" style="border:1px solid;padding-top:.50rem;padding-bottom:.50rem">
-                            <textarea name="catatanNormal" id="" cols="90" rows="5"></textarea>
-                        </div>
-                    </div>
-                <!-- Baris/row submit-->
               
                 <!-- Baris/row submit-->
                     <br>
@@ -391,19 +428,19 @@ if( isset($_POST["submit"]) ){
         var cell6 = row.insertCell(5);
 
        cell1.innerHTML = "<input type='text' name='lokasiPembebasan[]' id='' style='width:140px;border:1px solid #fff;'>";
-       cell2.innerHTML = "<input type='text' name='pKerjaPembebasan[]' id='' style='width:140px;border:1px solid #fff;' readonly>";
-       cell3.innerHTML = "<input type='text' name='pManuverPembebasan[]' id='' style='width:140px;border:1px solid #fff;' readonly>";
-       cell4.innerHTML = "<input type='text' name='pK3Pembebasan[]' id='' style='width:140px;border:1px solid #fff;' readonly>";
-       cell5.innerHTML = "<input type='text' name='spvPembebasan[]' id='' style='width:140px;border:1px solid #fff;' readonly>";
-       cell6.innerHTML = "<input type='text' name='oprPembebasan[]' id='' style='width:140px;border:1px solid #fff;' readonly>";
+       cell2.innerHTML = "<input type='text' name='pKerjaPembebasan[]' id='' style='width:140px;border:1px solid #fff;' disabled>";
+       cell3.innerHTML = "<input type='text' name='pManuverPembebasan[]' id='' style='width:140px;border:1px solid #fff;' disabled>";
+       cell4.innerHTML = "<input type='text' name='pK3Pembebasan[]' id='' style='width:140px;border:1px solid #fff;' disabled>";
+       cell5.innerHTML = "<input type='text' name='spvPembebasan[]' id='' style='width:140px;border:1px solid #fff;' disabled>";
+       cell6.innerHTML = "<input type='text' name='oprPembebasan[]' id='' style='width:140px;border:1px solid #fff;' disabled>";
 
        table1 = document.getElementById("table2");
        var row1 = table1.insertRow(-1);
        var cell7 = row1.insertCell(0);
        var cell8 = row1.insertCell(1);
 
-       cell7.innerHTML = "<input type='text' name=spvPenormalan[] id='' style='width:140px;border:1px solid #fff;' readonly>";
-       cell8.innerHTML = "<input type='text' name=oprPenormalan[] id='' style='width:140px;border:1px solid #fff; readonly'>";
+       cell7.innerHTML = "<input type='text' name=spvPenormalan[] id='' style='width:140px;border:1px solid #fff;' disabled>";
+       cell8.innerHTML = "<input type='text' name=oprPenormalan[] id='' style='width:140px;border:1px solid #fff;' disabled>";
     }
 
     function kurang(){

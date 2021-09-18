@@ -73,7 +73,7 @@
                     <tr>
                     <td><?= $no+$awalData?></td>
                     <td><?= $data['pekerjaan'];?></td>
-                    <td><?= $data['waktu'];?></td>
+                    <td><?= $data['date'];?></td>
                     <td><?= $data['lokasi'];?></td>
                     <td><?php if($data['amn'] == "approve") {
                                 echo "<a href='#' class='btn btn-success btn-icon-split' data-toggle='tooltip' data-placement='left' title='approve'><span class='icon text-white-50'><i class='fas fa-thumbs-up'></i></span></a>";
@@ -100,6 +100,7 @@
                             </span>
                             <span class="text">details</span>
                         </a>
+                    </td>
                     </tr>
                 </tbody>
                 <?php $no++ ?>
@@ -137,8 +138,29 @@ for (let i=0; i<clas2.length; i++) {
     clas2[i].parentElement.children[1].style.display='none';
 }
 
+var keyword = document.getElementById('keyword');
+var tombolCari = document.getElementById('cari');
+var bungkus = document.getElementById('bungkus');
+
+keyword.addEventListener('keyup', function()  {
+    var xhr = new XMLHttpRequest();
+
+    xhr.onreadystatechange = function() {
+        if( xhr.readyState == 4 && xhr.status == 200 ) {
+            bungkus.innerHTML = xhr.responseText;
+        }
+    }
+
+
+xhr.open('GET','ajax/data_table.php?keyword=' + keyword.value , true);
+
+xhr.send();
+
+
+});
+
 </script>
-<script src="js/shofwan.js"></script>
+<!-- <script src="js/shofwan.js"></script> -->
 </body>
 
 </html>

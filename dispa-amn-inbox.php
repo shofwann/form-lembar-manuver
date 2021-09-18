@@ -42,7 +42,7 @@
                             <tr>
                                 <td><?=$i;?></td>
                                 <td><?= $row["pekerjaan"];?></td>
-                                <td><?= $row["waktu"];?></td>
+                                <td><?= $row["date"];?></td>
                                 <td><?= $row["installasi"];?></td>
                                 <td><?= $row["lokasi"];?></td>
                                 <td><?= $row["status"];?></td>
@@ -61,7 +61,7 @@
                             <tr>
                                 <td><?=$i;?></td>
                                 <td><?= $row["pekerjaan"];?></td>
-                                <td><?= $row["waktu"];?></td>
+                                <td><?= $row["date"];?></td>
                                 <td><?= $row["installasi"];?></td>
                                 <td><?= $row["lokasi"];?></td>
                                 <td><?= $row["status"];?></td>

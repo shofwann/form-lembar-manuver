@@ -35,14 +35,14 @@
                             </tr>
                             <?php
                                 require "functions.php";
-                                $datas=query("SELECT * FROM db_form WHERE  msb = 'approve' AND dispa = 'pembebasan' AND ae ='aprovMsb'");
+                                $datas=query("SELECT * FROM db_form WHERE  msb = 'approve' AND dispa = 'pembebasan' AND ae ='aproved'");
                             ?>
                             <?php $i=1;?>
                             <?php foreach($datas as $row):?>
                             <tr>
                                 <td><?=$i;?></td>
                                 <td><?= $row["pekerjaan"];?></td>
-                                <td><?= $row["waktu"];?></td>
+                                <td><?= $row["date"];?></td>
                                 <td><?= $row["installasi"];?></td>
                                 <td><?= $row["lokasi"];?></td>
                                 <td><?= $row["status"];?></td>
@@ -60,7 +60,7 @@
                             <tr>
                                 <td><?=$i;?></td>
                                 <td><?= $row["pekerjaan"];?></td>
-                                <td><?= $row["waktu"];?></td>
+                                <td><?= $row["date"];?></td>
                                 <td><?= $row["installasi"];?></td>
                                 <td><?= $row["lokasi"];?></td>
                                 <td><?= $row["status"];?></td>
@@ -78,7 +78,7 @@
                             <tr>
                                 <td><?=$i;?></td>
                                 <td><?= $row["pekerjaan"];?></td>
-                                <td><?= $row["waktu"];?></td>
+                                <td><?= $row["date"];?></td>
                                 <td><?= $row["installasi"];?></td>
                                 <td><?= $row["lokasi"];?></td>
                                 <td><?= $row["status"];?></td>
@@ -89,13 +89,13 @@
                             <?php endforeach; ?>
 
                             <?php
-                                $datas=query("SELECT * FROM db_form WHERE amn_dispa = 'disapprove' AND status = 'penormalan' AND user_dispa_awal = '$_SESSION[username]'");
+                                $datas=query("SELECT * FROM db_form WHERE amn_dispa = 'disapprove' AND status = 'penormalan' AND user_dispa_akhir = '$_SESSION[username]'");
                             ?>
                             <?php foreach($datas as $row):?>
                             <tr>
                                 <td><?=$i;?></td>
                                 <td><?= $row["pekerjaan"];?></td>
-                                <td><?= $row["waktu"];?></td>
+                                <td><?= $row["date"];?></td>
                                 <td><?= $row["installasi"];?></td>
                                 <td><?= $row["lokasi"];?></td>
                                 <td><?= $row["status"];?></td>

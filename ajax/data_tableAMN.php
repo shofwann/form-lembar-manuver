@@ -2,7 +2,7 @@
 session_start();
 require "../functions.php";
 $keyword = $_GET["keyword"];
-$query = "SELECT * FROM db_form WHERE user = '$_SESSION[username]' AND (pekerjaan LIKE '%$keyword%' OR date LIKE '%$keyword%' OR lokasi LIKE '%$keyword%')";
+$query = "SELECT * FROM db_form WHERE user_amn = '$_SESSION[username]' AND (pekerjaan LIKE '%$keyword%' OR date LIKE '%$keyword%' OR lokasi LIKE '%$keyword%')";
 $folder = query($query);
 
 
@@ -33,7 +33,11 @@ $folder = query($query);
                     <tr>
                     <td><?= $no+$awalData?></td>
                     <td><?= $data['pekerjaan'];?></td>
-                    <td><?= $data['waktu'];?></td>
+                    <td><?= $data['date'];?></td>
+                    <td><?= $data['lokasi'];?></td>
+                    <td><?= $no+$awalData?></td>
+                    <td><?= $data['pekerjaan'];?></td>
+                    <td><?= date("d F Y", strtotime($data['date']));?></td>
                     <td><?= $data['lokasi'];?></td>
                     <td><?php if($data['amn'] == "approve") {
                                 echo "<a href='#' class='btn btn-success btn-icon-split' data-toggle='tooltip' data-placement='left' title='approve'><span class='icon text-white-50'><i class='fas fa-thumbs-up'></i></span></a>";
@@ -42,7 +46,7 @@ $folder = query($query);
                             }else{
                                 echo "<a href='#' class='btn btn-warning btn-icon-split' data-toggle='tooltip' data-placement='left' title='pending'><span class='icon text-white-50'><i class='fas fa-spinner'></i></span></a>";
                             }?>
-                            <a href='createPDF.php?id=<?= $data['id'];?>&jumlah=' class='' hidden><span class='icon text-danger'><i class='far fa-file-pdf fa-lg ml-3'></i></span></a>
+                            
                     </td>
                     <td><?php if($data['msb'] == "approve") {
                                 echo "<a href='#' class='btn btn-success btn-icon-split' data-toggle='tooltip' data-placement='left' title='approve'><span class='icon text-white-50'><i class='fas fa-thumbs-up'></i></span></a>";
@@ -51,7 +55,8 @@ $folder = query($query);
                             }else{
                                 echo "<a href='#' class='btn btn-warning btn-icon-split' data-toggle='tooltip' data-placement='left' title='pending'><span class='icon text-white-50'><i class='fas fa-spinner'></i></span></a>";
                             }?>
-                            <a href='createPDF.php?id=<?= $data['id_new'];?>&jumlah=' class=''><span class='icon text-danger'><i class='far fa-file-pdf fa-lg ml-3'></i></span></a>
+                            
+
                     </td>
                     <td>
                         <a href="?url=show_detail&id=<?= $data['id_new'];?>" class="btn btn-info btn-icon-split">

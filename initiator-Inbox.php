@@ -45,7 +45,7 @@
                             <tr>
                                 <td><?=$i;?></td>
                                 <td><?= $row["pekerjaan"];?></td>
-                                <td><?= $row["waktu"];?></td>
+                                <td><?= date("d F Y", strtotime($row["date"]));?></td>  
                                 <td><?= $row["installasi"];?></td>
                                 <td><?= $row["lokasi"];?></td>
                                 <td>

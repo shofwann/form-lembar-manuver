@@ -24,7 +24,7 @@ $idnya = trim($idnya);
                                 <tbody id="tableBody1">
                                     <tr>
                                         <td><input type="text" name="lokasi1[]" value="<?= $data['lokasi']; ?>"></td>
-                                        <td><button type="button" class="btn btn-danger" onclick="hapus1(this)">x</button><input type="text" name="id1[]" value="<?= $data['id']; ?>"></td>
+                                        <td><button type="button" class="btn btn-danger" onclick="hapus1(this)">x</button><input type="text" name="id1[]" value="<?= $data['id']; ?>" hidden></td>
                                     </tr>
                                 </tbody>
                                 <?php } ?>
@@ -59,7 +59,7 @@ $idnya = trim($idnya);
                                         <td><input type="text" name="installasi2[]" value="<?= $data2['installasi']; ?>"></td>
                                         <td>
                                             <button type="button" class="btn btn-danger" onclick="hapus2(this)">x</button>
-                                            <input type="text" name="id2[]" value="<?= $data2['id']; ?>">
+                                            <input type="text" name="id2[]" value="<?= $data2['id']; ?>" hidden>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -96,7 +96,7 @@ $idnya = trim($idnya);
                                         <td><input type="text" name="installasi3[]"value="<?= $data3['installasi']; ?>"></td>
                                         <td>
                                             <button type="button" class="btn btn-danger" onclick="hapus3(this)">x</button>
-                                            <input type="text" name="id3[]" value="<?= $data3['id']; ?>"></td>
+                                            <input type="text" name="id3[]" value="<?= $data3['id']; ?>" hidden></td>
                                     </tr>   
                                 </tbody>
                                 <?php  $j++; ?>

@@ -71,36 +71,37 @@
                 <?php foreach ( $folder as $data) : ?>
                 <tbody>
                     <tr>
-                    <td><?= $no+$awalData?></td>
-                    <td><?= $data['pekerjaan'];?></td>
-                    <td><?= $data['waktu'];?></td>
-                    <td><?= $data['lokasi'];?></td>
-                    <td><?php if($data['amn'] == "approve") {
-                                echo "<a href='#' class='btn btn-success btn-icon-split' data-toggle='tooltip' data-placement='left' title='approve'><span class='icon text-white-50'><i class='fas fa-thumbs-up'></i></span></a>";
-                            }elseif ($data['amn'] == "disapprove") {
-                                echo "<a href='#' class='btn btn-danger btn-icon-split' data-toggle='tooltip' data-placement='left' title='disapprove'><span class='icon text-white-50'><i class='fas fa-thumbs-down'></i></span></a>";
-                            }else{
-                                echo "<a href='#' class='btn btn-warning btn-icon-split' data-toggle='tooltip' data-placement='left' title='pending'><span class='icon text-white-50'><i class='fas fa-spinner'></i></span></a>";
-                            }?>
-                            
-                    </td>
-                    <td><?php if($data['msb'] == "approve") {
-                                echo "<a href='#' class='btn btn-success btn-icon-split' data-toggle='tooltip' data-placement='left' title='approve'><span class='icon text-white-50'><i class='fas fa-thumbs-up'></i></span></a>";
-                            }elseif ($data['msb'] == "disapprove") {
-                                echo "<a href='#' class='btn btn-danger btn-icon-split' data-toggle='tooltip' data-placement='left' title='disapprove'><span class='icon text-white-50'><i class='fas fa-thumbs-down'></i></span></a>";
-                            }else{
-                                echo "<a href='#' class='btn btn-warning btn-icon-split' data-toggle='tooltip' data-placement='left' title='pending'><span class='icon text-white-50'><i class='fas fa-spinner'></i></span></a>";
-                            }?>
-                            
+                        <td><?= $no+$awalData?></td>
+                        <td><?= $data['pekerjaan'];?></td>
+                        <td><?= date("d F Y", strtotime($data['date']));?></td>
+                        <td><?= $data['lokasi'];?></td>
+                        <td><?php if($data['amn'] == "approve") {
+                                    echo "<a href='#' class='btn btn-success btn-icon-split' data-toggle='tooltip' data-placement='left' title='approve'><span class='icon text-white-50'><i class='fas fa-thumbs-up'></i></span></a>";
+                                }elseif ($data['amn'] == "disapprove") {
+                                    echo "<a href='#' class='btn btn-danger btn-icon-split' data-toggle='tooltip' data-placement='left' title='disapprove'><span class='icon text-white-50'><i class='fas fa-thumbs-down'></i></span></a>";
+                                }else{
+                                    echo "<a href='#' class='btn btn-warning btn-icon-split' data-toggle='tooltip' data-placement='left' title='pending'><span class='icon text-white-50'><i class='fas fa-spinner'></i></span></a>";
+                                }?>
+                                
+                        </td>
+                        <td><?php if($data['msb'] == "approve") {
+                                    echo "<a href='#' class='btn btn-success btn-icon-split' data-toggle='tooltip' data-placement='left' title='approve'><span class='icon text-white-50'><i class='fas fa-thumbs-up'></i></span></a>";
+                                }elseif ($data['msb'] == "disapprove") {
+                                    echo "<a href='#' class='btn btn-danger btn-icon-split' data-toggle='tooltip' data-placement='left' title='disapprove'><span class='icon text-white-50'><i class='fas fa-thumbs-down'></i></span></a>";
+                                }else{
+                                    echo "<a href='#' class='btn btn-warning btn-icon-split' data-toggle='tooltip' data-placement='left' title='pending'><span class='icon text-white-50'><i class='fas fa-spinner'></i></span></a>";
+                                }?>
+                                
 
-                    </td>
-                    <td>
-                        <a href="?url=show_detail&id=<?= $data['id'];?>" class="btn btn-info btn-icon-split">
-                            <span class="icon text-white-50">
-                            <i class="fas fa-info-circle"></i>
-                            </span>
-                            <span class="text">details</span>
-                        </a>
+                        </td>
+                        <td>
+                            <a href="?url=show_detail&id=<?= $data['id_new'];?>" class="btn btn-info btn-icon-split">
+                                <span class="icon text-white-50">
+                                <i class="fas fa-info-circle"></i>
+                                </span>
+                                <span class="text">details</span>
+                            </a>
+                        </td>
                     </tr>
                 </tbody>
                 <?php $no++ ?>
@@ -123,7 +124,44 @@
 
     </div>
 
-<script src="js/shofwan.js"></script>
+<script>
+ 
+ var ab = document.getElementsByTagName('a');
+var ini = document.getElementById('ini');
+var clas1 = document.getElementsByClassName('btn btn-warning btn-icon-split');
+var clas2 = document.getElementsByClassName('btn btn-danger btn-icon-split');
+
+for (let i=0; i<clas1.length; i++) {
+    clas1[i].parentElement.children[1].style.display='none';
+}
+
+for (let i=0; i<clas2.length; i++) {
+    clas2[i].parentElement.children[1].style.display='none';
+}
+
+  
+var keyword = document.getElementById('keyword');
+var tombolCari = document.getElementById('cari');
+var bungkus = document.getElementById('bungkus');
+
+keyword.addEventListener('keyup', function()  {
+    var xhr = new XMLHttpRequest();
+
+    xhr.onreadystatechange = function() {
+        if( xhr.readyState == 4 && xhr.status == 200 ) {
+            bungkus.innerHTML = xhr.responseText;
+        }
+    }
+
+
+xhr.open('GET','ajax/data_tableAMN.php?keyword=' + keyword.value , true);
+
+xhr.send();
+
+
+});
+
+</script>
 </body>
 
 </html>

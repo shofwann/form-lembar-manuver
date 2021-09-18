@@ -111,10 +111,10 @@ $pdf->Cell(58,5,$c,'R',0);
 $pdf->Cell(60,5,$d,'R',1);
 
 $pdf->SetFont('Times','B','10');
-$pdf->Cell(16.5,5,'Waktu','L',0);
+$pdf->Cell(16.5,5,'date','L',0);
 $pdf->Cell(2,5,':','',0);
 $pdf->SetFont('Times','','10');
-$pdf->Cell(113.5,5,$isi['waktu'],'R',0,'');
+$pdf->Cell(113.5,5,$isi['date'],'R',0,'');
 $pdf->Cell(30,5,'Supervisor GITET','',0);
 $pdf->Cell(2,5,':','',0);
 $pdf->Cell(58,5,$c,'R',0);

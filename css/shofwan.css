@@ -1,16 +1,31 @@
 
 
 
-input[type="text"]:disabled {
-    background: none;
-    
-  }
+/* .row {
+  border: 1px solid #616A6B;
+} */
 
-input[type="text"]:read-only {
-  background: none;
+textarea:disabled {
+  background-color: #fff;
+}
+input[type="datetime-local"][disabled] {
+  background-color: #fff;
+}
+      
+input[type="text"][disabled] {
+  background-color: #fff;
 }
 
-input[type="text"]::placeholder {
-  font-style: italic;
-  color: brown;
+
+.col-2, .col-3, .col-4, .col-6,.col-7, .col-12 {
+  border-color:#616A6B !important; 
+  border-top: 1px solid !important;
+  border-left: 1px solid;
 }
+
+.col {
+  border-top: 1px solid #fff;
+}
+
+
+

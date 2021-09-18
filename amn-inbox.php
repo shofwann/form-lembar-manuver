@@ -1,3 +1,7 @@
+<?php
+require "functions.php";
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,7 +37,6 @@
                                 <th>action</th>
                             </tr>
                             <?php
-                                require "functions.php";
                                 $datas=query("SELECT * FROM db_form WHERE ae = 'approve'");
                             ?>
                             <?php $i=1;?>
@@ -41,7 +44,26 @@
                             <tr>
                                 <td><?=$i;?></td>
                                 <td><?= $row["pekerjaan"];?></td>
-                                <td><?= $row["waktu"];?></td>
+                                <td><?= date("d F Y", strtotime($row["date"]));?></td>
+                                <td><?= $row["installasi"];?></td>
+                                <td><?= $row["lokasi"];?></td>
+                                <td>
+                                    
+                                <a href="?url=amnApprove&id=<?= $row["id"]; ?>" id="updateForm-1" class="btn btn-grey btn-icon-split"></span><span class="text far fa-edit"></span></a>
+                                <!-- <a href="remove.php?id=<?= $row["id"];?>" onclick="return confirm('yakin menghapus');">Delete</a></td> -->
+                            </tr>
+                            <?php $i++;?>
+                            <?php endforeach; ?>
+
+
+                            <?php
+                                $datas=query("SELECT * FROM db_form WHERE ae = 'aproveUbah' AND user_amn = '$_SESSION[username]'");
+                            ?>
+                            <?php foreach($datas as $row):?>
+                            <tr>
+                                <td><?=$i;?></td>
+                                <td><?= $row["pekerjaan"];?></td>
+                                <td><?= date("d F Y", strtotime($row["date"]));?></td>
                                 <td><?= $row["installasi"];?></td>
                                 <td><?= $row["lokasi"];?></td>
                                 <td>

@@ -1,8 +1,8 @@
 <?php
-$conn=mysqli_connect("localhost","root","","db_lemver");
+$conn=mysqli_connect("localhost","root","","db_lembar_manuver");
 date_default_timezone_set('Asia/Jakarta');
 // untuk ae
-$jumlahDataPerHalaman = 5;
+$jumlahDataPerHalaman = 10;
 $jumlahManuver = count(query("SELECT * FROM db_form"));
 $jumlahHalaman = ceil($jumlahManuver/$jumlahDataPerHalaman);
 $halamanAktif = ( isset($_GET["halaman"]) ) ? $_GET["halaman"] : 1;
@@ -24,18 +24,17 @@ function query($query){
 function tambah($post){
     //print_r($_POST); die();
     global $conn;
-    $idTask =$post["idTask"];
-    $create_date = $post["create_date"];
-    $user = $post["user"];
-    $pekerjaan = htmlspecialchars($post["pekerjaan"]);
-    $start_date = $post["start_date"];
-    $end_date = $post["end_date"];
-    $report_date = htmlspecialchars($post["report_date"]);
+    $idTask =$post["idTask"];;//ok
+    $create_date = $post["create_date"];//ok
+    $user = $post["user"]; ;//ok
+    $pekerjaan = htmlspecialchars($post["pekerjaan"]);;//ok
+    $date = $post["date"];
+    $start = $post["start"];
+    $end = $post["end"];
     $lokasi = htmlspecialchars($post["lokasi"]);
-    $waktu = htmlspecialchars($post["waktu"]);
     $instal = htmlspecialchars($post["instal"]);
-    
-
+    $catatanPraBebas = htmlspecialchars($post["catatan_pra_bebas"]);
+    $catatanPraNormal =htmlspecialchars($post["catatan_pra_normal"]);
     //upload gambar
     $foto = upload(); 
      if( !$foto ){
@@ -47,65 +46,53 @@ function tambah($post){
         return false;
     }
     //print_r($_POST);exit;
-    $query = "INSERT INTO db_form (id,create_date,user,pekerjaan,start_date,end_date,report_date,lokasi,waktu,installasi,foto,foto2,ae,amn,msb) VALUES ('$idTask','$create_date','$user','$pekerjaan','$start_date','$end_date','$report_date','$lokasi','$waktu','$instal','$foto','$foto2','approve','process','process')";
+    $query = "INSERT INTO db_form (id,create_date,user,pekerjaan,date,start,end,lokasi,installasi,foto,foto2,ae,amn,msb,catatan_pra_pembebasan,catatan_pra_penormalan) VALUES ($idTask,'$create_date','$user','$pekerjaan','$date','$start','$end','$lokasi','$instal','$foto','$foto2','approve','process','process','$catatanPraBebas','$catatanPraNormal')";
     mysqli_query($conn,$query);
     // cara-1
-    $jumlah_baris = count($_POST["lokasiPembebasan"]);
-    // print_r($jumlah_baris);exit;
-    for ($i=0; $i<$jumlah_baris; $i++) {
-        $lokasiManuverBebas = $_POST["lokasiPembebasan"][$i];
-        $query = "INSERT INTO db_table_1 (id_form,lokasi) VALUES ('$idTask','$lokasiManuverBebas')";
-        mysqli_query($conn,$query); 
-     }
+    if (isset($post["lokasiPembebasan"])){
+        $jumlah_baris = count($_POST["lokasiPembebasan"]);
+        for ($i=0; $i<$jumlah_baris; $i++) {
+            $lokasiManuverBebas = $_POST["lokasiPembebasan"][$i];
+            $query = "INSERT INTO db_table_1 (id_form,lokasi) VALUES ($idTask,'$lokasiManuverBebas')";
+            mysqli_query($conn,$query);
+        }
+    } else {
+        echo "<script>
+                alert ('Anda belum memasukkan lokasi GITET');
+                history.back(-1);
+             </script>";
+    }
 
-     $rows_tabel_3 = count($_POST["lokasiManuverBebas"]);
-     for ($i=0; $i<$rows_tabel_3; $i++) {
-         $lokasiManuverBebas = $_POST["lokasiManuverBebas"][$i];
-         $installManuverBebas = $_POST["installManuverBebas"][$i];
-         $query = "INSERT INTO db_table_3 (id_form,lokasi,installasi) VALUES ('$idTask','$lokasiManuverBebas','$installManuverBebas')";
-         mysqli_query($conn,$query);
-     }
+    if (isset($post["lokasiManuverBebas"])){
+        $rows_tabel_3 = count($_POST["lokasiManuverBebas"]);
+        for ($i=0; $i<$rows_tabel_3; $i++) {
+            $lokasiManuverBebas = $_POST["lokasiManuverBebas"][$i];
+            $installManuverBebas = $_POST["installManuverBebas"][$i];
+            $query = "INSERT INTO db_table_2 (id_form,lokasi,installasi) VALUES ($idTask,'$lokasiManuverBebas','$installManuverBebas')";
+            mysqli_query($conn,$query);
+        }
+    } else {
+        echo "<script>
+                alert ('Anda belum memasukkan lokasi GITET');
+                history.back(-1);
+             </script>";
+    }
 
-     $rows_tabel_4 = count($_POST["lokasiManuverNormal"]);
-     for ($i=0; $i<$rows_tabel_4; $i++) {
-         $lokasiManuverNormal = $_POST["lokasiManuverNormal"][$i];
-         $installManuverNormal = $_POST["installManuverNormal"][$i];
-         $query = "INSERT INTO db_table_4 (id_form,lokasi,installasi) VALUES ('$idTask','$lokasiManuverNormal','$installManuverNormal')";
-         mysqli_query($conn,$query);
-     }
+    if (isset($post["lokasiManuverNormal"])){
+        $rows_tabel_4 = count($_POST["lokasiManuverNormal"]);
+        for ($i=0; $i<$rows_tabel_4; $i++) {
+            $lokasiManuverNormal = $_POST["lokasiManuverNormal"][$i];
+            $installManuverNormal = $_POST["installManuverNormal"][$i];
+            $query = "INSERT INTO db_table_3 (id_form,lokasi,installasi) VALUES ($idTask,'$lokasiManuverNormal','$installManuverNormal')";
+            mysqli_query($conn,$query);
+        }
+    } else {
+        echo "<script>
+                alert ('Anda belum memasukkan lokasi GITET');
+                history.back(-1);
+             </script>";
+    }
 
-            // cara-2
-                // foreach ($_POST["lokasiPembebasan"] as $lokasi ) {
-                //     $query = "INSERT INTO `db_sub_form1` ( `id_form_main`, `lokasiPembebasan`) VALUES ('$idTask','$lokasi')";
-                //     mysqli_query($conn,$query); 
-                //   }
-
-                // foreach ($_POST["lokasiManuverBebas"] as $lokasiManuverBebas) {
-                //     $query = "INSERT INTO `db_manuver1` (`id_form_main`,`lokasiManuverBebas`) VALUES ('$idTask','$lokasiManuverBebas')";
-                //     mysqli_query($conn,$query);
-                // }
-
-                // foreach ($_POST["installManuverBebas"] as $installManuverBebas) {
-                //     $query = "INSERT INTO `db_manuver1` (`installManuverBebas`) VALUES ('$installManuverBebas') WHERE db_manuver1.id_form_main = `$idTask`";
-                //     mysqli_query($conn,$query);
-                // }
-
-                // cara-3
-
-                //$keys = array_keys($_POST["lokasiPembebasan"]);
-                
-                // for ($i=0; $i<3; $i++) {
-                
-                //     $lokasiManuverBebas = $_POST["lokasiPembebasan"][$i];
-                //     $query = "INSERT INTO db_sub_form1
-                //               VALUE
-                //               ('','$idTask','$lokasiManuverBebas','','','','','','')
-                //              ";
-                //      mysqli_query($conn,$query); 
-
-                // };
-        
-    
 
     return mysqli_affected_rows($conn);
 }
@@ -120,7 +107,7 @@ function upload(){
     if( $error === 4) {     //angka 4 indikasi error tidak ada gambar yg diupload baku
         echo "<script>
                 alert ('Anda belum upload gambar!');
-                </script>";
+                </>";
         return false;
     }
     //cek yang diupload gambar atau bukan
@@ -204,12 +191,15 @@ function ubah($post){
     $fotolama1 = $post["fotoLama1"];
     $fotolama2 = $post["fotoLama2"];
     $pekerjaan = htmlspecialchars($post["pekerjaan"]);
-    $start_date = $post["start_date"];
-    $end_date = $post["end_date"];
-    $report_date = htmlspecialchars($post["report_date"]);
+    $date = $post["date"];
+    $start = $post["start"];
+    $end = $post["end"];
     $lokasi = htmlspecialchars($post["lokasi"]);
-    $waktu = htmlspecialchars($post["waktu"]);
     $instal = htmlspecialchars($post["instal"]);
+    $catatanPraBebas = htmlspecialchars($post["catatan_pra_bebas"]);
+    $catatanPraNormal =htmlspecialchars($post["catatan_pra_normal"]);
+    $level = $post["level"];
+    $potongLevel = substr($level,4);
 
     //cek apakah user ganti foto1
     if( $_FILES['foto']['error'] === 4){
@@ -225,24 +215,12 @@ function ubah($post){
         $foto2 = upload2();
     }
 
+    if (strlen($level) == 9) {
+        mysqli_query($conn,"UPDATE db_form SET level_user = '$level' WHERE id = $idTask");
+    } else {
+        mysqli_query($conn,"UPDATE db_form SET level_user = '$potongLevel' WHERE id = $idTask");
+    }
 
-
-    $query = "UPDATE db_form SET
-             pekerjaan = '$pekerjaan',
-             start_date = '$start_date',
-             end_date = '$end_date',
-             report_date = '$report_date',
-             lokasi = '$lokasi',
-             waktu = '$waktu',
-             installasi = '$instal',
-             foto = '$foto', 
-             foto2 = '$foto2',
-             ae = 'approve',
-             amn = 'process',
-             msb = 'process'
-             WHERE id= '$idTask'   
-            ";
-    mysqli_query($conn,$query);
 
     $jumlah_baris_pelaksana = count($_POST["lokasiPembebasan"]);
     for($i=0; $i<$jumlah_baris_pelaksana; $i++) {
@@ -271,9 +249,9 @@ function ubah($post){
         $intallasiPembebasan = $_POST["installManuverBebas"][$i];
         $idUpdateBebas = $_POST["id_bebas_update2"][$i];
         if ($idUpdateBebas == '0') {
-            $query = "INSERT INTO db_table_3 (id_form,lokasi,installasi) VALUES ('$idTask','$lokasiPembebasanManuver','$intallasiPembebasan')";
+            $query = "INSERT INTO db_table_2 (id_form,lokasi,installasi) VALUES ('$idTask','$lokasiPembebasanManuver','$intallasiPembebasan')";
         } else {
-            $query = "UPDATE db_table_3 SET lokasi = '$lokasiPembebasanManuver', installasi = '$intallasiPembebasan' WHERE id = $idUpdateBebas ";
+            $query = "UPDATE db_table_2 SET lokasi = '$lokasiPembebasanManuver', installasi = '$intallasiPembebasan' WHERE id = $idUpdateBebas ";
         }
         mysqli_query($conn,$query);
     }
@@ -282,7 +260,7 @@ function ubah($post){
         $jumlah_hapus = count($_POST["id_hapus1"]);
         for ($i=0; $i<$jumlah_hapus; $i++) {
             $id_hapus = $_POST["id_hapus1"][$i];
-            $query = "DELETE FROM db_table_3 WHERE id='$id_hapus'";
+            $query = "DELETE FROM db_table_2 WHERE id='$id_hapus'";
             mysqli_query($conn,$query);
         }
 
@@ -294,9 +272,9 @@ function ubah($post){
         $installasiPenormalan = $_POST["instalManuverNormal"][$i];
         $idUpdateNormal = $_POST["id_normal_update3"][$i];
         if ($idUpdateNormal == '0') {
-            $query = "INSERT INTO db_table_4 (id_form,lokasi,installasi) VALUE ('$idTask','$lokasiPenormalanManuver','$installasiPenormalan')";
+            $query = "INSERT INTO db_table_3 (id_form,lokasi,installasi) VALUE ('$idTask','$lokasiPenormalanManuver','$installasiPenormalan')";
         } else {
-            $query = "UPDATE db_table_4 SET lokasi = '$lokasiPenormalanManuver', installasi = '$installasiPenormalan' WHERE id = $idUpdateNormal ";
+            $query = "UPDATE db_table_3 SET lokasi = '$lokasiPenormalanManuver', installasi = '$installasiPenormalan' WHERE id = $idUpdateNormal ";
         }
         mysqli_query($conn,$query);
     }
@@ -305,11 +283,28 @@ function ubah($post){
         $jumlah_hapus = count($_POST["id_hapus2"]);
         for ($i=0; $i<$jumlah_hapus; $i++) {
             $id_hapus = $_POST["id_hapus2"][$i];
-            $query = "DELETE FROM db_table_4 WHERE id='$id_hapus'";
+            $query = "DELETE FROM db_table_3 WHERE id='$id_hapus'";
             mysqli_query($conn,$query);
         }
 
     }
+
+    $query = "UPDATE db_form SET
+              pekerjaan = '$pekerjaan',
+              date = '$date',
+              start = '$start',
+              end = '$end',
+              lokasi = '$lokasi',
+              installasi = '$instal',
+              foto = '$foto', 
+              foto2 = '$foto2',
+              ae = 'aproveUbah',
+              amn = 'process',
+              msb = 'process',
+              catatan_pra_pembebasan = '$catatanPraBebas',
+              catatan_pra_penormalan = '$catatanPraNormal'
+              WHERE id = $idTask ";
+    mysqli_query($conn,$query);
 
 
     return mysqli_affected_rows($conn);
@@ -320,19 +315,44 @@ function aprovalAmn($post){
     global $conn;
     $idTask =$post["idTask"];
     $userAmn = $post["userAmn"];
-    $aproval = $post["aproval"];
     $level = $post["level"];
+    $potongLevel = substr($level,4);
     $time =$post["time"];
+    $statusAE = $post["statusAE"];
+    $catatan = $post["catatan_amn"];
+    $aproval = $post["aproval"];
+    $userMsb = $post["userMSB"];
+
+    if (strlen($level) == 3) {
+        mysqli_query($conn,"UPDATE db_form SET level_amn = '$level' WHERE id = $idTask");
+    } else {
+        mysqli_query($conn,"UPDATE db_form SET level_amn = '$potongLevel' WHERE id = $idTask");
+    }
+
+    if ($statusAE == 'approve' && $aproval == 'approve' && $userMsb == '') {
+        mysqli_query($conn,"UPDATE db_form SET ae = 'aproveAMN' WHERE id = $idTask");
+    } elseif ($statusAE == 'approve' && $aproval == 'disapprove' && $userMsb == ''){
+        mysqli_query($conn,"UPDATE db_form SET ae = 'back' WHERE id = $idTask");
+    } elseif ($statusAE == 'aproveUbah' && $aproval == 'approve' && $userMsb != ''){
+        mysqli_query($conn,"UPDATE db_form SET ae = 'aproveUbahAMN' WHERE id = $idTask");
+    } elseif ($statusAE == 'aproveUbah' && $aproval == 'disapprove' && $userMsb != ''){
+        mysqli_query($conn,"UPDATE db_form SET ae = 'back' WHERE id = $idTask");
+    } elseif ($statusAE == 'aproveUbah' && $aproval == 'approve' && $userMsb == ''){
+        mysqli_query($conn,"UPDATE db_form SET ae = 'aproveAMN' WHERE id = $idTask");
+    } elseif ($statusAE == 'aproveUbah' && $aproval == 'disapprove' && $userMsb == ''){
+        mysqli_query($conn,"UPDATE db_form SET ae = 'back' WHERE id = $idTask");
+    }
 
     $query = "UPDATE db_form SET 
              user_amn = '$userAmn',
-             level_amn = '$level',
              time_amn_aprove = '$time',
-             ae = 'aprovAmn',
-             amn = '$aproval'
-             WHERE id = '$idTask'
+             amn = '$aproval',
+             catatan_amn = '$catatan'
+             WHERE id = $idTask
              ";
     mysqli_query($conn,$query);
+
+    
 
     return mysqli_affected_rows($conn);
 
@@ -344,18 +364,33 @@ function aprovalMsb($post){
     $userMsb = $post["userMsb"];
     $aproval = $post["aproval"];
     $level = $post["level"];
+    $potongLevel = substr($level,4);
     $time = $post["time"];
+    $catatan = $post["catatan_msb"];
+    $statusAE = $post["statusAE"];
 
+    if (strlen($level) == 3) {
+        mysqli_query($conn,"UPDATE db_form SET level_msb = '$level' WHERE id = $idTask");
+    } else {
+        mysqli_query($conn,"UPDATE db_form SET level_msb ='$potongLevel' WHERE id = $idTask");
+    }
+
+    if ($statusAE == 'aproveAMN' && $aproval == 'approve') {
+        mysqli_query($conn,"UPDATE db_form SET ae = 'aproved', status = 'pembebasan', dispa = 'pembebasan' WHERE id = $idTask");
+    } elseif ($statusAE == 'aproveAMN' && $aproval == 'disapprove'){
+        mysqli_query($conn,"UPDATE db_form SET ae = 'back' WHERE id = $idTask");
+    } elseif ($statusAE == 'aproveUbahAMN' && $aproval == 'approve'){
+        mysqli_query($conn,"UPDATE db_form SET ae = 'aproved', status = 'pembebasan', dispa = 'pembebasan' WHERE id = $idTask");
+    } elseif ($statusAE == 'aproveUbahAMN' && $aproval == 'disapprove'){
+        mysqli_query($conn,"UPDATE db_form SET ae = 'back' WHERE id = $idTask");
+    }
 
     // rencana ditambahkan dispa = pembebasan dan status = pembebasan
     $query = "UPDATE db_form SET 
              user_msb = '$userMsb',
-             level_msb ='$level',
              time_msb_aprove = '$time',
-             ae = 'aprovMsb',
              msb = '$aproval',
-             status = 'pembebasan',
-             dispa = 'pembebasan'
+             catatan_msb = '$catatan'
              WHERE id = '$idTask'
              ";
     mysqli_query($conn,$query);
@@ -364,21 +399,19 @@ function aprovalMsb($post){
 
 }
 
-function hapus(){
 
-}
 
 function inputDispaAwal($post) {
     global $conn;
     $idTask = $post["idTask"]; 
-    $jumlah_baris_nama = count($_POST["peng_pekerjaan"]);
+    $jumlah_baris_nama = count($post["peng_pekerjaan"]);
     for ($i=0; $i<$jumlah_baris_nama; $i++) {
-        $nama_pekerja = $_POST["peng_pekerjaan"][$i];
-        $nama_manuver = $_POST["peng_manuver"][$i];
-        $nama_k3 = $_POST["peng_k3"][$i];
-        $nama_spv = $_POST["spv"][$i];
-        $nama_opr = $_POST["opr"][$i];
-        $id_isi = $_POST["sampel"][$i];
+        $nama_pekerja = $post["peng_pekerjaan"][$i];
+        $nama_manuver = $post["peng_manuver"][$i];
+        $nama_k3 = $post["peng_k3"][$i];
+        $nama_spv = $post["spv"][$i];
+        $nama_opr = $post["opr"][$i];
+        $id_isi = $post["sampel"][$i];
         $query = "UPDATE db_table_1 SET
                  pengawas_pekerjaan = '$nama_pekerja',
                  pengawas_manuver = '$nama_manuver',
@@ -392,37 +425,24 @@ function inputDispaAwal($post) {
 
     if (isset($_POST["document"])){
         $document = implode(",", $post["document"]);
-        mysqli_query($conn,"UPDATE db_form SET document = '$document' WHERE id='$idTask'");
+        mysqli_query($conn,"UPDATE db_form SET document = '$document' WHERE id=$idTask");
     }
 
-   
     $fotolama = $post["fotoLama"];
+    $aprove = $post["timeAproveDispaAwal"];
+    $report = $post["report_date"];
     $scada_awal_before = htmlspecialchars($post["scada_awal_before"]);
     $scada_awal_after = htmlspecialchars($post["scada_awal_after"]);
     $dpf_awal = htmlspecialchars($post["dpf_awal"]);
-    $catatan = htmlspecialchars($post["catatan_pasca_pembebasan"]);
+    $catatan = htmlspecialchars($post["catatan_pasca_bebas"]);
     $userDispa = $post["userdispa"];
-    $timeDispaAproveAwal = $post["timeAproveDispaAwal"];
+    
 
     if( $_FILES['dpfFile_awal']['error'] === 4){
         $foto = $fotolama;
     } else {
         $foto = upload3();
     }
-
-    $query = "UPDATE db_form SET
-              user_dispa_awal = '$userDispa',
-              scada_awal_before = '$scada_awal_before',
-              scada_awal_after = '$scada_awal_after',
-              dispa = 'approve',
-              dpf_awal = '$dpf_awal',
-              amn_dispa = 'checked',
-              catatan_pasca_pembebasan = '$catatan',
-              time_dispa_awal_aprove = '$timeDispaAproveAwal',
-              foto_dpf1 = '$foto'
-              WHERE id = '$idTask'
-              ";
-    mysqli_query($conn,$query);
     
     $jumlah_manuver_bebas = count($_POST["remote_bebas"]);
     for ($i=0; $i<$jumlah_manuver_bebas; $i++) {
@@ -430,14 +450,29 @@ function inputDispaAwal($post) {
         $real_bebas = $_POST["real_bebas"][$i];
         $ads_bebas = $_POST["ads_bebas"][$i];
         $id_isi2 = $_POST["sampel_manuver"][$i];
-        $query = "UPDATE db_table_3 SET 
-                 remote_bebas = '$remote_bebas',
-                 real_bebas = '$real_bebas',
-                 ads_bebas = '$ads_bebas'
+        $query = "UPDATE db_table_2 SET 
+                 remote_ = '$remote_bebas',
+                 real_ = '$real_bebas',
+                 ads = '$ads_bebas'
                  WHERE id = $id_isi2
                  ";
         mysqli_query($conn,$query);
     }
+
+    $query = "UPDATE db_form SET
+              user_dispa_awal = '$userDispa',
+              scada_awal_before = '$scada_awal_before',
+              scada_awal_after = '$scada_awal_after',
+              report_date = '$report',
+              dispa = 'approve',
+              dpf_awal = '$dpf_awal',
+              amn_dispa = 'checked',
+              catatan_pasca_pembebasan = '$catatan',
+              time_dispa_awal_aprove = '$aprove',
+              foto_dpf1 = '$foto'
+              WHERE id = $idTask
+    ";
+mysqli_query($conn,$query);
 
     return mysqli_affected_rows($conn);
 }
@@ -505,7 +540,7 @@ function inputDispaAkhir($post) {
     $scada_akhir_before = htmlspecialchars($post["scada_akhir_before"]);
     $scada_akhir_after = htmlspecialchars($post["scada_akhir_after"]);
     $dpf_akhir = htmlspecialchars($post["dpf_akhir"]);
-    $catatan = htmlspecialchars($post["catatan_pasca_penormalan"]);
+    $catatan = htmlspecialchars($post["catatan_pasca_normal"]);
     $userDispa = $post["userdispa"]; 
     $timeDispaAproveAkhir = $post["time"];
 
@@ -536,19 +571,16 @@ function inputDispaAkhir($post) {
         $real_normal = $post["real_normal"][$i];
         $ads_normal = $post["ads_normal"][$i];
         $id_isi2 = $post["sampel2"][$i];
-        $query = "UPDATE db_table_4 SET
-                 remote_normal = '$remote_normal',
-                 real_normal = '$real_normal',
-                 ads_normal = '$ads_normal'
+        $query = "UPDATE db_table_3 SET
+                 remote = '$remote_normal',
+                 real_ = '$real_normal',
+                 ads = '$ads_normal'
                  WHERE id = $id_isi2
                  ";
         mysqli_query($conn,$query);
     }
 
     return mysqli_affected_rows($conn);
-
-
-
 }
 
 function upload4() {
@@ -599,11 +631,13 @@ function amnDispaAproveAwal($post) {
     $userAmnDispa = $post["userAmnDispa"];
     $aproval = $post["aproval"];
     $timaAprovalAmnDispaAwal = $post["time"];
+    $catatan = $post["catatan_amndis_awal"];
 
     $query = "UPDATE db_form SET
               user_amn_dispa_awal = '$userAmnDispa',
               amn_dispa = '$aproval',
               time_amnDispa_awal_aprove = '$timaAprovalAmnDispaAwal',
+              catatan_amnDispa_awal = '$catatan',
               dispa = 'process'
               WHERE id = '$idTask'
              ";
@@ -625,11 +659,13 @@ function amnDispaAproveAkhir($post) {
     $userAmnDispa = $post["userAmnDispa"];
     $aproval = $post["aproval"];
     $timeAprovalAmnDispaAkhir = $post["time"];
+    $catatan =$post["catatan_amndis_akhir"];
 
     $query = "UPDATE db_form SET
-              user_amn_dispa_awal = '$userAmnDispa',
+              user_amn_dispa_akhir = '$userAmnDispa',
               amn_dispa = '$aproval',
               time_amnDispa_akhir_aprove = '$timeAprovalAmnDispaAkhir',
+              catatan_amnDispa_akhir = '$catatan',
               dispa = 'done'
               WHERE id = '$idTask'
              ";
@@ -782,6 +818,40 @@ function ubahDB($post) {
     }
 
     return mysqli_affected_rows($conn);
+
+}
+
+
+function tambahUser($post) {
+    global $conn;
+    $nama = $post["nama"];
+    $level = $post["level"];
+    $pass = password_hash('12345', PASSWORD_DEFAULT);
+
+    $query = "INSERT INTO db_user (level,password,username) VALUES ('$level','$pass','$nama')";
+    mysqli_query($conn,$query);
+
+    return mysqli_affected_rows($conn);
+
+}
+
+function ubahUser($post) {
+    global $conn;
+    $nama = $post["nama"];
+    $level = $post["level"];
+    $id = $_GET["id"];
+
+    mysqli_query($conn,"UPDATE db_user SET username='$nama',level='$level' WHERE id='$id'");
+
+    return mysqli_affected_rows($conn);
+
+}
+
+function hapusUser($id){ 
+    global $conn;
+    mysqli_query($conn,"DELETE FROM db_user WHERE id = $id");
+    return mysqli_affected_rows($conn);
+
 
 }
 

@@ -69,7 +69,7 @@
                     <tr>
                     <td><?= $no+$awalData?></td>
                     <td><?= $data['pekerjaan'];?></td>
-                    <td><?= $data['waktu'];?></td>
+                    <td><?= $data['date'];?></td>
                     <td><?= $data['lokasi'];?></td>
                     <td><?php echo $data['status']?></td>
 

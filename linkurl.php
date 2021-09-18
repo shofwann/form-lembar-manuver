@@ -119,6 +119,22 @@ if (isset($_GET['url']))
         include 'dispa-update-akhir.php';
         break;
 
+        case 'users';
+        include 'admin-users.php';
+        break;
+
+        case 'jobs';
+        include 'admin-jobs.php';
+        break;
+
+        case 'userUbah';
+        include 'admin-usersUbah.php';
+        break;
+
+        case 'hapus';
+        include 'hapus.php';
+        break;
+
 
         
 

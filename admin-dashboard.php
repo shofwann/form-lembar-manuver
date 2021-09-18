@@ -1,10 +1,15 @@
-<?php session_start();
+<?php 
+session_start();
 
 if (!isset($_SESSION["username"])) {
 	echo "<script>Anda Belum Login</script>";
   header("location:index.php");
 	exit;
 }
+
+$user=$_SESSION["username"];
+
+
 
 
 
@@ -41,7 +46,7 @@ if (!isset($_SESSION["username"])) {
     <ul class="navbar-nav bg-gray-900 sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="dispa-dashboard.php">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="admin-dashboard.php">
         <div class="sidebar-brand-icon rotate-n-15">
           <i class=""></i>
         </div>
@@ -53,7 +58,7 @@ if (!isset($_SESSION["username"])) {
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item">
-        <a class="nav-link" href="dispa-dashboard.php">
+        <a class="nav-link" href="admin-dashboard.php">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
       </li>
@@ -67,25 +72,42 @@ if (!isset($_SESSION["username"])) {
       </div>
 
       <!-- Nav Item - Pages Collapse Menu -->
-      <li class="nav-item">
-        <a class="nav-link" href="?url=initiatorInbox">
-          <i class="fas fa-edit"></i> 
-          <span>Create Emergency Form</span></a>
-      </li>
 
       <!-- Nav Item - inbox -->
       <li class="nav-item">
-        <a class="nav-link" href="?url=dispaInbox">
-          <i class="fas fa-inbox"></i>
-          <span>Inbox</span></a>
+        <a class="nav-link" href="?url=users">
+          <i class="fas fa-users"></i> 
+          <span>User</span></a>
+      </li>
+
+      <!-- Nav Item - Draft -->
+      <li class="nav-item">
+        <a class="nav-link" href="?url=jobs">
+          <i class="fas fa-tasks"></i>
+          <span>Jobs</span></a>
+      </li>
+
+            <!-- Nav Item - Utilities Collapse Menu -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
+          <i class="fas fa-database"></i>
+          <span>Databases</span>
+        </a>
+        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Custom Utilities:</h6>
+            <a class="collapse-item" href="?url=insertDB">Inserts</a>
+            <a class="collapse-item" href="?url=updateDB">Udate</a>
+          </div>
+        </div>
       </li>
 
       <!-- Nav Item - Tables -->
-      <li class="nav-item">
-        <a class="nav-link" href="?url=dispaList">
+      <!-- <li class="nav-item">
+        <a class="nav-link" href="?url=list_pekerjaan">
           <i class="fas fa-fw fa-table"></i>
           <span>Participate</span></a>
-      </li>
+      </li> -->
 
       <!-- Divider -->
       <hr class="sidebar-divider">
@@ -130,7 +152,8 @@ if (!isset($_SESSION["username"])) {
           </button>
 
           <!-- Topbar Search -->
-       
+          
+
           <!-- Topbar Navbar -->
           <ul class="navbar-nav ml-auto">
 
@@ -155,61 +178,16 @@ if (!isset($_SESSION["username"])) {
             </li>
 
             <!-- Nav Item - Alerts -->
-            <li class="nav-item dropdown no-arrow mx-1">
-              <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-bell fa-fw"></i>
-                <!-- Counter - Alerts -->
-                <span class="badge badge-danger badge-counter">3+</span>
-              </a>
-              <!-- Dropdown - Alerts -->
-              <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
-                <h6 class="dropdown-header">
-                  Alerts Center
-                </h6>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="mr-3">
-                    <div class="icon-circle bg-primary">
-                      <i class="fas fa-file-alt text-white"></i>
-                    </div>
-                  </div>
-                  <div>
-                    <div class="small text-gray-500">December 12, 2019</div>
-                    <span class="font-weight-bold">A new monthly report is ready to download!</span>
-                  </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="mr-3">
-                    <div class="icon-circle bg-success">
-                      <i class="fas fa-donate text-white"></i>
-                    </div>
-                  </div>
-                  <div>
-                    <div class="small text-gray-500">December 7, 2019</div>
-                    $290.29 has been deposited into your account!
-                  </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="mr-3">
-                    <div class="icon-circle bg-warning">
-                      <i class="fas fa-exclamation-triangle text-white"></i>
-                    </div>
-                  </div>
-                  <div>
-                    <div class="small text-gray-500">December 2, 2019</div>
-                    Spending Alert: We've noticed unusually high spending for your account.
-                  </div>
-                </a>
-                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
-              </div>
-            </li>
 
-           
+            <div class="topbar-divider d-none d-sm-block"></div>
+
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo($_SESSION['username'])?></span>
-                <img src="icon/dispa.ico" style="height:30px; width:auto;"/>
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $user?></span>
+                <img src="icon/initiator.ico" style="height:30px; width:auto;"/>
               </a>
+              
               <!-- Dropdown - User Information -->
               
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -245,8 +223,11 @@ if (!isset($_SESSION["username"])) {
           <!-- Page Heading -->
           
           <?php include 'linkurl.php'; ?>
-          
 
+        
+        
+         
+        
         </div>
         <!-- /.container-fluid -->
 
@@ -287,7 +268,7 @@ if (!isset($_SESSION["username"])) {
         <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="logout.php">Logout</a>
+          <a class="btn btn-primary" href="logout.php" action="">Logout</a>
         </div>
       </div>
     </div>

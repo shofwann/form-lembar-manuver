@@ -4,30 +4,32 @@ require "functions.php";
 $user=$_POST['username'];
 $pass=$_POST['password'];
 
-$sql=mysqli_query($conn, "SELECT * FROM db_user WHERE username='$user' AND password='$pass'");
-$cek=mysqli_num_rows($sql);
+$sql=mysqli_query($conn, "SELECT * FROM db_user WHERE username='$user'");
+$data = mysqli_fetch_assoc($sql);
 
-    if ($cek>0)
-    {
-        $data = mysqli_fetch_assoc($sql);
-        
+if (mysqli_num_rows($sql)>0) {
+    if (password_verify($pass, $data["password"])) {
+
         session_start();
         if($data["level"]=="admin"){
             $_SESSION['username'] = $user;
             $_SESSION["level"] = "admin";
-            header("location:blank.html");
+            header("location:admin-dashboard.php");
+            exit;
         }
 
         elseif ($data["level"]=="initiator") {
             $_SESSION["username"] = $user;
             $_SESSION["level"] = "initiator";
             header("location:initiator-dashboard.php");
+            exit;
         }
 
         elseif ($data["level"]=="amn"){
             $_SESSION['username'] = $user;
             $_SESSION["level"] = "amn";
             header("location:amn-dashboard.php");
+            exit;
         }
 
         elseif ($data["level"]=="msb"){
@@ -65,9 +67,9 @@ $cek=mysqli_num_rows($sql);
             $_SESSION["level"] = "plh_amn_dispa";
             header("location:plh-amn-dispa-dashboard.php");
         }
+
     }
-    else
-    {
+    else{
         ?>
         <script type="text/javascript">
         alert ('belum terdaftar');
@@ -75,5 +77,9 @@ $cek=mysqli_num_rows($sql);
         </script>    
         <?php
     }
+    }
+
+
+   
 
 ?>
