@@ -29,3 +29,51 @@ input[type="text"][disabled] {
 
 
 
+.stamp {
+  text-align: center;
+  transform: rotate(12deg);
+	color: #555;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+	font-size: 1rem;
+	font-weight: 700;
+	border: 0.25rem solid #555;
+	display: inline-block;
+	padding: 0.25rem;
+	/* text-transform: uppercase; */
+	font-family: 'Courier';
+	-webkit-mask-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/8399/grunge.png');
+  -webkit-mask-size: 944px 604px;
+  mix-blend-mode: multiply;
+}
+
+.is-nope {
+  color: #D23;
+  border: 0.5rem double #D23;
+  transform: rotate(-10deg);
+	-webkit-mask-position: 2rem 3rem;
+  font-size: 2rem;  
+}
+
+.position {
+  font-size: 1.5rem;
+  border-bottom: 0.5rem solid #D23;
+  margin-top: 30px;
+  padding-bottom: 5px;
+  display: block;
+}
+
+.name {
+  font-size: 1.5rem;
+  border-bottom: 0.5rem solid #D23;
+  margin-top: 5px;
+  padding-bottom: 5px;
+  display: block;
+}
+
+.date {
+  font-size: 1rem;
+}
+
+

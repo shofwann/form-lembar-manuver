@@ -5,6 +5,15 @@ if (!isset($_SESSION["username"])) {
   header("location:index.php");
 	exit;
 }
+if ($_SESSION["level"] != "initiator") {
+    echo "<script>Mohon Logout dahulu !!</script>";
+    unset($_SESSION['username']);
+    session_unset();
+    session_destroy();
+    header("location:index.php");
+      exit;
+  
+  }
 
 include 'functions.php';
 if( isset($_POST["submit"]) ){

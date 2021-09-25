@@ -69,12 +69,18 @@ if ($sql){
                     </div>
                     <div class="row">
                         <div class="col" id="hide"></div>
+                        <div class="col-2" style="background-color:#F2F4F4;font-weight: bold;">
+                            <label for="" class="pt-2 pl-2">Pembuat document</label>
+                        </div>
                         <div class="col-2" style="border-right:1px solid; background-color:#F2F4F4;font-weight: bold;">
                             <label for="" class="pt-2 pl-2">Document dibuat:</label>
                         </div>
                     </div>
                     <div class="row" style="height:60px;">
                         <div class="col"></div>
+                        <div class="col-2 pt-3" style="border-bottom:1px solid #616A6B;">
+                            <h6 class="pt-2 pl-2"><?= $data["user"]; ?></h6>
+                        </div>
                         <div class="col-2 pt-3" style="border-bottom:1px solid #616A6B;border-right:1px solid;">
                             <h6 class="pt-2 pl-2"><?= $data["create_date"]; ?></h6>
                         </div>
@@ -128,7 +134,7 @@ if ($sql){
                             <h6 class="pt-4 pl-2"><?= $data["installasi"]; ?></h6>
                         </div>
                         <div class="col-4" style="border-right:1px solid;">
-                            <input type="datetime-local" name="report_date" id="report_date" class="pt-4 pl-2 form-control" style="border:1px solid #fff;" disabled>
+                            <h6 class="pt-4 pl-2"><?= $data["report_date"]; ?></h6>
                         </div>
                     </div>
 
@@ -410,9 +416,77 @@ if ($sql){
                         </div>
                     </div>
                     <div class="row" >
-                        <div class="col-12" style="border-right:1px solid;border-bottom:1px solid; background-color:#F2F4F4;font-weight: bold;">
+                        <div class="col-12" style="border-right:1px solid; background-color:#F2F4F4;font-weight: bold;">
                             <label for="" class="pt-2 pl-2">Aproval</label>
                         </div>
+                    </div>
+                    <div class="row" style="background-color:#F8F9F9;">
+                     
+                        <div class="col-2" style="border-bottom:1px solid; padding-top:.50rem;padding-bottom:.50rem; text-align:center;">
+                            <label for="">AMN ROH</label>
+                        </div>
+                        <div class="col-2" style="border-bottom:1px solid; padding-top:.50rem;padding-bottom:.50rem; text-align:center;">
+                            <label for="">MSB DALOP</label>
+                        </div>
+                        <div class="col-2" style="border-bottom:1px solid; padding-top:.50rem;padding-bottom:.50rem; text-align:center;">
+                            <label for="">Dispa Pembebasan</label>
+                        </div>
+                        <div class="col-2" style="border-bottom:1px solid; padding-top:.50rem;padding-bottom:.50rem; text-align:center;">
+                            <label for="">AMN Dispa Pembebasan</label>
+                        </div>
+                        <div class="col-2" style="border-bottom:1px solid; padding-top:.50rem;padding-bottom:.50rem; text-align:center;">
+                            <label for="">Dispa Penormalan</label>
+                        </div>
+                        <div class="col-2" style="border-bottom:1px solid; border-right:1px solid; padding-top:.50rem;padding-bottom:.50rem; text-align:center;">
+                            <label for="">AMN Dispa Penormalan</label>
+                        </div>
+                    </div>
+
+                    <div class="row" >
+                        <div class="col-2" style="border-bottom:1px solid; padding-top:.50rem;padding-bottom:.50rem; text-align:center;">
+                            <div class="stamp is-nope">
+                                <span class="position"><?= mb_strtoupper($data["level_amn"]); ?></span>
+                                <span class="name"><?= $data["user_amn"]?></span>
+                                <span class="date"><?= $data["time_amn_aprove"]?></span>
+                            </div>
+                        </div>
+                        <div class="col-2" style="border-bottom:1px solid; padding-top:.50rem;padding-bottom:.50rem; text-align:center;">
+                            <div class="stamp is-nope">
+                                <span class="position"><?= mb_strtoupper($data["level_msb"]); ?></span>
+                                <span class="name"><?= $data["user_msb"]?></span>
+                                <span class="date"><?= $data["time_msb_aprove"]?></span>
+                            </div>
+                        </div>
+                        <div class="col-2" style="border-bottom:1px solid; padding-top:.50rem;padding-bottom:.50rem; text-align:center;">
+                            <div class="stamp is-nope">
+                                <span class="position">DISPA</span>
+                                <span class="name"><?= $data["user_dispa_awal"]?></span>
+                                <span class="date"><?= $data["time_dispa_awal_aprove"]?></span>
+                            </div>
+                        </div>
+                        <div class="col-2" style="border-bottom:1px solid; padding-top:.50rem;padding-bottom:.50rem; text-align:center;">
+                            <div class="stamp is-nope">
+                                <span class="position">AMN DISPA</span>
+                                <span class="name"><?= $data["user_amn_dispa_awal"]?></span>
+                                <span class="date"><?= $data["time_amnDispa_awal_aprove"]?></span>
+                            </div>
+                        </div>
+                        <div class="col-2" style="border-bottom:1px solid; padding-top:.50rem;padding-bottom:.50rem; text-align:center;">
+                            <div class="stamp is-nope">
+                                <span class="position">DISPA</span>
+                                <span class="name"><?= $data["user_dispa_akhir"]?></span>
+                                <span class="date"><?= $data["time_dispa_akhir_aprove"]?></span>
+                            </div>
+                        </div>
+                        <div class="col-2" style="border-bottom:1px solid;border-right:1px solid; padding-top:.50rem;padding-bottom:.50rem; text-align:center;">
+                            <div class="stamp is-nope">
+                                <span class="position">AMN DISPA</span>
+                                <span class="name"><?= $data["user_amn_dispa_awal"]?></span>
+                                <span class="date"><?= $data["time_amnDispa_awal_aprove"]?></span>
+                            </div>
+                        </div>
+                        
+
                     </div>
                                                         
             </form>

@@ -62,6 +62,10 @@ if ($rencana == 2){
     $c = '           .....           .....            .....';
     $d = '        .....                .....                  .....';
 } elseif ($rencana == 1){
+	$a = 45;
+    $b = 60;
+    $c = '           .....                      ';
+    $d = '                              .....           ';
 	
 }
 
@@ -111,7 +115,7 @@ $pdf->Cell(58,5,$c,'R',0);
 $pdf->Cell(60,5,$d,'R',1);
 
 $pdf->SetFont('Times','B','10');
-$pdf->Cell(16.5,5,'date','L',0);
+$pdf->Cell(16.5,5,'Date','L',0);
 $pdf->Cell(2,5,':','',0);
 $pdf->SetFont('Times','','10');
 $pdf->Cell(113.5,5,$isi['date'],'R',0,'');
@@ -201,14 +205,17 @@ $pdf->SetTextColor(255,0,0);
 $pdf->Cell(110,20,'','R');
 $pdf->Cell(84,20,'','R'); 
 $pdf->Cell(88,20,'','R',1,'C');
+
 $pdf->Cell(110,5,'','R');//1
-$pdf->Cell(84,5,'Catatan:'.substr($isi['pekerjaan'],0,40),'R'); 
-$pdf->Cell(88,5,'Catatan:'.substr($isi['pekerjaan'],0,43),'R',1);
+$pdf->Cell(84,5,'Catatan: '.substr($isi['catatan_pra_pembebasan'],0,40),'R'); 
+$pdf->Cell(88,5,'Catatan: '.substr($isi['catatan_pra_penormalan'],0,44),'R',1);
+
 $pdf->Cell(110,5,'','R');//2
 $pdf->Cell(12,5,'','');
 $pdf->Cell(72,5,substr($isi['pekerjaan'],40,40),'R,');
 $pdf->Cell(12,5,'','');
 $pdf->Cell(76,5,substr($isi['pekerjaan'],43,45),'R',1);
+
 $pdf->Cell(110,5,'','R');//3
 $pdf->Cell(12,5,'','');
 $pdf->Cell(72,5,substr($isi['pekerjaan'],80,40),'R');
@@ -232,14 +239,18 @@ $pdf->Cell(110,2,'Pelaksana Manuver Penormalan','');
 $pdf->Cell(84,2,'','L'); 
 $pdf->Cell(44,5,'Diperikasa Oleh','L',0,'C');
 $pdf->Cell(44,5,'Disetujui Oleh','R',1,'C');
+
 $pdf->Cell(110,5,'','R');
 $pdf->Cell(84,5,'','R'); 
 $pdf->Cell(88,5,'','R',1,'C');
+
 $pdf->Cell(110,2,'','R');
 $pdf->Cell(84,2,'','R'); 
 $pdf->Cell(44,5,'('.$isi['user_amn'].')','L',0,'C');
 $pdf->Cell(44,5,'('.$isi['user_msb'].')','R',1,'C');
-$pdf->Cell(110,5,'','R,B');
+
+
+$pdf->Cell(110,5,'   Dispatcher        AMN ORT','R',0,'L');
 $pdf->Cell(84,5,'','R,B'); 
 $pdf->Cell(44,5,'MSB DALOP','L,B',0,'C');
 $pdf->Cell(44,5,'AMN RORT','R,B',1,'C');
@@ -250,14 +261,14 @@ $pdf->SetFont('Arial','','8');
 //TABLA 1
 $header = array('Lokasi', 'Remote', 'Real','ADS', 'Installasi');
 $data = [];
-$data = mysqli_query($conn,"SELECT lokasi,remote_bebas,real_bebas,ads_bebas,installasi FROM db_table_3 WHERE id_form='Task-004'");
+$data = mysqli_query($conn,"SELECT lokasi,remote_,real_,ads,installasi FROM db_table_2 WHERE id_form=$_GET[id]");
 $pdf->BasicTable($header, $data, 123, 77);
-//pdf->Ln(5);
+$pdf->Ln(5);
 
 //TABLA 2
 $header = array('Lokasi', 'Remote', 'Real','ADS', 'Installasi');
 $data1 = [];
-$data1 = mysqli_query($conn,"SELECT lokasi,remote_normal,real_normal,ads_normal,installasi FROM db_table_4 WHERE id_form='Task-004'");
+$data1 = mysqli_query($conn,"SELECT lokasi,remote,real_,ads,installasi FROM db_table_3 WHERE id_form=$_GET[id]");
 $pdf->BasicTable($header, $data1 , 214,77);
 // $pdf->Ln(5);
 

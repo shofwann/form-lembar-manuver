@@ -6,6 +6,16 @@ if (!isset($_SESSION["username"])) {
 	exit;
 }
 
+if ($_SESSION["level"] != "plh_amndispa") {
+  echo "<script>Mohon Logout dahulu !!</script>";
+  unset($_SESSION['username']);
+  session_unset();
+  session_destroy();
+  header("location:index.php");
+	exit;
+
+}
+
 
 
 ?>

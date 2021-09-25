@@ -7,6 +7,13 @@ if (!isset($_SESSION["username"])) {
 	exit;
 }
 
+if ($_SESSION["level"] != "amn_dispa") {
+  echo "<script>Mohon Logout dahulu !!</script>";
+  header("location:index.php");
+	exit;
+
+}
+
 $user=$_SESSION["username"];
 
 

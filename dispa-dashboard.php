@@ -6,6 +6,12 @@ if (!isset($_SESSION["username"])) {
 	exit;
 }
 
+if ($_SESSION["level"] != "dispa") {
+  echo "<script>Mohon Logout dahulu !!</script>";
+  header("location:index.php");
+	exit;
+
+}
 
 
 ?>

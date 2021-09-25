@@ -1,10 +1,22 @@
 <?php 
 session_start();
 
+
+
 if (!isset($_SESSION["username"])) {
 	echo "<script>Anda Belum Login</script>";
   header("location:index.php");
 	exit;
+}
+
+if ($_SESSION["level"] != "admin") {
+  echo "<script>Mohon Logout dahulu !!</script>";
+  unset($_SESSION['username']);
+  session_unset();
+  session_destroy();
+  header("location:index.php");
+	exit;
+
 }
 
 $user=$_SESSION["username"];
